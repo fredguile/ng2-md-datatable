@@ -1,8 +1,8 @@
 # ng2-md-datatable
 
-[Angular 2](https://github.com/angular/angular) with [Material 2](https://github.com/angular/material2) is awesome, but it's still lacking a `Data Table` component (as of November 2016).
+[Angular 2](https://github.com/angular/angular) with [Material 2](https://github.com/angular/material2) is awesome, but it's still lacking a `DataTable` component (as of November 2016).
 
-As I urgently needed one for a project, I decided to make my own `Data Table` component and share it on GitHub.
+As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub.
 
 This may be useful for you (or not).
 
