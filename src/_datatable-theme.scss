@@ -1,0 +1,132 @@
+@import '~@angular/material/core/theming/theming';
+@import '~@angular/material/core/theming/palette';
+
+@mixin md-datatable-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  $datatable-font-size: rem(1.3) !default;
+  $datatable-header-font-size: rem(1.2) !default;
+  $datatable-header-sort-icon-size: rem(1.6) !default;
+
+  $datatable-header-sorted-icon-hover-color: rgba(#000, 0.38) !default;
+  $datatable-divider-color: rgba(#000, 0.12) !default;
+
+  $first-last-cell-padding: rem(0) !default;
+  $check-cell-width: auto !default;
+  $cell-width: auto;
+
+  $datatable-dividers: 1px solid $datatable-divider-color !default;
+
+  $datatable-row-height: rem(4.8) !default;
+  $datatable-last-row-height: rem(5.6) !default;
+  $datatable-column-padding: rem(0) !default;
+  $datatable-column-spacing: rem(0.8) !default;
+
+  app-md-datatable > table {
+    font-size: $datatable-font-size;
+  }
+
+  app-md-datatable-header {
+    font-size: $datatable-header-font-size;
+    border-bottom: $datatable-dividers;
+
+    tr {
+      height: $datatable-last-row-height;
+    }
+
+    th {
+      padding: 0 0 0 $first-last-cell-padding;
+      width: $cell-width;
+    }
+
+    .md-data-check-cell {
+      padding: 0 0 0 $first-last-cell-padding;
+      width: $check-cell-width;
+    }
+
+    md-checkbox {
+      margin: 0;
+      width: $check-cell-width;
+    }
+  }
+
+  app-md-datatable-row {
+    height: $datatable-row-height;
+    border-bottom: $datatable-dividers;
+
+    &:last-child {
+      height: $datatable-last-row-height;
+    }
+
+    &.selectable:hover {
+      background-color: md-color($accent, 100);
+    }
+
+    &.selectable.checked {
+      background-color: md-color($accent, 50);
+    }
+
+    td {
+      padding: 0 $datatable-column-spacing 0 $datatable-column-padding;
+      width: $cell-width;
+
+      &:first-of-type {
+        padding-left: $first-last-cell-padding;
+      }
+
+      &:last-of-type {
+        padding-right: $first-last-cell-padding;
+      }
+
+      &.md-data-check-cell {
+        padding: 0 0 0 $first-last-cell-padding;
+        width: $check-cell-width;
+      }
+    }
+
+    md-checkbox {
+      margin: 0;
+      width: $check-cell-width;
+    }
+  }
+
+  app-md-datatable-column {
+    padding: 0 $datatable-column-spacing 0 $datatable-column-padding;
+    width: $cell-width;
+    color: md-color($foreground, secondary-text);
+    font-weight: 600;
+
+    &.sorted-ascending, &.sorted-descending {
+      color: md-color($foreground, text);
+
+      &::before {
+        font-size: $datatable-header-sort-icon-size;
+      }
+
+      &:hover {
+        &::before {
+          color: $datatable-header-sorted-icon-hover-color;
+        }
+      }
+    }
+
+    &:last-of-type {
+      padding-right: $first-last-cell-padding;
+    }
+  }
+
+  app-md-datatable-pagination {
+    .pagination__range {
+      padding: 0 $datatable-column-spacing;
+    }
+
+    .pagination__controls {
+      display: inline-block;
+      padding: 0 $datatable-column-spacing;
+    }
+  }
+}

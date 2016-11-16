@@ -1,0 +1,14 @@
+@import 'mixins';
+
+:host {
+  @include flexbox;
+  @include flex-flow(row nowrap);
+  @include justify-content(space-between);
+  @include align-items(baseline);
+}
+
+.pagination__controls {
+  display: inline-block;
+  @include flex(1 1 0%);
+  padding: 0;
+}

@@ -1,0 +1,31 @@
+@import 'mixins';
+
+:host {
+  display: table-cell;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: right;
+  text-overflow: ellipsis;
+
+  @include userSelect(none);
+
+  &.sortable:hover {
+    cursor: pointer;
+  }
+
+  &.sorted-ascending > span, &.sorted-descending > span {
+    margin-right: 5px;
+  }
+
+  &.sorted-ascending > span::before {
+    font-family: 'Material Icons';
+    vertical-align: sub;
+    content: '\e5d8';
+  }
+
+  &.sorted-descending > span::before {
+    font-family: 'Material Icons';
+    vertical-align: sub;
+    content: '\e5db';
+  }
+}
