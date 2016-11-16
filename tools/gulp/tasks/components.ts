@@ -2,7 +2,7 @@ import { task, watch } from 'gulp';
 import * as path from 'path';
 
 import { SOURCE_ROOT, PROJECT_ROOT, DIST_ROOT } from '../constants';
-import { sassBuildTask, tsBuildTask, execNodeTask, sequenceTask } from '../task_helpers';
+import { sassBuildTask, tsBuildTask, execNodeTask, copyTask, sequenceTask } from '../task_helpers';
 import { writeFileSync } from 'fs';
 
 // No typings for these.
@@ -42,6 +42,13 @@ task(':build:components:ts', tsBuildTask(componentsDir, 'tsconfig-srcs.json'));
 /** Builds components typescript for tests (CJS output). */
 task(':build:components:spec', tsBuildTask(componentsDir, 'tsconfig.json'));
 
+/** Copies assets (html, markdown) to build output. */
+task(':build:components:assets', copyTask([
+  path.join(componentsDir, '**/*.!(ts|spec.ts)'),
+  path.join(PROJECT_ROOT, 'README.md'),
+  path.join(PROJECT_ROOT, 'package.json'),
+], DIST_ROOT));
+
 /** Builds scss into css. */
 task(':build:components:scss', sassBuildTask(
   DIST_ROOT, componentsDir, [componentsDir]
@@ -61,7 +68,9 @@ task(':build:components:rollup', [':build:components:inline'], () => {
 
     // Rxjs dependencies
     'rxjs/Subject': 'Rx',
+    'rxjs/BehaviorSubject': 'Rx',
     'rxjs/Observable': 'Rx',
+    'rxjs/Subscription': 'Rx',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/distinctUntilKeyChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/map': 'Rx.Observable.prototype',
@@ -100,7 +109,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
 
 /** Builds components with resources (html, css) inlined into the built JS (ESM output). */
 task(':build:components:inline', sequenceTask(
-  [':build:components:ts', ':build:components:scss'],
+  [':build:components:ts', ':build:components:scss', ':build:components:assets'],
   ':inline-resources',
 ));
 

@@ -26,6 +26,7 @@ gulp.task(':test:deps', sequenceTask(
   'clean',
   [
     ':build:test:vendor',
+    ':build:components:assets',
     ':build:components:scss',
     ':build:components:spec',
   ]
