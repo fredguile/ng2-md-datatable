@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IDatatableCheckEvent } from './md-datatable.interfaces';
 
 @Component({
-  selector: 'app-md-datatable-row',
+  selector: 'ng2-md-datatable-row',
   template: `
     <td *ngIf="selectable" class="md-data-check-cell">
       <md-checkbox [checked]="isChecked"></md-checkbox>

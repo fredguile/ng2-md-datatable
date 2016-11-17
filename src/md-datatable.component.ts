@@ -13,12 +13,17 @@ import {
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { IDatatableCheckEvent, IDatatableSelectionEvent, IDatatableSortEvent } from './md-datatable.interfaces';
+import {
+  IDatatableCheckEvent,
+  IDatatableSelectionEvent,
+  IDatatableSortEvent,
+} from './md-datatable.interfaces';
+
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 import { MdDataTableRowComponent } from './md-datatable-row.component';
 
 @Component({
-  selector: 'app-md-datatable',
+  selector: 'ng2-md-datatable',
   template: `
     <table>
       <ng-content></ng-content>

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IDatatablePaginationEvent } from './md-datatable.interfaces';
 
 @Component({
-  selector: 'app-md-datatable-pagination',
+  selector: 'ng2-md-datatable-pagination',
   template: `
     <span class="pagination__range">{{firstIndexOfPage}}-{{lastIndexOfPage}} of {{itemsCount}}</span>
     <div class="pagination__controls">

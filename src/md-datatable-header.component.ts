@@ -15,12 +15,17 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IDatatableSelectionEvent, IDatatableSortEvent, DatatableSortType } from './md-datatable.interfaces';
+import {
+  IDatatableSelectionEvent,
+  IDatatableSortEvent,
+  DatatableSortType,
+} from './md-datatable.interfaces';
+
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 
 @Component({
-  selector: 'app-md-datatable-header',
+  selector: 'ng2-md-datatable-header',
   template: `
     <tr>
       <th *ngIf="selectable" class="md-data-check-cell">

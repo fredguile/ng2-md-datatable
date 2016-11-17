@@ -14,7 +14,7 @@ import { IDatatableSortEvent, DatatableSortType } from './md-datatable.interface
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 
 @Component({
-  selector: 'app-md-datatable-column',
+  selector: 'ng2-md-datatable-column',
   template: '<span><ng-content></ng-content></span>',
   styleUrls: ['md-datatable-column.component.css'],
 })

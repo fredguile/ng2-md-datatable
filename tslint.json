@@ -43,7 +43,7 @@
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
-    "no-inferrable-types": true,
+    "no-inferrable-types": [true, "ignore-params"],
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
@@ -93,8 +93,8 @@
       "check-type"
     ],
 
-    "directive-selector-prefix": [true, "app"],
-    "component-selector-prefix": [true, "app"],
+    "directive-selector-prefix": [true, "ng2-md"],
+    "component-selector-prefix": [true, "ng2-md"],
     "directive-selector-name": [true, "camelCase"],
     "component-selector-name": [true, "kebab-case"],
     "directive-selector-type": [true, "attribute"],
