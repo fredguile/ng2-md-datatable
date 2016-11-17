@@ -57,6 +57,7 @@
   ng2-md-datatable-row {
     height: $datatable-row-height;
     border-bottom: $datatable-dividers;
+    vertical-align: middle;
 
     &:last-child {
       height: $datatable-last-row-height;

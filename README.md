@@ -85,7 +85,7 @@ Please read **src/md-datatable.interfaces.ts** for details about these events.
 To add `ng2-md-datatable` to your Material 2 theming file:
 
 ```scss
-@import '~ng2-md-datatable/datatable-theme';
+@import '~ng2-md-datatable/md-datatable-theme';
 ...
 @include md-datatable-theme($theme);
 ```
