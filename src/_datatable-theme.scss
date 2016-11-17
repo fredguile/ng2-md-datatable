@@ -26,11 +26,11 @@
   $datatable-column-padding: rem(0) !default;
   $datatable-column-spacing: rem(0.8) !default;
 
-  app-md-datatable > table {
+  ng2-md-datatable > table {
     font-size: $datatable-font-size;
   }
 
-  app-md-datatable-header {
+  ng2-md-datatable-header {
     font-size: $datatable-header-font-size;
     border-bottom: $datatable-dividers;
 
@@ -54,7 +54,7 @@
     }
   }
 
-  app-md-datatable-row {
+  ng2-md-datatable-row {
     height: $datatable-row-height;
     border-bottom: $datatable-dividers;
 
@@ -94,7 +94,7 @@
     }
   }
 
-  app-md-datatable-column {
+  ng2-md-datatable-column {
     padding: 0 $datatable-column-spacing 0 $datatable-column-padding;
     width: $cell-width;
     color: md-color($foreground, secondary-text);
@@ -119,7 +119,7 @@
     }
   }
 
-  app-md-datatable-pagination {
+  ng2-md-datatable-pagination {
     .pagination__range {
       padding: 0 $datatable-column-spacing;
     }
