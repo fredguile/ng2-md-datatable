@@ -5,6 +5,7 @@ import {
   SkipSelf,
 } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 
 import { MdDataTableComponent } from './md-datatable.component';
@@ -15,6 +16,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     MaterialModule,
   ],
   declarations: [

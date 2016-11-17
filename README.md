@@ -21,6 +21,18 @@ To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.c
 npm install --save ng2-md-datatable
 ```
 
+Then include it in your application's main module:
+
+```ts
+import { MdDataTableModule } from 'ng2-md-datatable';
+
+@NgModule({
+  imports: [
+    ...
+    MdDataTableModule.forRoot(),
+    ...
+```
+
 ## Usage
 Your datatable would look like this in a Angular 2 template:
 
