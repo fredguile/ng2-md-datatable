@@ -36,10 +36,9 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
         aria-label="Last">Last</button>
     </div>
     <md-button-toggle-group [value]="itemsPerPage" class="pagination__itemsPerPage">
-      <md-button-toggle value="5">5</md-button-toggle>
-      <md-button-toggle value="10">10</md-button-toggle>
-      <md-button-toggle value="20">20</md-button-toggle>
-      <md-button-toggle value="50">50</md-button-toggle>
+      <md-button-toggle
+        *ngFor="let choice of itemsPerPageChoices"
+        value="{{ choice }}">{{ choice }}</md-button-toggle>
     </md-button-toggle-group>
   `,
   styleUrls: ['md-datatable-pagination.component.css'],
@@ -49,6 +48,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   @Input() currentPage: number;
   @Input() itemsPerPage: number;
   @Input() itemsCount: number;
+  @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
 
   get firstIndexOfPage() {

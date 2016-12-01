@@ -68,9 +68,23 @@ Your datatable would look like this in a Angular 2 template:
 </ng2-md-datatable>
 ```
 
-## Pagination and Sort events
+Here's the pagination component:
 
-You can listen to these event emitters:
+````
+<ng2-md-datatable-pagination
+  [currentPage]="1"
+  [itemsPerPage]="5"
+  [itemsCount]="700"
+  [itemsPerPageChoices]="[5,10,20,50]"
+  >
+</ng2-md-datatable-pagination>
+```
+
+As you might have noticed, these two components are nott initially linked, it is up to you to bind them to your datasource and react to events they fire.
+
+## Events
+
+You should subscribe to these event emitters:
 
 **src/md-datatable.component.ts**
 ```ts
@@ -78,7 +92,12 @@ You can listen to these event emitters:
 @Output() sortChange: EventEmitter<IDatatableSortEvent>;
 ```
 
-Please read **src/md-datatable.interfaces.ts** for details about these events.
+**src/md-datatable-pagination.component.ts**
+```ts
+@Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
+```
+
+Please read **src/md-datatable.interfaces.ts** for details about the payload of each event.
 
 ## Theming
 
