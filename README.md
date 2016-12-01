@@ -70,7 +70,7 @@ Your datatable would look like this in a Angular 2 template:
 
 Here's the pagination component:
 
-````
+```
 <ng2-md-datatable-pagination
   [currentPage]="1"
   [itemsPerPage]="5"
