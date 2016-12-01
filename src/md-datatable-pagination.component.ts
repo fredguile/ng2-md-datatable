@@ -49,6 +49,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   @Input() itemsPerPage: number;
   @Input() itemsCount: number;
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
+  @Input() itemsPerPageFirstChoice: number = 10;
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
 
   get firstIndexOfPage() {
@@ -77,7 +78,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     }
 
     if (!this.itemsPerPage) {
-      this.itemsPerPage = 5;
+      this.itemsPerPage = this.itemsPerPageFirstChoice;
     }
 
     if (!this.itemsCount) {

@@ -76,6 +76,7 @@ Here's the pagination component:
   [itemsPerPage]="5"
   [itemsCount]="700"
   [itemsPerPageChoices]="[5,10,20,50]"
+  [itemsPerPageFirstChoice]="10"
   >
 </ng2-md-datatable-pagination>
 ```
