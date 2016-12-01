@@ -80,7 +80,7 @@ Here's the pagination component:
 </ng2-md-datatable-pagination>
 ```
 
-As you might have noticed, these two components are nott initially linked, it is up to you to bind them to your datasource and react to events they fire.
+As you might have noticed, these two components are not initially linked, it is up to you to bind them to your datasource and react to events they fire.
 
 ## Events
 
