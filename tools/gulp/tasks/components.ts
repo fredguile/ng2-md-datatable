@@ -44,7 +44,7 @@ task(':build:components:spec', tsBuildTask(componentsDir, 'tsconfig.json'));
 
 /** Copies assets (html, markdown) to build output. */
 task(':build:components:assets', copyTask([
-  path.join(componentsDir, '**/*.!(ts|spec.ts)'),
+  path.join(componentsDir, '**/*.scss'),
   path.join(PROJECT_ROOT, 'README.md'),
   path.join(PROJECT_ROOT, 'package.json'),
 ], DIST_ROOT));
