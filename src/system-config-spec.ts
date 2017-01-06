@@ -24,7 +24,7 @@ System.config({
       'vendor/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
     '@angular/platform-browser-dynamic/testing':
       'vendor/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
-    '@angular/material': 'vendor/@angular/material/material.umd.js',
+    '@angular/material': 'vendor/@angular/material/bundles/material.umd.js',
   },
   packages: {
     // Thirdparty barrels.

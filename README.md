@@ -13,7 +13,7 @@ This may be useful for you (or not).
 
 ## Working with
 - Angular 2.x
-- Material 2 current Alpha (current is 2.0.0-alpha.10)
+- Material 2 Beta 1
 
 ## Installation
 To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.com/package/ng2-md-datatable):

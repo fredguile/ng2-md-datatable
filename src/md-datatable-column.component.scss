@@ -20,12 +20,14 @@
   &.sorted-ascending > span::before {
     font-family: 'Material Icons';
     vertical-align: sub;
-    content: '\e5d8';
+    padding-right: 5px;
+    content: '\\e5d8';
   }
 
   &.sorted-descending > span::before {
     font-family: 'Material Icons';
     vertical-align: sub;
-    content: '\e5db';
+    padding-right: 5px;
+    content: '\\e5db';
   }
 }
