@@ -21,13 +21,13 @@
     font-family: 'Material Icons';
     vertical-align: sub;
     padding-right: 5px;
-    content: '\\e5d8';
+    content: '⬇';
   }
 
   &.sorted-descending > span::before {
     font-family: 'Material Icons';
     vertical-align: sub;
     padding-right: 5px;
-    content: '\\e5db';
+    content: '⬆';
   }
 }
