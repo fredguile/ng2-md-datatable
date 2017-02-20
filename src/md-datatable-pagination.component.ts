@@ -49,7 +49,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   @Input() itemsPerPage: number;
   @Input() itemsCount: number;
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
-  @Input() itemsPerPageFirstChoice: number = 10;
+  @Input() itemsPerPageFirstChoice = 10;
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
 
   get firstIndexOfPage() {

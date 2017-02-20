@@ -32,7 +32,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
   styleUrls: ['md-datatable.component.css']
 })
 export class MdDataTableComponent implements OnInit, AfterContentInit, OnDestroy {
-  private _selectable: boolean = false;
+  private _selectable = false;
 
   @Input()
   set selectable(val: boolean) {
