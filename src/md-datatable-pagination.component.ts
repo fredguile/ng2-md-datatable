@@ -91,8 +91,6 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   ngAfterViewInit() {
     // propagate click on pagination control
     this.subscription = this.toggleGroup.change
-      .skip(1) // skip initial change happening during AfterViewInit
-      .distinctUntilKeyChanged('value')
       .subscribe((change: MdButtonToggleChange) => this.paginationChange.emit({
         page: 1,
         itemsPerPage: Number(change.value),

@@ -1,6 +1,6 @@
 {
   "name": "ng2-md-datatable",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Angular 2 DataTable component for using with Material 2",
   "main": "dist/index.js",
   "scripts": {
@@ -72,7 +72,6 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-sauce-launcher": "^1.1.0",
-    "madge": "^1.6.0",
     "merge2": "^1.0.3",
     "minimist": "^1.2.0",
     "resolve-bin": "^0.4.0",
