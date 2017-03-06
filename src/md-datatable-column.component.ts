@@ -20,6 +20,7 @@ import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 })
 export class MdDataTableColumnComponent {
   @Input() sortableValue: string;
+  @Input('numeric') isNumeric: boolean;
   @Output() sortBy: EventEmitter<string> = new EventEmitter<string>();
 
   @HostBinding('class.sortable')
@@ -39,6 +40,11 @@ export class MdDataTableColumnComponent {
       currentSort.sortType === DatatableSortType.Ascending;
   }
 
+  @HostBinding('class.numeric')
+  get hasNumericClass() {
+    return this.isNumeric;
+  }
+
   @HostBinding('class.sorted-descending')
   get descendingSort() {
     if (!this.sortable) {
@@ -54,6 +60,10 @@ export class MdDataTableColumnComponent {
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableHeaderComponent)) private header: MdDataTableHeaderComponent,
   ) { }
+
+  ngOnInit() {
+    this.isNumeric = (!!this.isNumeric || (this.isNumeric as any) === '');
+  }
 
   @HostListener('click')
   onClick() {

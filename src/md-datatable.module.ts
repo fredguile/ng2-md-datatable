@@ -12,7 +12,7 @@ import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 import { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
-import { MdDataTableRowComponent } from './md-datatable-row.component';
+import { MdDataTableRowComponent, MdDataTableCellDirective } from './md-datatable-row.component';
 
 @NgModule({
   imports: [
@@ -25,6 +25,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
     MdDataTableHeaderComponent,
     MdDataTablePaginationComponent,
     MdDataTableRowComponent,
+    MdDataTableCellDirective,
   ],
   exports: [
     MdDataTableComponent,
@@ -32,6 +33,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
     MdDataTableHeaderComponent,
     MdDataTablePaginationComponent,
     MdDataTableRowComponent,
+    MdDataTableCellDirective,
   ],
 })
 export class MdDataTableModule {

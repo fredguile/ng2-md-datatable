@@ -87,6 +87,10 @@
         padding: 0 0 0 $first-last-cell-padding;
         width: $check-cell-width;
       }
+
+      &.numeric {
+        text-align: right;
+      }
     }
 
     md-checkbox {
