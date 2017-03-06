@@ -1,13 +1,43 @@
+$first-cell-padding: 24px;
+$cell-padding: 56px;
+
 :host {
+  $hover-color: #EEEEEE;
+  $selected-color: #F5F5F5;
+
   display: table-row;
   box-sizing: border-box;
   text-align: right;
 
+  &.checked {
+    background-color: $selected-color;
+  }
+  
+  &:hover {
+    background-color: $hover-color;
+  }
+
   &.selectable {
     cursor: pointer;
+
+    td {
+      &:nth-child(3) {
+        padding-left: $first-cell-padding;
+      }
+    }
+  }
+}
+
+td {
+  padding-left: $cell-padding;
+
+  &:nth-child(1),
+  &:nth-child(2) {
+    padding-left: $first-cell-padding;
   }
 }
 
 .md-data-check-cell {
   text-align: center;
+  width: 0;
 }

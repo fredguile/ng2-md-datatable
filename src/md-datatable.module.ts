@@ -7,6 +7,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
@@ -18,6 +19,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
   ],
   declarations: [
     MdDataTableComponent,
