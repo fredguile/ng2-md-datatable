@@ -1,7 +1,24 @@
-import { Component, OnInit, Input, Output, HostBinding, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, HostBinding, HostListener, Optional,
+         Inject, forwardRef, ContentChildren, QueryList, Directive } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { MdDataTableComponent } from './md-datatable.component';
 import { IDatatableCheckEvent } from './md-datatable.interfaces';
+
+
+@Directive({
+    selector: 'td',
+})
+export class MdDataTableCellDirective {
+    @HostBinding('class.numeric')
+    get isNumeric() {
+        return this.row.isCellNumeric(this);
+    }
+
+    constructor(
+        @Optional() @Inject(forwardRef(() => MdDataTableRowComponent)) private row: MdDataTableRowComponent,
+    ) {}
+}
 
 @Component({
   selector: 'ng2-md-datatable-row',
@@ -11,11 +28,13 @@ import { IDatatableCheckEvent } from './md-datatable.interfaces';
     </td>
     <ng-content></ng-content>
   `,
-  styleUrls: ['md-datatable-row.component.css']
+  styleUrls: ['md-datatable-row.component.css'],
 })
 export class MdDataTableRowComponent implements OnInit {
   @Input() selectableValue: string;
   @Output() check$: BehaviorSubject<IDatatableCheckEvent>;
+
+  @ContentChildren(MdDataTableCellDirective) cells: QueryList<MdDataTableCellDirective>;
 
   @HostBinding('class.selectable')
   get selectable(): boolean {
@@ -27,12 +46,20 @@ export class MdDataTableRowComponent implements OnInit {
     return this.check$.getValue().isChecked;
   }
 
+  constructor(
+      @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
+  ) {}
+
   ngOnInit() {
     this.check$ = new BehaviorSubject<IDatatableCheckEvent>({
       isChecked: false,
       value: this.selectableValue,
       propagate: false,
     });
+  }
+
+  ngAfterContentInit() {
+    console.log(this.cells);
   }
 
   @HostListener('click', ['$event'])
@@ -63,5 +90,25 @@ export class MdDataTableRowComponent implements OnInit {
       value: this.selectableValue,
       propagate: false,
     });
+  }
+
+  isCellNumeric(cell: MdDataTableCellDirective) {
+    let index = -1;
+
+    this.cells.find((cellItem, i) => {
+        const match = cellItem === cell;
+
+        if (match) {
+            index = i;
+        }
+
+        return match;
+    });
+
+    if (index === -1) {
+        return false;
+    }
+
+    return !!this.table.header.columnTypes[index];
   }
 }

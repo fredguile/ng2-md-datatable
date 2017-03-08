@@ -4,7 +4,7 @@
   display: table-cell;
   box-sizing: border-box;
   vertical-align: middle;
-  text-align: right;
+  text-align: left;
   text-overflow: ellipsis;
 
   @include userSelect(none);
@@ -29,5 +29,9 @@
     vertical-align: sub;
     padding-right: 5px;
     content: '⬆';
+  }
+
+  &.numeric {
+    text-align: right;
   }
 }
