@@ -3,12 +3,15 @@
 :host {
   @include flexbox;
   @include flex-flow(row nowrap);
-  @include justify-content(space-between);
-  @include align-items(baseline);
+  @include justify-content(flex-end);
+  @include align-items(center);
+
+  font-weight: 400;
+  color: #5c5c5c;
+  font-size: 12px;
 }
 
 .pagination__controls {
   display: inline-block;
-  @include flex(1 1 0%);
   padding: 0;
 }

@@ -10,7 +10,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
-import { MdButtonToggleGroup, MdButtonToggleChange } from '@angular/material';
+import { MdSelect, MdSelectChange } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IDatatablePaginationEvent } from './md-datatable.interfaces';
@@ -18,28 +18,36 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
 @Component({
   selector: 'ng2-md-datatable-pagination',
   template: `
+    <span>Rows per page:</span>
+    <md-select [(ngModel)]="itemsPerPage" class="pagination__itemsPerPage">
+      <md-option *ngFor="let choice of itemsPerPageChoices"
+        value="{{ choice }}">{{ choice }}</md-option>
+    </md-select>
     <span class="pagination__range">{{firstIndexOfPage}}-{{lastIndexOfPage}} of {{itemsCount}}</span>
     <div class="pagination__controls">
-      <button md-button
+      <button md-icon-button
         (click)="onClickFirst()"
-        aria-label="First">First</button>
-      <button md-button
+        aria-label="First">
+        <md-icon>first_page</md-icon>
+      </button>
+      <button md-icon-button
         [disabled]="isPreviousButtonEnabled"
         (click)="onClickPrevious()"
-        aria-label="Previous">Previous</button>
-      <button md-button
+        aria-label="Previous">
+        <md-icon>navigate_before</md-icon>
+      </button>
+      <button md-icon-button
         [disabled]="isNextButtonEnabled"
         (click)="onClickNext()"
-        aria-label="Next">Next</button>
-      <button md-button
+        aria-label="Next">
+        <md-icon>navigate_next</md-icon>
+      </button>
+      <button md-icon-button
         (click)="onClickLast()"
-        aria-label="Last">Last</button>
+        aria-label="Last">
+        <md-icon>last_page</md-icon>
+      </button>
     </div>
-    <md-button-toggle-group [value]="itemsPerPage" class="pagination__itemsPerPage">
-      <md-button-toggle
-        *ngFor="let choice of itemsPerPageChoices"
-        value="{{ choice }}">{{ choice }}</md-button-toggle>
-    </md-button-toggle-group>
   `,
   styleUrls: ['md-datatable-pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,7 +76,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     return this.lastIndexOfPage >= this.itemsCount;
   }
 
-  @ViewChild(MdButtonToggleGroup) private toggleGroup: MdButtonToggleGroup;
+  @ViewChild(MdSelect) private toggleGroup: MdSelect;
   private subscription: Subscription;
 
   ngOnInit() {
@@ -91,7 +99,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   ngAfterViewInit() {
     // propagate click on pagination control
     this.subscription = this.toggleGroup.change
-      .subscribe((change: MdButtonToggleChange) => this.paginationChange.emit({
+      .subscribe((change: MdSelectChange) => this.paginationChange.emit({
         page: 1,
         itemsPerPage: Number(change.value),
       }));
