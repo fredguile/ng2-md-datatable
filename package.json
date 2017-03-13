@@ -1,6 +1,6 @@
 {
-  "name": "ng2-md-datatable",
-  "version": "1.0.20",
+  "name": "@zmb-gmbh/ng2-md-datatable",
+  "version": "1.0.20-0.1",
   "description": "Angular 2 DataTable component for using with Material 2",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fredguile/ng2-md-datatable.git"
+    "url": "git+https://github.com/ZmbGmbH/ng2-md-datatable.git"
   },
   "keywords": [
     "angularjs",
