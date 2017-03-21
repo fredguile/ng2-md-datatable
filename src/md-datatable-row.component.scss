@@ -2,20 +2,9 @@ $first-cell-padding: 24px;
 $cell-padding: 56px;
 
 :host {
-  $hover-color: #EEEEEE;
-  $selected-color: #F5F5F5;
-
   display: table-row;
   box-sizing: border-box;
   text-align: right;
-
-  &.checked {
-    background-color: $selected-color;
-  }
-  
-  &:hover {
-    background-color: $hover-color;
-  }
 
   &.selectable {
     cursor: pointer;

@@ -1,7 +1,8 @@
-@import '~@angular/material/core/theming/theming';
-@import '~@angular/material/core/theming/palette';
+@import '~@angular/material/core/theming/all-theme';
 
-@mixin md-datatable-theme($theme) {
+@include mat-core();
+
+@mixin mat-datatable-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -53,12 +54,12 @@
     border-bottom: $datatable-dividers;
     vertical-align: middle;
 
-    &.selectable:hover {
-      background-color: md-color($accent, 100);
+    &.checked {
+      background-color: mat-color($accent, 100);
     }
 
-    &.selectable.checked {
-      background-color: md-color($accent, 50);
+    &.selectable:hover {
+      background-color: mat-color($accent, 50);
     }
 
     td {
@@ -103,7 +104,7 @@
     font-weight: 600;
 
     &.sorted-ascending, &.sorted-descending {
-      color: md-color($foreground, text);
+      color: mat-color($foreground, text);
 
       &::before {
         font-size: $datatable-header-sort-icon-size;
