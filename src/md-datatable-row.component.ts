@@ -95,7 +95,7 @@ export class MdDataTableRowComponent implements OnInit {
   isCellNumeric(cell: MdDataTableCellDirective) {
     let index = -1;
 
-    this.cells.find((cellItem, i) => {
+    this.cells && this.cells.find((cellItem, i) => {
         const match = cellItem === cell;
 
         if (match) {
