@@ -54,13 +54,13 @@ export class MdDataTableHeaderComponent implements OnInit, AfterContentInit, OnD
 
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.allChecked$ = new BehaviorSubject(false);
     this.sort$ = new BehaviorSubject(null);
     this.subscriptions = [];
+  }
 
+  ngOnInit() {
     // update allChecked$ when all rows get checked or unchecked
     if (this.selectable) {
       this.subscriptions.push(

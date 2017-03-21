@@ -1,5 +1,6 @@
 import {
   Component,
+  OnInit,
   Input,
   Output,
   EventEmitter,
@@ -18,10 +19,10 @@ import { MdDataTableHeaderComponent } from './md-datatable-header.component';
   template: '<span><ng-content></ng-content></span>',
   styleUrls: ['md-datatable-column.component.css'],
 })
-export class MdDataTableColumnComponent {
+export class MdDataTableColumnComponent implements OnInit {
   @Input() sortableValue: string;
   @Input('numeric') isNumeric: boolean;
-  @Output() sortBy: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sortBy: EventEmitter<string>;
 
   @HostBinding('class.sortable')
   get sortable(): boolean {
@@ -59,10 +60,12 @@ export class MdDataTableColumnComponent {
 
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableHeaderComponent)) private header: MdDataTableHeaderComponent,
-  ) { }
+  ) {
+    this.sortBy = new EventEmitter<string>(true); // async
+  }
 
   ngOnInit() {
-    this.isNumeric = (!!this.isNumeric || (this.isNumeric as any) === '');
+    this.isNumeric = !!this.isNumeric || (this.isNumeric as any) === '';
   }
 
   @HostListener('click')

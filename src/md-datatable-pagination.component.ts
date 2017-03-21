@@ -37,12 +37,13 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
         <md-icon>navigate_before</md-icon>
       </button>
       <button md-icon-button
-        [disabled]="isNextButtonEnabled"
+        [disabled]="isNextOrLastButtonEnabled"
         (click)="onClickNext()"
         aria-label="Next">
         <md-icon>navigate_next</md-icon>
       </button>
       <button md-icon-button
+        [disabled]="isNextOrLastButtonEnabled"
         (click)="onClickLast()"
         aria-label="Last">
         <md-icon>last_page</md-icon>
@@ -72,12 +73,16 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     return this.firstIndexOfPage === 1;
   }
 
-  get isNextButtonEnabled() {
+  get isNextOrLastButtonEnabled() {
     return this.lastIndexOfPage >= this.itemsCount;
   }
 
   @ViewChild(MdSelect) private toggleGroup: MdSelect;
   private subscription: Subscription;
+
+  constructor() {
+    this.paginationChange = new EventEmitter<IDatatablePaginationEvent>(true); // async
+  }
 
   ngOnInit() {
     // set defaults values if not provided
@@ -92,8 +97,6 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     if (!this.itemsCount) {
       this.itemsCount = 0;
     }
-
-    this.paginationChange = new EventEmitter<IDatatablePaginationEvent>(true); // async
   }
 
   ngAfterViewInit() {

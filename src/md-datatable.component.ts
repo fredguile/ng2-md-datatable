@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   AfterContentInit,
   Input,
   Output,
@@ -31,7 +30,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
   `,
   styleUrls: ['md-datatable.component.css']
 })
-export class MdDataTableComponent implements OnInit, AfterContentInit, OnDestroy {
+export class MdDataTableComponent implements AfterContentInit, OnDestroy {
   private _selectable = false;
 
   @Input()
@@ -49,7 +48,7 @@ export class MdDataTableComponent implements OnInit, AfterContentInit, OnDestroy
   @ContentChild(MdDataTableHeaderComponent) header: MdDataTableHeaderComponent;
   @ContentChildren(MdDataTableRowComponent) rows: QueryList<MdDataTableRowComponent>;
 
-  ngOnInit() {
+  constructor() {
     this.selectionChange = new EventEmitter<IDatatableSelectionEvent>(true); // async
     this.sortChange = new EventEmitter<IDatatableSortEvent>(true); // async
     this.subscriptions = [];

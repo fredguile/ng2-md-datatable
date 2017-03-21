@@ -1,23 +1,32 @@
-import { Component, OnInit, Input, Output, HostBinding, HostListener, Optional,
-         Inject, forwardRef, ContentChildren, QueryList, Directive } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  HostBinding,
+  HostListener,
+  Optional,
+  Inject,
+  forwardRef,
+  ContentChildren,
+  QueryList,
+  Directive,
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { MdDataTableComponent } from './md-datatable.component';
+import { MdDataTableComponent } from './md-datatable.component';
 import { IDatatableCheckEvent } from './md-datatable.interfaces';
 
-
-@Directive({
-    selector: 'td',
-})
+@Directive({ selector: 'td' })
 export class MdDataTableCellDirective {
-    @HostBinding('class.numeric')
-    get isNumeric() {
-        return this.row.isCellNumeric(this);
-    }
+  @HostBinding('class.numeric')
+  get isNumeric() {
+    return this.row.isCellNumeric(this);
+  }
 
-    constructor(
-        @Optional() @Inject(forwardRef(() => MdDataTableRowComponent)) private row: MdDataTableRowComponent,
-    ) {}
+  constructor(
+    @Optional() @Inject(forwardRef(() => MdDataTableRowComponent)) private row: MdDataTableRowComponent,
+  ) { }
 }
 
 @Component({
@@ -30,7 +39,7 @@ export class MdDataTableCellDirective {
   `,
   styleUrls: ['md-datatable-row.component.css'],
 })
-export class MdDataTableRowComponent implements OnInit {
+export class MdDataTableRowComponent {
   @Input() selectableValue: string;
   @Output() check$: BehaviorSubject<IDatatableCheckEvent>;
 
@@ -47,19 +56,13 @@ export class MdDataTableRowComponent implements OnInit {
   }
 
   constructor(
-      @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-  ) {}
-
-  ngOnInit() {
+    @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
+  ) {
     this.check$ = new BehaviorSubject<IDatatableCheckEvent>({
       isChecked: false,
       value: this.selectableValue,
       propagate: false,
     });
-  }
-
-  ngAfterContentInit() {
-    console.log(this.cells);
   }
 
   @HostListener('click', ['$event'])
@@ -93,20 +96,24 @@ export class MdDataTableRowComponent implements OnInit {
   }
 
   isCellNumeric(cell: MdDataTableCellDirective) {
+    if (!this.cells) {
+      return false;
+    }
+
     let index = -1;
 
-    this.cells && this.cells.find((cellItem, i) => {
-        const match = cellItem === cell;
+    this.cells.find((cellItem, i) => {
+      const match = cellItem === cell;
 
-        if (match) {
-            index = i;
-        }
+      if (match) {
+        index = i;
+      }
 
-        return match;
+      return match;
     });
 
     if (index === -1) {
-        return false;
+      return false;
     }
 
     return !!this.table.header.columnTypes[index];
