@@ -15,7 +15,6 @@
   $datatable-header-sorted-icon-hover-color: rgba(#000, 0.38) !default;
   $datatable-divider-color: rgba(#000, 0.12) !default;
 
-  $first-last-cell-padding: rem(0) !default;
   $check-cell-width: auto !default;
   $cell-width: auto;
 
@@ -23,8 +22,8 @@
 
   $datatable-row-height: rem(4.8) !default;
   $datatable-last-row-height: rem(5.6) !default;
-  $datatable-column-padding: rem(0) !default;
-  $datatable-column-spacing: rem(0.8) !default;
+  $datatable-column-padding: rem(5.6) !default;
+  $datatable-first-column-padding: rem(2.4) !default;
 
   ng2-md-datatable > table {
     font-size: $datatable-font-size;
@@ -39,13 +38,8 @@
     }
 
     th {
-      padding: 0 0 0 $first-last-cell-padding;
+      padding: 0 0 0 $datatable-first-column-padding;
       width: $cell-width;
-    }
-
-    .md-data-check-cell {
-      padding: 0 0 0 $first-last-cell-padding;
-      width: $check-cell-width;
     }
 
     md-checkbox {
@@ -59,10 +53,6 @@
     border-bottom: $datatable-dividers;
     vertical-align: middle;
 
-    &:last-child {
-      height: $datatable-last-row-height;
-    }
-
     &.selectable:hover {
       background-color: md-color($accent, 100);
     }
@@ -72,24 +62,35 @@
     }
 
     td {
-      padding: 0 $datatable-column-spacing 0 $datatable-column-padding;
+      padding: 0;
+      padding-left: $datatable-column-padding;
       width: $cell-width;
+      font-size: 13px;
+      font-weight: 400;
+      color: #1a1a1a;
 
-      &:first-of-type {
-        padding-left: $first-last-cell-padding;
+      &:nth-of-type(1),
+      &:nth-of-type(2) {
+        padding-left: $datatable-first-column-padding;
       }
 
       &:last-of-type {
-        padding-right: $first-last-cell-padding;
+        padding-right: $datatable-first-column-padding;
       }
 
       &.md-data-check-cell {
-        padding: 0 0 0 $first-last-cell-padding;
+        padding-left: $datatable-first-column-padding;
         width: $check-cell-width;
       }
 
       &.numeric {
         text-align: right;
+      }
+    }
+
+    &.selectable {
+      td:nth-of-type(3) {
+        padding-left: $datatable-first-column-padding;
       }
     }
 
@@ -100,9 +101,9 @@
   }
 
   ng2-md-datatable-column {
-    padding: 0 $datatable-column-spacing 0 $datatable-column-padding;
+    padding: 0;
     width: $cell-width;
-    color: md-color($foreground, secondary-text);
+    color: #5c5c5c;
     font-weight: 600;
 
     &.sorted-ascending, &.sorted-descending {
@@ -120,18 +121,40 @@
     }
 
     &:last-of-type {
-      padding-right: $first-last-cell-padding;
+      padding-right: $datatable-first-column-padding;
     }
   }
 
   ng2-md-datatable-pagination {
+    height: $datatable-last-row-height;
+
+    .mat-select {
+        .mat-select-trigger {
+            min-width: 64px;
+        }
+
+        .mat-select-value {
+            max-width: calc(100% - 24px);
+            left: auto;
+            right: 24px;
+            font-weight: 400;
+            color: #5c5c5c;
+            font-size: 12px;
+        }
+
+        .mat-select-underline {
+            display: none;
+        }
+    }
+
     .pagination__range {
-      padding: 0 $datatable-column-spacing;
+      padding: 0;
+      padding-left: $datatable-first-column-padding;
+      padding-right: 16px;
     }
 
     .pagination__controls {
       display: inline-block;
-      padding: 0 $datatable-column-spacing;
     }
   }
 }
