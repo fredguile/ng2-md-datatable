@@ -1,6 +1,3 @@
-$first-cell-padding: 24px;
-$cell-padding: 56px;
-
 :host {
   display: table-row;
   box-sizing: border-box;
@@ -8,25 +5,9 @@ $cell-padding: 56px;
 
   &.selectable {
     cursor: pointer;
-
-    td {
-      &:nth-child(3) {
-        padding-left: $first-cell-padding;
-      }
-    }
-  }
-}
-
-td {
-  padding-left: $cell-padding;
-
-  &:nth-child(1),
-  &:nth-child(2) {
-    padding-left: $first-cell-padding;
   }
 }
 
 .md-data-check-cell {
   text-align: center;
-  width: 0;
 }

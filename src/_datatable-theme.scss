@@ -23,7 +23,7 @@
 
   $datatable-row-height: rem(4.8) !default;
   $datatable-last-row-height: rem(5.6) !default;
-  $datatable-column-padding: rem(5.6) !default;
+  $datatable-column-padding: rem(2.4) !default;
   $datatable-first-column-padding: rem(2.4) !default;
 
   ng2-md-datatable > table {
@@ -39,13 +39,38 @@
     }
 
     th {
-      padding: 0 0 0 $datatable-first-column-padding;
-      width: $cell-width;
+      width: $check-cell-width;
+      padding-left: $datatable-first-column-padding;
     }
 
     md-checkbox {
       margin: 0;
       width: $check-cell-width;
+    }
+  }
+
+  ng2-md-datatable-column {
+    width: $cell-width;
+    padding-left: $datatable-column-padding;
+    color: #5c5c5c;
+    font-weight: 600;
+
+    &.sorted-ascending, &.sorted-descending {
+      color: mat-color($foreground, text);
+
+      &::before {
+        font-size: $datatable-header-sort-icon-size;
+      }
+
+      &:hover {
+        &::before {
+          color: $datatable-header-sorted-icon-hover-color;
+        }
+      }
+    }
+
+    &:last-of-type {
+      padding-right: $datatable-first-column-padding;
     }
   }
 
@@ -70,8 +95,8 @@
       font-weight: 400;
       color: #1a1a1a;
 
-      &:nth-of-type(1),
-      &:nth-of-type(2) {
+      &.md-data-check-cell {
+        width: $check-cell-width;
         padding-left: $datatable-first-column-padding;
       }
 
@@ -79,50 +104,14 @@
         padding-right: $datatable-first-column-padding;
       }
 
-      &.md-data-check-cell {
-        padding-left: $datatable-first-column-padding;
-        width: $check-cell-width;
-      }
-
       &.numeric {
         text-align: right;
-      }
-    }
-
-    &.selectable {
-      td:nth-of-type(3) {
-        padding-left: $datatable-first-column-padding;
       }
     }
 
     md-checkbox {
       margin: 0;
       width: $check-cell-width;
-    }
-  }
-
-  ng2-md-datatable-column {
-    padding: 0;
-    width: $cell-width;
-    color: #5c5c5c;
-    font-weight: 600;
-
-    &.sorted-ascending, &.sorted-descending {
-      color: mat-color($foreground, text);
-
-      &::before {
-        font-size: $datatable-header-sort-icon-size;
-      }
-
-      &:hover {
-        &::before {
-          color: $datatable-header-sorted-icon-hover-color;
-        }
-      }
-    }
-
-    &:last-of-type {
-      padding-right: $datatable-first-column-padding;
     }
   }
 
