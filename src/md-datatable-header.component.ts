@@ -46,8 +46,8 @@ export class MdDataTableHeaderComponent implements OnInit, AfterContentInit, OnD
     return this.table && this.table.selectable;
   }
 
-  get columnTypes() {
-    return this.columns.map(column => column.isNumeric);
+  get columnTypes(): boolean[] {
+    return this.columns ? this.columns.map(column => column.isNumeric) : [];
   }
 
   private subscriptions: Subscription[];

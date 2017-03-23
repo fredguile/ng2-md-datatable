@@ -21,10 +21,31 @@ import { IDatatableCheckEvent } from './md-datatable.interfaces';
 export class MdDataTableCellDirective {
   @HostBinding('class.numeric')
   get isNumeric() {
-    return this.row.isCellNumeric(this);
+    if (!this.table || !this.table.header || !this.row) {
+      return false;
+    }
+
+    let index = -1;
+
+    this.row.cells.find((cell, i) => {
+      const match = cell === this;
+
+      if (match) {
+        index = i;
+      }
+
+      return match;
+    });
+
+    if (index === -1) {
+      return false;
+    }
+
+    return !!this.table.header.columnTypes[index];
   }
 
   constructor(
+    @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
     @Optional() @Inject(forwardRef(() => MdDataTableRowComponent)) private row: MdDataTableRowComponent,
   ) { }
 }
@@ -93,29 +114,5 @@ export class MdDataTableRowComponent {
       value: this.selectableValue,
       propagate: false,
     });
-  }
-
-  isCellNumeric(cell: MdDataTableCellDirective) {
-    if (!this.cells) {
-      return false;
-    }
-
-    let index = -1;
-
-    this.cells.find((cellItem, i) => {
-      const match = cellItem === cell;
-
-      if (match) {
-        index = i;
-      }
-
-      return match;
-    });
-
-    if (index === -1) {
-      return false;
-    }
-
-    return !!this.table.header.columnTypes[index];
   }
 }
