@@ -60,6 +60,7 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
   @Input() itemsPerPageFirstChoice = 10;
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
+  @ViewChild(MdSelect) toggleGroup: MdSelect;
 
   get firstIndexOfPage() {
     return this.currentPage * this.itemsPerPage - this.itemsPerPage + 1;
@@ -77,7 +78,6 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     return this.lastIndexOfPage >= this.itemsCount;
   }
 
-  @ViewChild(MdSelect) private toggleGroup: MdSelect;
   private subscription: Subscription;
 
   constructor() {
