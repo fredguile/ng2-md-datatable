@@ -1,118 +1,90 @@
 import {
   Component,
+  AfterViewInit,
   Input,
-  Output,
   HostBinding,
   HostListener,
-  Optional,
+  ViewChild,
   Inject,
+  Optional,
   forwardRef,
-  ContentChildren,
-  QueryList,
-  Directive,
 } from '@angular/core';
 
+import { MdCheckbox, MdCheckboxChange } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { async } from 'rxjs/scheduler/async';
 
+import { BaseComponent, MD_DATATABLE_STORE } from './helpers';
+import { IDatatablesState } from './md-datatable.interfaces';
 import { MdDataTableComponent } from './md-datatable.component';
-import { IDatatableCheckEvent } from './md-datatable.interfaces';
-
-@Directive({ selector: 'td' })
-export class MdDataTableCellDirective {
-  @HostBinding('class.numeric')
-  get isNumeric() {
-    if (!this.table || !this.table.header || !this.row) {
-      return false;
-    }
-
-    let index = -1;
-
-    this.row.cells.find((cell, i) => {
-      const match = cell === this;
-
-      if (match) {
-        index = i;
-      }
-
-      return match;
-    });
-
-    if (index === -1) {
-      return false;
-    }
-
-    return !!this.table.header.columnTypes[index];
-  }
-
-  constructor(
-    @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-    @Optional() @Inject(forwardRef(() => MdDataTableRowComponent)) private row: MdDataTableRowComponent,
-  ) { }
-}
+import { isRowSelected } from './md-datatable.reducer';
+import { MdDatatableActions } from './md-datatable.actions';
 
 @Component({
   selector: 'ng2-md-datatable-row',
   template: `
     <td *ngIf="selectable" class="md-data-check-cell">
-      <md-checkbox [checked]="isChecked"></md-checkbox>
+      <md-checkbox [checked]="checked$ | async" (change)="onCheckboxChange($event)"></md-checkbox>
     </td>
     <ng-content></ng-content>
   `,
   styleUrls: ['md-datatable-row.component.css'],
 })
-export class MdDataTableRowComponent {
+export class MdDataTableRowComponent extends BaseComponent implements AfterViewInit {
   @Input() selectableValue: string;
-  @Output() check$: BehaviorSubject<IDatatableCheckEvent>;
+  checked$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  @ContentChildren(MdDataTableCellDirective) cells: QueryList<MdDataTableCellDirective>;
+  @ViewChild(MdCheckbox) checkboxCmp: MdCheckbox;
+
+  private datatableId: string;
 
   @HostBinding('class.selectable')
   get selectable(): boolean {
-    return !!this.selectableValue;
+    return !!this.selectableValue && this.table && this.table.isSelectable;
   }
 
   @HostBinding('class.checked')
   get isChecked(): boolean {
-    return this.check$.getValue().isChecked;
-  }
-
-  constructor(
-    @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-  ) {
-    this.check$ = new BehaviorSubject<IDatatableCheckEvent>({
-      isChecked: false,
-      value: this.selectableValue,
-      propagate: false,
-    });
+    return this.checked$.getValue();
   }
 
   @HostListener('click', ['$event'])
-  onClick(event: MouseEvent) {
+  onRowClick(event: MouseEvent) {
     // react only on selectable rows
     if (!this.selectable) {
       return;
     }
 
-    // listen for any click except on links
-    if (this.selectable && event.target['nodeName'] !== 'A') {
+    // propagate clicks on the whole row (except on links) to MdCheckbox
+    if (this.selectable && this.checkboxCmp && event.target['nodeName'] !== 'A') {
       event.preventDefault();
-      this.toggleCheck();
+      this.checkboxCmp.toggle();
+      this.store
+        .dispatch(this.actions.toggleSelectOne(this.datatableId, this.selectableValue, this.checkboxCmp.checked));
     }
   }
 
-  toggleCheck() {
-    this.check$.next({
-      isChecked: !this.check$.getValue().isChecked,
-      value: this.selectableValue,
-      propagate: true,
-    });
+  constructor(
+    @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
+    @Inject(MD_DATATABLE_STORE) private store: Store<IDatatablesState>,
+    private actions: MdDatatableActions,
+  ) {
+    super();
   }
 
-  setCheck(checked: boolean) {
-    this.check$.next({
-      isChecked: checked,
-      value: this.selectableValue,
-      propagate: false,
-    });
+  ngAfterViewInit() {
+    this.datatableId = this.table ? this.table.id : undefined;
+
+    this.store
+      .let(isRowSelected(this.datatableId, this.selectableValue))
+      .observeOn(async)
+      .takeUntil(this.unmount$)
+      .subscribe(this.checked$);
+  }
+
+  onCheckboxChange(event: MdCheckboxChange) {
+    this.store
+      .dispatch(this.actions.toggleSelectOne(this.datatableId, this.selectableValue, event.checked));
   }
 }

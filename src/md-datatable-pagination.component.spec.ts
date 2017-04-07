@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { MaterialModule } from '@angular/material';
 import { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
 
-describe('MdDatatablePaginationCmp', () => {
+describe('MdDataTablePaginationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [

@@ -67,18 +67,29 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     '@angular/material': 'ng.material',
 
     // Rxjs dependencies
+    'rxjs/Observable': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/Observable': 'Rx',
-    'rxjs/Subscription': 'Rx',
+    'rxjs/scheduler/async': 'Rx',
+    'rxjs/add/observable/from': 'Rx.Observable.prototype',
+    'rxjs/add/observable/of': 'Rx.Observable.prototype',
+    'rxjs/add/operator/combineLatest': 'Rx.Observable.prototype',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
-    'rxjs/add/operator/distinctUntilKeyChanged': 'Rx.Observable.prototype',
-    'rxjs/add/operator/map': 'Rx.Observable.prototype',
-    'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
+    'rxjs/add/operator/do': 'Rx.Observable.prototype',
     'rxjs/add/operator/filter': 'Rx.Observable.prototype',
-    'rxjs/add/operator/skip': 'Rx.Observable.prototype',
-    'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
-    'rxjs/add/operator/toArray': 'Rx.Observable.prototype',
+    'rxjs/add/operator/let': 'Rx.Observable.prototype',
+    'rxjs/add/operator/map': 'Rx.Observable.prototype',
+    'rxjs/add/operator/merge': 'Rx.Observable.prototype',
+    'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
+    'rxjs/add/operator/observeOn': 'Rx.Observable.prototype',
+    'rxjs/add/operator/pluck': 'Rx.Observable.prototype',
+    'rxjs/add/operator/takeUntil': 'Rx.Observable.prototype',
+
+    // ngrx/store
+    '@ngrx/core': 'ngrx.core',
+    '@ngrx/core/add/operator/select': 'ngrx.core',
+    '@ngrx/store': 'ngrx.store',
+    '@ngrx/store-devtools': 'ngrx.store-devtools',
   };
 
   // Rollup the UMD bundle from all ES5 + imports JavaScript files built.
