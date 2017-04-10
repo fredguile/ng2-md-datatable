@@ -112,3 +112,8 @@ To add `ng2-md-datatable` to your Material 2 theming file:
 ```
 
 This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta 2.
+
+## Live Demo
+
+To see `ng2-md-datatable` in action, head to `/demo-app` and start it with `ng serve`.
+You need to have `Angular CLI` installed (v1.0 or later).
