@@ -15,8 +15,7 @@ import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 import { MdDataTableRowComponent } from './md-datatable-row.component';
 import { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
-import { customFeatureStoreModule } from './helpers';
-import { datatableReducer } from './md-datatable.reducer';
+import { CustomFeatureStoreModule } from './helpers';
 import { MdDatatableActions } from './md-datatable.actions';
 
 @NgModule({
@@ -24,7 +23,7 @@ import { MdDatatableActions } from './md-datatable.actions';
     CommonModule,
     MaterialModule,
     FormsModule,
-    customFeatureStoreModule(datatableReducer),
+    CustomFeatureStoreModule,
   ],
   declarations: [
     MdDataTableComponent,

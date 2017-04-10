@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { datatableReducer } from './md-datatable.reducer';
+
 // I had to use these private things... :(
 // Hope that this can be improved when @ngrx/store 4.x is releases
 import {
@@ -57,6 +59,9 @@ export function customFeatureStoreModule(
     }],
   };
 }
+
+// static export (for AOT)
+export const CustomFeatureStoreModule: ModuleWithProviders = customFeatureStoreModule(datatableReducer);
 
 // I don't get why we don't have this unmount$ observable as default in Angular...
 export abstract class BaseComponent implements OnDestroy {
