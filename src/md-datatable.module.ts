@@ -8,34 +8,40 @@ import {
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { Dispatcher, StoreModule, provideStore } from '@ngrx/store';
 
 import { MdDataTableComponent } from './md-datatable.component';
-import { MdDataTableColumnComponent } from './md-datatable-column.component';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
+import { MdDataTableColumnComponent } from './md-datatable-column.component';
+import { MdDataTableRowComponent } from './md-datatable-row.component';
 import { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
-import { MdDataTableRowComponent, MdDataTableCellDirective } from './md-datatable-row.component';
+import { customFeatureStoreModule } from './helpers';
+import { datatableReducer } from './md-datatable.reducer';
+import { MdDatatableActions } from './md-datatable.actions';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
+    customFeatureStoreModule(datatableReducer),
   ],
   declarations: [
     MdDataTableComponent,
-    MdDataTableColumnComponent,
     MdDataTableHeaderComponent,
-    MdDataTablePaginationComponent,
+    MdDataTableColumnComponent,
     MdDataTableRowComponent,
-    MdDataTableCellDirective,
+    MdDataTablePaginationComponent,
+  ],
+  providers: [
+    { provide: MdDatatableActions, useClass: MdDatatableActions },
   ],
   exports: [
     MdDataTableComponent,
-    MdDataTableColumnComponent,
     MdDataTableHeaderComponent,
-    MdDataTablePaginationComponent,
+    MdDataTableColumnComponent,
     MdDataTableRowComponent,
-    MdDataTableCellDirective,
+    MdDataTablePaginationComponent,
   ],
 })
 export class MdDataTableModule {

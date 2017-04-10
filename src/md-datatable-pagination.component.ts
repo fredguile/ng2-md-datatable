@@ -1,27 +1,24 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
-  OnDestroy,
   Input,
   Output,
   EventEmitter,
-  ViewChild,
   ChangeDetectionStrategy,
 } from '@angular/core';
 
-import { MdSelect, MdSelectChange } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
+import { MdSelectChange } from '@angular/material';
 
+import { BaseComponent } from './helpers';
 import { IDatatablePaginationEvent } from './md-datatable.interfaces';
 
 @Component({
   selector: 'ng2-md-datatable-pagination',
   template: `
     <span>Rows per page:</span>
-    <md-select [(ngModel)]="itemsPerPage" class="pagination__itemsPerPage">
+    <md-select [ngModel]="itemsPerPage" (change)="onSelectChange($event)" class="pagination__itemsPerPage">
       <md-option *ngFor="let choice of itemsPerPageChoices"
-        value="{{ choice }}">{{ choice }}</md-option>
+        [value]="choice">{{ choice }}</md-option>
     </md-select>
     <span class="pagination__range">{{firstIndexOfPage}}-{{lastIndexOfPage}} of {{itemsCount}}</span>
     <div class="pagination__controls">
@@ -53,14 +50,14 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
   styleUrls: ['md-datatable-pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MdDataTablePaginationComponent extends BaseComponent implements OnInit {
   @Input() currentPage: number;
   @Input() itemsPerPage: number;
   @Input() itemsCount: number;
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
   @Input() itemsPerPageFirstChoice = 10;
+
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
-  @ViewChild(MdSelect) toggleGroup: MdSelect;
 
   get firstIndexOfPage() {
     return this.currentPage * this.itemsPerPage - this.itemsPerPage + 1;
@@ -78,10 +75,9 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     return this.lastIndexOfPage >= this.itemsCount;
   }
 
-  private subscription: Subscription;
-
   constructor() {
-    this.paginationChange = new EventEmitter<IDatatablePaginationEvent>(true); // async
+    super();
+    this.paginationChange = new EventEmitter<IDatatablePaginationEvent>(true);
   }
 
   ngOnInit() {
@@ -99,35 +95,40 @@ export class MdDataTablePaginationComponent implements OnInit, AfterViewInit, On
     }
   }
 
-  ngAfterViewInit() {
-    // propagate click on pagination control
-    this.subscription = this.toggleGroup.change
-      .subscribe((change: MdSelectChange) => this.paginationChange.emit({
-        page: 1,
-        itemsPerPage: Number(change.value),
-      }));
+  onSelectChange(event: MdSelectChange) {
+    this.paginationChange.emit(<IDatatablePaginationEvent>{
+      page: 1,
+      itemsPerPage: Number(event.value),
+    });
   }
 
   onClickFirst() {
-    this.paginationChange.emit({ page: 1, itemsPerPage: this.itemsPerPage });
-  }
-
-  onClickPrevious() {
-    this.paginationChange.emit({ page: this.currentPage - 1, itemsPerPage: this.itemsPerPage });
-  }
-
-  onClickNext() {
-    this.paginationChange.emit({ page: this.currentPage + 1, itemsPerPage: this.itemsPerPage });
+    this.paginationChange.emit(<IDatatablePaginationEvent>{
+      page: 1,
+      itemsPerPage: this.itemsPerPage,
+    });
   }
 
   onClickLast() {
     const lastPage = Math.round(this.itemsCount / this.itemsPerPage);
-    this.paginationChange.emit({ page: lastPage, itemsPerPage: this.itemsPerPage });
+
+    this.paginationChange.emit(<IDatatablePaginationEvent>{
+      page: lastPage,
+      itemsPerPage: this.itemsPerPage,
+    });
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+  onClickPrevious() {
+    this.paginationChange.emit(<IDatatablePaginationEvent>{
+      page: this.currentPage - 1,
+      itemsPerPage: this.itemsPerPage,
+    });
+  }
+
+  onClickNext() {
+    this.paginationChange.emit(<IDatatablePaginationEvent>{
+      page: this.currentPage + 1,
+      itemsPerPage: this.itemsPerPage,
+    });
   }
 }

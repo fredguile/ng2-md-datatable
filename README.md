@@ -38,7 +38,7 @@ import { MdDataTableModule } from 'ng2-md-datatable';
 Your datatable would look like this in a Angular 2 template:
 
 ```
-<ng2-md-datatable [selectable]="true|false">
+<ng2-md-datatable selectable>
   <ng2-md-datatable-header>
     <ng2-md-datatable-column sortValue="article">Article</ng2-md-datatable-column>
     <ng2-md-datatable-column sortValue="product">Product</ng2-md-datatable-column>

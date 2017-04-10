@@ -10,7 +10,7 @@ const karma = require('karma');
 /** Copies deps for unit tests to the build output. */
 gulp.task(':build:test:vendor', function () {
   const npmVendorFiles = [
-    '@angular', 'core-js/client', 'hammerjs', 'rxjs', 'systemjs/dist', 'zone.js/dist'
+    '@angular', '@ngrx', 'core-js/client', 'hammerjs', 'rxjs', 'systemjs/dist', 'zone.js/dist'
   ];
 
   return gulpMerge(

@@ -1,7 +1,20 @@
-export interface IDatatableCheckEvent {
-  isChecked: boolean;
-  value: string;
-  propagate: boolean;
+import { Action } from '@ngrx/store';
+
+// wrap datatableId in Action to target a specific datatable
+export interface TargetedAction extends Action {
+  datatableId: string;
+}
+
+export interface IDatatablesState {
+  [datatableId: string]: IDatatableState;
+}
+
+export interface IDatatableState {
+  allRowsSelected: boolean;
+  selectableValues: string[];
+  selectedValues: string[];
+  sortBy?: string;
+  sortType?: DatatableSortType;
 }
 
 export interface IDatatableSelectionEvent {
