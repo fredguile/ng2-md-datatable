@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 
 import { MdCheckboxChange } from '@angular/material';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { async } from 'rxjs/scheduler/async';
 
+import { BaseComponent } from './helpers';
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 
@@ -22,7 +22,7 @@ import {
   DatatableSortType,
 } from './md-datatable.interfaces';
 
-import { BaseComponent, MD_DATATABLE_STORE } from './helpers';
+import { MdDatatableStore } from './md-datatable.store';
 import { areAllRowsSelected } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
@@ -49,7 +49,7 @@ export class MdDataTableHeaderComponent extends BaseComponent implements AfterVi
 
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-    @Inject(MD_DATATABLE_STORE) private store: Store<IDatatablesState>,
+    private store: MdDatatableStore,
     private actions: MdDatatableActions,
   ) {
     super();

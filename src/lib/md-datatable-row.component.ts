@@ -11,13 +11,13 @@ import {
 } from '@angular/core';
 
 import { MdCheckbox, MdCheckboxChange } from '@angular/material';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { async } from 'rxjs/scheduler/async';
 
-import { BaseComponent, MD_DATATABLE_STORE } from './helpers';
+import { BaseComponent } from './helpers';
 import { IDatatablesState } from './md-datatable.interfaces';
 import { MdDataTableComponent } from './md-datatable.component';
+import { MdDatatableStore } from './md-datatable.store';
 import { isRowSelected } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
@@ -67,7 +67,7 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
 
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-    @Inject(MD_DATATABLE_STORE) private store: Store<IDatatablesState>,
+    private store: MdDatatableStore,
     private actions: MdDatatableActions,
   ) {
     super();

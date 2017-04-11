@@ -9,9 +9,9 @@ import {
   forwardRef,
 } from '@angular/core';
 
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { BaseComponent } from './helpers';
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 
@@ -21,7 +21,7 @@ import {
   DatatableSortType
 } from './md-datatable.interfaces';
 
-import { BaseComponent, MD_DATATABLE_STORE } from './helpers';
+import { MdDatatableStore } from './md-datatable.store';
 import { getCurrentSort } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
@@ -81,7 +81,7 @@ export class MdDataTableColumnComponent extends BaseComponent implements AfterVi
 
   constructor(
     @Optional() @Inject(forwardRef(() => MdDataTableComponent)) private table: MdDataTableComponent,
-    @Inject(MD_DATATABLE_STORE) private store: Store<IDatatablesState>,
+    private store: MdDatatableStore,
     private actions: MdDatatableActions,
   ) {
     super();

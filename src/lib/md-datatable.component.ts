@@ -8,10 +8,8 @@ import {
   ContentChild,
   ContentChildren,
   QueryList,
-  Inject,
 } from '@angular/core';
 
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import {
@@ -20,9 +18,10 @@ import {
   IDatatableSortEvent,
 } from './md-datatable.interfaces';
 
+import { BaseComponent } from './helpers';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 import { MdDataTableRowComponent } from './md-datatable-row.component';
-import { BaseComponent, MD_DATATABLE_STORE } from './helpers';
+import { MdDatatableStore } from './md-datatable.store';
 import { MdDatatableActions } from './md-datatable.actions';
 
 import {
@@ -58,7 +57,7 @@ export class MdDataTableComponent extends BaseComponent implements OnInit, After
   id = `md-datatable-${instanceId++}`;
 
   constructor(
-    @Inject(MD_DATATABLE_STORE) private store: Store<IDatatablesState>,
+    private store: MdDatatableStore,
     private actions: MdDatatableActions,
   ) {
     super();

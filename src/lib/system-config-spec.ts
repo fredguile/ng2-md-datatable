@@ -4,7 +4,11 @@ declare var System: any;
 // Apply the CLI SystemJS configuration.
 System.config({
   map: {
+    // RxJS
     'rxjs': 'vendor/rxjs',
+
+    // HammerJS
+    'hammerjs': 'vendor/hammerjs/hammer.js',
 
     // Angular specific mappings.
     '@angular/core': 'vendor/@angular/core/bundles/core.umd.js',
@@ -13,10 +17,10 @@ System.config({
     '@angular/common/testing': 'vendor/@angular/common/bundles/common-testing.umd.js',
     '@angular/compiler': 'vendor/@angular/compiler/bundles/compiler.umd.js',
     '@angular/compiler/testing': 'vendor/@angular/compiler/bundles/compiler-testing.umd.js',
-    '@angular/http': 'vendor/@angular/http/bundles/http.umd.js',
-    '@angular/http/testing': 'vendor/@angular/http/bundles/http-testing.umd.js',
     '@angular/forms': 'vendor/@angular/forms/bundles/forms.umd.js',
     '@angular/forms/testing': 'vendor/@angular/forms/bundles/forms-testing.umd.js',
+    '@angular/http': 'vendor/@angular/http/bundles/http.umd.js',
+    '@angular/http/testing': 'vendor/@angular/http/bundles/http-testing.umd.js',
     '@angular/platform-browser': 'vendor/@angular/platform-browser/bundles/platform-browser.umd.js',
     '@angular/platform-browser/testing':
       'vendor/@angular/platform-browser/bundles/platform-browser-testing.umd.js',
@@ -29,14 +33,14 @@ System.config({
   packages: {
     // Thirdparty barrels.
     'rxjs': { main: 'index' },
-    'md-datatable': {
+    'ng2-md-datatable': {
       format: 'cjs',
-      main: 'md-datatable.umd.js'
+      main: 'ng2-md-datatable.umd.js'
     },
     // Set the default extension for the root package, because otherwise the demo-app can't
     // be built within the production mode. Due to missing file extensions.
     '.': {
       defaultExtension: 'js'
     }
-  }
+  },
 });

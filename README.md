@@ -30,7 +30,7 @@ import { MdDataTableModule } from 'ng2-md-datatable';
 @NgModule({
   imports: [
     ...
-    MdDataTableModule.forRoot(),
+    MdDataTableModule,
     ...
 ```
 

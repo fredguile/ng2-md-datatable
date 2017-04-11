@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import {
   IDatatablesState,
   IDatatableState,
-  TargetedAction,
+  IDatatableAction,
   DatatableSortType,
   IDatatableSelectionEvent,
   IDatatableSortEvent,
@@ -19,9 +19,9 @@ function initialState(selectableValues: string[] = []): IDatatableState {
   };
 };
 
-export function datatableReducer(datatablesState: IDatatablesState, action: TargetedAction): IDatatablesState {
+export function datatableReducer(datatablesState: IDatatablesState, action: IDatatableAction): IDatatablesState {
   const { datatableId } = action;
-  const targetedState: IDatatableState = datatablesState[datatableId] || initialState();
+  const targetedState: IDatatableState = datatablesState && datatablesState[datatableId] || initialState();
 
   const {
     allRowsSelected,
@@ -117,14 +117,16 @@ export function areAllRowsSelected(datatableId: string): (state$: Observable<IDa
   return (state$: Observable<IDatatablesState>) => state$
     .map((datatablesState: IDatatablesState) => datatablesState[datatableId])
     .filter((datatableState: IDatatableState) => !!datatableState)
-    .select('allRowsSelected');
+    .pluck('allRowsSelected')
+    .distinctUntilChanged();
 }
 
 export function isRowSelected(datatableId: string, selectableValue: string): (state$: Observable<IDatatablesState>) => Observable<boolean> {
   return (state$: Observable<IDatatablesState>) => state$
     .map((datatablesState: IDatatablesState) => datatablesState[datatableId])
     .filter((datatableState: IDatatableState) => !!datatableState)
-    .select('selectedValues')
+    .pluck('selectedValues')
+    .distinctUntilChanged()
     .map((selectedValues: string) => selectedValues.includes(selectableValue));
 }
 
