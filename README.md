@@ -42,28 +42,28 @@ Your datatable would look like this in a Angular 2 template:
   <ng2-md-datatable-header>
     <ng2-md-datatable-column sortValue="article">Article</ng2-md-datatable-column>
     <ng2-md-datatable-column sortValue="product">Product</ng2-md-datatable-column>
-    <ng2-md-datatable-column sortValue="quantity">Quantity</ng2-md-datatable-column>
+    <ng2-md-datatable-column sortValue="quantity" numeric>Quantity</ng2-md-datatable-column>
   </ng2-md-datatable-header>
   <tbody>
     <ng2-md-datatable-row selectableValue="K003-0350-001">
       <td>K003-0350-001</td>
       <td>Yirgacheffe Kaffee, 350g ganze Bohne</td>
-      <td>232</td>
+      <td class="numeric">232</td>
     </ng2-md-datatable-row>
     <ng2-md-datatable-row selectableValue="K003-0350-002">
       <td>K003-0350-002</td>
       <td>Yirgacheffe Kaffee, 350g gemahlen</td>
-      <td>124</td>
+      <td class="numeric">124</td>
     </ng2-md-datatable-row>
     <ng2-md-datatable-row selectableValue="K003-0350-003">
       <td>K003-0350-003</td>
       <td>Yirgacheffe Kaffee, 1kg ganze Bohne</td>
-      <td>464</td>
+      <td class="numeric">464</td>
     </ng2-md-datatable-row>
     <ng2-md-datatable-row selectableValue="K003-0350-004">
       <td>K003-0350-003</td>
       <td>Yirgacheffe Kaffee, 1kg gemahlen</td>
-      <td>243</td>
+      <td class="numeric">243</td>
     </ng2-md-datatable-row>
   </tbody>
 </ng2-md-datatable>
@@ -115,5 +115,6 @@ This is based on the [current guide](https://github.com/angular/material2/blob/m
 
 ## Live Demo
 
-To see `ng2-md-datatable` in action, head to `/demo-app` and start it with `ng serve`.
+To see `ng2-md-datatable` in action, head to `/src/demo-app` and start it with `ng serve` (don't forget to run `npm install`).
+
 You need to have `Angular CLI` installed (v1.0 or later).
