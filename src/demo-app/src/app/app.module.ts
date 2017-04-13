@@ -6,7 +6,7 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { MdDataTableModule } from '../../../dist';
+import { MdDataTableModule } from '../../../../dist/ng2-md-datatable';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { MdDataTableModule } from '../../../dist';
     FormsModule,
     HttpModule,
     MaterialModule,
-    MdDataTableModule.forRoot(),
+    MdDataTableModule,
   ],
   providers: [
     { provide: AppService, useClass: AppService },

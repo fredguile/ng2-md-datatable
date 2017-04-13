@@ -1,6 +1,6 @@
 {
   "angularCompilerOptions": {
-    "genDir": "../dist",
+    "genDir": "../../dist/ng2-md-datatable",
     "skipTemplateCodegen": true,
     "debug": true
   },
@@ -20,13 +20,14 @@
     "noEmitHelpers": false,
     "noEmitOnError": true,
     "noImplicitAny": false,
-    "outDir": "../dist",
+    "outDir": "../../dist/ng2-md-datatable",
     "rootDir": ".",
+    "removeComments": true,
     "sourceMap": true,
-    "stripInternal": true,
+    "stripInternal": false,
     "target": "es5",
     "typeRoots": [
-      "../node_modules/@types"
+      "../../node_modules/@types"
     ]
   },
   "exclude": [

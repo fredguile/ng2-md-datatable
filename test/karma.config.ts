@@ -1,7 +1,7 @@
 // This file is named differently than its JS bootstrapper to avoid the ts compiler to overwrite it.
 
 import path = require('path');
-import { customLaunchers } from './browser-providers.ts';
+import { customLaunchers } from './browser-providers';
 
 export function config(config) {
   config.set({
@@ -31,17 +31,24 @@ export function config(config) {
 
       // paths loaded via Angular's component compiler
       // (these paths need to be rewritten, see proxies section)
-      { pattern: 'dist/**/*.html', included: false, watched: true },
       { pattern: 'dist/**/*.css', included: false, watched: true },
 
       // paths to support debugging with source maps in dev tools
       { pattern: 'dist/**/*.ts', included: false, watched: false },
-      { pattern: 'dist/**/*.js.map', included: false, watched: false }
+      { pattern: 'dist/**/*.js.map', included: false, watched: false },
+      { pattern: 'dist/**/*.css.map', included: false, watched: false }
     ],
     proxies: {
       // required for component assets fetched by Angular's compiler
       '/components/': '/base/dist/components/',
       '/core/': '/base/dist/core/',
+
+      // required to properly fetch ng2-md-datatable component stylesheets
+      '/md-datatable.component.css': '/base/dist/ng2-md-datatable/md-datatable.component.css',
+      '/md-datatable-column.component.css': '/base/dist/ng2-md-datatable/md-datatable-column.component.css',
+      '/md-datatable-header.component.css': '/base/dist/ng2-md-datatable/md-datatable-header.component.css',
+      '/md-datatable-pagination.component.css': '/base/dist/ng2-md-datatable/md-datatable-pagination.component.css',
+      '/md-datatable-row.component.css': '/base/dist/ng2-md-datatable/md-datatable-row.component.css',
     },
 
     customLaunchers: customLaunchers,
@@ -55,7 +62,7 @@ export function config(config) {
     autoWatch: true,
 
     sauceLabs: {
-      testName: 'mdDataTable',
+      testName: 'ng2MdDataTable',
       startConnect: false,
       recordVideo: false,
       recordScreenshots: false,
@@ -68,7 +75,7 @@ export function config(config) {
     },
 
     browserStack: {
-      project: 'mdDataTable',
+      project: 'ng2MdDataTable',
       startTunnel: false,
       retryLimit: 1,
       timeout: 600,

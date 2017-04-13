@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { TargetedAction } from './md-datatable.interfaces';
+import { IDatatableAction } from './md-datatable.interfaces';
 
 @Injectable()
 export class MdDatatableActions {
@@ -9,7 +9,7 @@ export class MdDatatableActions {
   static TOGGLE_SELECT_ONE = '[Datatable] Toggle Select One';
   static TOGGLE_SORT_COLUMN = '[Datatable] Toggle Sort Column';
 
-  updateSelectableValues(datatableId: string, selectableValues: string[]): TargetedAction {
+  updateSelectableValues(datatableId: string, selectableValues: string[]): IDatatableAction {
     return {
       datatableId,
       type: MdDatatableActions.UPDATE_SELECTABLE_VALUES,
@@ -17,7 +17,7 @@ export class MdDatatableActions {
     };
   }
 
-  toggleSelectAll(datatableId: string, checked: boolean): TargetedAction {
+  toggleSelectAll(datatableId: string, checked: boolean): IDatatableAction {
     return {
       datatableId,
       type: MdDatatableActions.TOGGLE_SELECT_ALL,
@@ -25,7 +25,7 @@ export class MdDatatableActions {
     };
   }
 
-  toggleSelectOne(datatableId: string, selectableValue: string, checked: boolean): TargetedAction {
+  toggleSelectOne(datatableId: string, selectableValue: string, checked: boolean): IDatatableAction {
     return {
       datatableId,
       type: MdDatatableActions.TOGGLE_SELECT_ONE,
@@ -36,7 +36,7 @@ export class MdDatatableActions {
     };
   }
 
-  toggleSortColumn(datatableId: string, sortBy: string): TargetedAction {
+  toggleSortColumn(datatableId: string, sortBy: string): IDatatableAction {
     return {
       datatableId,
       type: MdDatatableActions.TOGGLE_SORT_COLUMN,

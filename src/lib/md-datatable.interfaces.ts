@@ -1,8 +1,8 @@
-import { Action } from '@ngrx/store';
-
-// wrap datatableId in Action to target a specific datatable
-export interface TargetedAction extends Action {
+// Redux inspired interfaces
+export interface IDatatableAction {
   datatableId: string;
+  type: string;
+  payload?: any;
 }
 
 export interface IDatatablesState {
@@ -17,6 +17,9 @@ export interface IDatatableState {
   sortType?: DatatableSortType;
 }
 
+export type IDatatableReducer = (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
+
+// public events
 export interface IDatatableSelectionEvent {
   allRowsSelected: boolean;
   selectedValues: string[];
@@ -32,6 +35,7 @@ export interface IDatatablePaginationEvent {
   itemsPerPage: number;
 }
 
+// public enums
 export enum DatatableSortType {
   None,
   Ascending,

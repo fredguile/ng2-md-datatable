@@ -6,14 +6,13 @@ import path = require('path');
 import minimist = require('minimist');
 
 import { execTask, cleanTask } from '../task_helpers';
-import { DIST_ROOT } from '../constants';
+import { DIST_COMPONENTS_ROOT } from '../constants';
 
 const argv = minimist(process.argv.slice(3));
 
 task(':build:release:clean-spec', cleanTask('dist/**/*.spec.*'));
 
 task('build:release', function (done: () => void) {
-  // Synchronously run those tasks.
   gulpRunSequence(
     'clean',
     ':build:components:ngc',
@@ -28,11 +27,9 @@ task(':publish:whoami', execTask('npm', ['whoami'], {
   errMessage: 'You must be logged in to publish.'
 }));
 
-task(':publish:logout', execTask('npm', ['logout']));
-
-
 function _execNpmPublish(label: string): Promise<void> {
-  const packageDir = DIST_ROOT;
+  const packageDir = DIST_COMPONENTS_ROOT;
+
   if (!statSync(packageDir).isDirectory()) {
     return;
   }
@@ -46,7 +43,7 @@ function _execNpmPublish(label: string): Promise<void> {
 
   const command = 'npm';
   const args = ['publish', '--access', 'public', label ? `--tag` : undefined, label || undefined];
-  return new Promise((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     console.log(`  Executing "${command} ${args.join(' ')}"...`);
     if (argv['dry']) {
       resolve();
@@ -83,11 +80,10 @@ task(':publish', function (done: (err?: any) => void) {
   }
   console.log('\n\n');
 
-  // Publish only the material package.
-  return _execNpmPublish(label)
-    .then(() => done())
+  _execNpmPublish(label)
     .catch((err: Error) => done(err))
-    .then(() => process.chdir(currentDir));
+    .then(() => process.chdir(currentDir))
+    .then(done);
 });
 
 task('publish', function (done: () => void) {
@@ -95,7 +91,6 @@ task('publish', function (done: () => void) {
     ':publish:whoami',
     'build:release',
     ':publish',
-    ':publish:logout',
     done
   );
 });

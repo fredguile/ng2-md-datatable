@@ -6,5 +6,7 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/observeOn';
+import 'rxjs/add/operator/pluck';
+import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/takeUntil';
-import '@ngrx/core/add/operator/select';
+import 'rxjs/add/operator/withLatestFrom';

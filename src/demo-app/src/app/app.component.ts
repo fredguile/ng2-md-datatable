@@ -21,15 +21,14 @@ import {
   IDatatableSortEvent,
   IDatatablePaginationEvent,
   DatatableSortType,
-} from '../../../dist';
+} from '../../../../dist/ng2-md-datatable';
 
 import { TShirt } from './app.interfaces';
 import { AppService } from './app.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'ng2-md-demo-app',
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'Demo App: T-Shirts';
