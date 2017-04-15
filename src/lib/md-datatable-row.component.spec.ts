@@ -1,6 +1,5 @@
-import './rx-operators';
 import { async, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '@angular/material';
+import { MdCheckboxModule } from '@angular/material';
 
 import { MdDataTableRowComponent } from './md-datatable-row.component';
 import {
@@ -16,7 +15,7 @@ describe('MdDataTableRowComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule,
+        MdCheckboxModule,
       ],
       declarations: [
         MdDataTableRowComponent,

@@ -10,6 +10,8 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/let';
+import 'rxjs/add/operator/takeUntil';
 
 import { BaseComponent } from './helpers';
 import { MdDataTableComponent } from './md-datatable.component';

@@ -1,4 +1,6 @@
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/pluck';
 
 import {
   IDatatablesState,
@@ -75,9 +77,9 @@ export function datatableReducer(datatablesState: IDatatablesState, action: IDat
       if (action.payload !== sortBy) {
         return Object.assign({}, datatablesState, {
           [datatableId]: {
-            allRowsSelected,
+            allRowsSelected: false,
             selectableValues,
-            selectedValues,
+            selectedValues: [],
             sortBy: action.payload,
             sortType: DatatableSortType.Ascending,
           }
@@ -99,9 +101,9 @@ export function datatableReducer(datatablesState: IDatatablesState, action: IDat
 
       return Object.assign({}, datatablesState, {
         [datatableId]: {
-          allRowsSelected,
+          allRowsSelected: false,
           selectableValues,
-          selectedValues,
+          selectedValues: [],
           sortBy,
           sortType: newSortType,
         }
