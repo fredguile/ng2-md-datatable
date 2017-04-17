@@ -1,4 +1,3 @@
-export * from './rx-operators';
 export * from './helpers';
 export * from './md-datatable.module';
 export * from './md-datatable.interfaces';

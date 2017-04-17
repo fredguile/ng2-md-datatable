@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@angular/material';
+import { MdCheckboxModule, MdSelectModule, MdButtonModule, MdIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 import { MdDataTableComponent } from './md-datatable.component';
@@ -26,8 +26,11 @@ import { MdDatatableActions } from './md-datatable.actions';
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
     FormsModule,
+    MdCheckboxModule,
+    MdSelectModule,
+    MdButtonModule,
+    MdIconModule,
   ],
   declarations: [
     MdDataTableComponent,

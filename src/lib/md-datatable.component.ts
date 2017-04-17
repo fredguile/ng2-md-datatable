@@ -8,9 +8,13 @@ import {
   ContentChild,
   ContentChildren,
   QueryList,
+  forwardRef,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/let';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   IDatatablesState,
@@ -51,8 +55,8 @@ export class MdDataTableComponent extends BaseComponent implements OnInit, After
   @Output() selectionChange: EventEmitter<IDatatableSelectionEvent>;
   @Output() sortChange: EventEmitter<IDatatableSortEvent>;
 
-  @ContentChild(MdDataTableHeaderComponent) headerCmp: MdDataTableHeaderComponent;
-  @ContentChildren(MdDataTableRowComponent) rowsCmp: QueryList<MdDataTableRowComponent>;
+  @ContentChild(forwardRef(() => MdDataTableHeaderComponent)) headerCmp: MdDataTableHeaderComponent;
+  @ContentChildren(forwardRef(() => MdDataTableRowComponent)) rowsCmp: QueryList<MdDataTableRowComponent>;
 
   id = `md-datatable-${instanceId++}`;
 

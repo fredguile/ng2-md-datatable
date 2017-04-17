@@ -1,7 +1,9 @@
-import { Injectable, Inject, OpaqueToken } from '@angular/core';
+import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { queue } from 'rxjs/scheduler/queue';
+import 'rxjs/add/operator/observeOn';
+import 'rxjs/add/operator/withLatestFrom';
 
 import { IDatatablesState, IDatatableAction, IDatatableReducer } from './md-datatable.interfaces';
 
@@ -21,8 +23,8 @@ export class MdDatatableDispatcher extends BehaviorSubject<IDatatableAction> {
   }
 }
 
-export const STORE_INITIAL_STATE: OpaqueToken = new OpaqueToken('ng2-md-datatable-test-initial-state');
-export const STORE_REDUCER: OpaqueToken = new OpaqueToken('ng2-md-datatable-test-reducer');
+export const STORE_INITIAL_STATE: InjectionToken<IDatatablesState> = new InjectionToken('ng2-md-datatable-test-initial-state');
+export const STORE_REDUCER: InjectionToken<Function> = new InjectionToken('ng2-md-datatable-test-reducer');
 
 @Injectable()
 export class MdDatatableStore extends Observable<IDatatablesState> {
