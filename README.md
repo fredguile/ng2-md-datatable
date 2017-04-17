@@ -13,8 +13,8 @@ This may be useful for you (or not).
 - You can use it with @ngrx/store (that's how I use it)
 
 ## Working with
-- Angular 2.x
-- Material 2 Beta 2
+- Angular 4.x
+- Material 2 Beta 3
 
 ## Installation
 To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.com/package/ng2-md-datatable):
