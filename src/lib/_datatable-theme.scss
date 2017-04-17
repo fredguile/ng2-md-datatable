@@ -1,5 +1,4 @@
-@import '~@angular/material/core/theming/all-theme';
-
+@import '~@angular/material/_theming.scss';
 @include mat-core();
 
 @mixin mat-datatable-theme($theme) {
