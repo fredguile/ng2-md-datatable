@@ -12,22 +12,25 @@
     cursor: pointer;
   }
 
-  &.sorted-ascending > span, &.sorted-descending > span {
+  &.sortable > span {
     margin-right: 5px;
   }
 
-  &.sorted-ascending > span::before {
+  &.sortable > span::after {
+    visibility: hidden;
     font-family: 'Material Icons';
     vertical-align: sub;
-    padding-right: 5px;
-    content: '⬇';
+    padding-left: 5px;
+    content: '\E5DB';
   }
 
-  &.sorted-descending > span::before {
-    font-family: 'Material Icons';
-    vertical-align: sub;
-    padding-right: 5px;
-    content: '⬆';
+  &.sorted-ascending > span::after {
+    visibility: visible;
+  }
+
+  &.sorted-descending > span::after {
+    visibility: visible;
+    content: '\E5D8';
   }
 
   &.numeric {
