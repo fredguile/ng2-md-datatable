@@ -6,7 +6,19 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { MdCheckboxModule, MdSelectModule, MdButtonModule, MdIconModule } from '@angular/material';
+
+import {
+  MdCoreModule,
+  A11yModule,
+  MdCheckboxModule,
+  MdInputModule,
+  MdSelectModule,
+  MdOptionModule,
+  MdButtonModule,
+  MdIconModule,
+  MdRippleModule,
+} from '@angular/material';
+
 import { FormsModule } from '@angular/forms';
 
 import { MdDataTableComponent } from './md-datatable.component';
@@ -27,10 +39,15 @@ import { MdDatatableActions } from './md-datatable.actions';
   imports: [
     CommonModule,
     FormsModule,
+    MdCoreModule,
+    A11yModule,
     MdCheckboxModule,
+    MdInputModule,
     MdSelectModule,
+    MdOptionModule,
     MdButtonModule,
     MdIconModule,
+    MdRippleModule,
   ],
   declarations: [
     MdDataTableComponent,

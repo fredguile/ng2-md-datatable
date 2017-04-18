@@ -11,7 +11,6 @@ import { Subject } from 'rxjs/Subject';
 import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/observeOn';
 import 'rxjs/add/operator/takeUntil';
 
 import {
@@ -53,18 +52,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if (this.datatable) {
       Observable.from(this.datatable.selectionChange)
-        .observeOn(async)
         .takeUntil(this.unmount$)
         .subscribe((e: IDatatableSelectionEvent) => this.currentSelection = e.selectedValues);
 
       Observable.from(this.datatable.sortChange)
-        .observeOn(async)
         .takeUntil(this.unmount$)
         .subscribe((e: IDatatableSortEvent) =>
           this.fetchDemoDataSource(this.currentPage, this.itemsPerPage, e.sortBy, e.sortType));
 
       Observable.from(this.pagination.paginationChange)
-        .observeOn(async)
         .takeUntil(this.unmount$)
         .subscribe((e: IDatatablePaginationEvent) =>
           this.fetchDemoDataSource(e.page, e.itemsPerPage));
