@@ -49,3 +49,6 @@ jspm_packages
 
 # karma.js
 Chrome*
+
+# AOT
+**/codegen

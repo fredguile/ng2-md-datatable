@@ -5,10 +5,8 @@ export interface IDatatableAction {
   payload?: any;
 }
 
-export enum DatatableSortType {
-  None,
-  Ascending,
-  Descending
+export interface IDatatablesState {
+  [datatableId: string]: IDatatableState;
 }
 
 export interface IDatatableState {
@@ -19,9 +17,7 @@ export interface IDatatableState {
   sortType?: DatatableSortType;
 }
 
-export interface IDatatablesState {
-  [datatableId: string]: IDatatableState;
-}
+export type IDatatableReducer = (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
 
 // public events
 export interface IDatatableSelectionEvent {
@@ -37,4 +33,11 @@ export interface IDatatableSortEvent {
 export interface IDatatablePaginationEvent {
   page: number;
   itemsPerPage: number;
+}
+
+// public enums
+export enum DatatableSortType {
+  None,
+  Ascending,
+  Descending
 }

@@ -35,7 +35,7 @@ export function config(config) {
 
       // paths loaded via Angular's component compiler
       // (these paths need to be rewritten, see proxies section)
-      { pattern: 'dist/**/*.scss', included: false, watched: false },
+      { pattern: 'dist/**/*.css', included: false, watched: true },
 
       // paths to support debugging with source maps in dev tools
       { pattern: 'dist/**/*.ts', included: false, watched: false },
@@ -48,12 +48,11 @@ export function config(config) {
       '/core/': '/base/dist/core/',
 
       // required to properly fetch ng2-md-datatable component stylesheets
-      '/mixins': '/base/dist/ng2-md-datatable/_mixins.scss',
-      '/md-datatable.component.scss': '/base/dist/ng2-md-datatable/md-datatable.component.scss',
-      '/md-datatable-column.component.scss': '/base/dist/ng2-md-datatable/md-datatable-column.component.scss',
-      '/md-datatable-header.component.scss': '/base/dist/ng2-md-datatable/md-datatable-header.component.scss',
-      '/md-datatable-pagination.component.scss': '/base/dist/ng2-md-datatable/md-datatable-pagination.component.scss',
-      '/md-datatable-row.component.scss': '/base/dist/ng2-md-datatable/md-datatable-row.component.scss',
+      '/md-datatable.component.scss': '/base/dist/ng2-md-datatable/md-datatable.component.css',
+      '/md-datatable-column.component.scss': '/base/dist/ng2-md-datatable/md-datatable-column.component.css',
+      '/md-datatable-header.component.scss': '/base/dist/ng2-md-datatable/md-datatable-header.component.css',
+      '/md-datatable-pagination.component.scss': '/base/dist/ng2-md-datatable/md-datatable-pagination.component.css',
+      '/md-datatable-row.component.scss': '/base/dist/ng2-md-datatable/md-datatable-row.component.css',
     },
 
     customLaunchers: customLaunchers,
