@@ -1,5 +1,7 @@
 # ng2-md-datatable
 
+[![CircleCI](https://circleci.com/gh/fredguile/ng2-md-datatable.svg?style=svg)](https://circleci.com/gh/fredguile/ng2-md-datatable)
+
 [Angular 2](https://github.com/angular/angular) with [Material 2](https://github.com/angular/material2) is awesome, but it's still lacking a `DataTable` component (as of November 2016).
 
 As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub.

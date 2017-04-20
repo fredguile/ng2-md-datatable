@@ -42,7 +42,7 @@ let instanceId = 0;
       <ng-content></ng-content>
     </table>
   `,
-  styleUrls: ['md-datatable.component.css']
+  styleUrls: ['md-datatable.component.scss']
 })
 export class MdDataTableComponent extends BaseComponent implements OnInit, AfterContentInit {
   isSelectable = false;
@@ -92,11 +92,9 @@ export class MdDataTableComponent extends BaseComponent implements OnInit, After
       );
 
       this.rowsCmp.changes
-        .mergeMap((query: QueryList<MdDataTableRowComponent>) => Observable
-          .of(query
-            .toArray()
-            .map((row: MdDataTableRowComponent) => row.selectableValue))
-        )
+        .map((query: QueryList<MdDataTableRowComponent>) => query
+          .toArray()
+          .map((row: MdDataTableRowComponent) => row.selectableValue))
         .takeUntil(this.unmount$)
         .subscribe((selectableValues: string[]) => this.store.dispatch(
           this.actions.updateSelectableValues(this.id, selectableValues)));

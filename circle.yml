@@ -1,0 +1,7 @@
+version: 1
+machine:
+  timezone: Europe/Berlin
+  node:
+    version: 7.9.0
+  environment:
+    NODE_ENV: test

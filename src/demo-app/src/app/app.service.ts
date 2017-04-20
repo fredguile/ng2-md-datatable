@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { DatatableSortType } from '../../../../dist/ng2-md-datatable';
+import { DatatableSortType } from '../../../lib';
 import { TShirt, PaginableTshirts } from './app.interfaces';
 
 const demoDatasource: TShirt[] = [

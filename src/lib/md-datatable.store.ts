@@ -1,14 +1,14 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { queue } from 'rxjs/scheduler/queue';
+import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/operator/observeOn';
 import 'rxjs/add/operator/withLatestFrom';
 
-import { IDatatablesState, IDatatableAction, IDatatableReducer } from './md-datatable.interfaces';
+import { IDatatablesState, IDatatableAction } from './md-datatable.interfaces';
 
 // For easing upgrading the library, I refrained myself of depending on @ngrx/store.
-// I chose the alternative if implementing a Redux Store in just these 50 LOC.
+// I chose the alternative if implementing a Redux Store in these just 50 LOC.
 
 @Injectable()
 export class MdDatatableDispatcher extends BehaviorSubject<IDatatableAction> {
@@ -23,8 +23,11 @@ export class MdDatatableDispatcher extends BehaviorSubject<IDatatableAction> {
   }
 }
 
-export const STORE_INITIAL_STATE: InjectionToken<IDatatablesState> = new InjectionToken('ng2-md-datatable-test-initial-state');
-export const STORE_REDUCER: InjectionToken<Function> = new InjectionToken('ng2-md-datatable-test-reducer');
+export const STORE_INITIAL_STATE: InjectionToken<IDatatablesState> =
+  new InjectionToken('ng2-md-datatable-test-initial-state');
+
+export const STORE_REDUCER: InjectionToken<Function> =
+  new InjectionToken('ng2-md-datatable-test-reducer');
 
 @Injectable()
 export class MdDatatableStore extends Observable<IDatatablesState> {
@@ -33,15 +36,15 @@ export class MdDatatableStore extends Observable<IDatatablesState> {
   constructor(
     private dispatcher$: MdDatatableDispatcher,
     @Inject(STORE_INITIAL_STATE) initialState: IDatatablesState,
-    @Inject(STORE_REDUCER) reducer: IDatatableReducer,
+    @Inject(STORE_REDUCER) reducer: (state: IDatatablesState, action: IDatatableAction) => IDatatablesState,
   ) {
     super();
     this.state$ = new BehaviorSubject<IDatatablesState>(initialState);
     this.source = this.state$;
 
     this.dispatcher$
-      .observeOn(queue)
       .withLatestFrom(this.source)
+      .observeOn(async)
       .subscribe(([action, state]) => this.state$.next(reducer(state, action)));
   }
 

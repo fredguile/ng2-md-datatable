@@ -7,23 +7,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { MdDataTableModule } from '../../../../dist/ng2-md-datatable';
+import { MdDataTableModule } from '../../../lib';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     MaterialModule,
-    BrowserAnimationsModule,
     MdDataTableModule,
+  ],
+  declarations: [
+    AppComponent,
   ],
   providers: [
     { provide: AppService, useClass: AppService },
   ],
-  bootstrap: [AppComponent]
+  exports: [
+    AppComponent,
+  ],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule { }
