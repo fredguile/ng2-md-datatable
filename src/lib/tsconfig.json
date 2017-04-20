@@ -1,6 +1,7 @@
 {
   "angularCompilerOptions": {
     "genDir": "../../dist/ng2-md-datatable",
+    "skipMetadataEmit": false,
     "skipTemplateCodegen": true,
     "debug": true
   },

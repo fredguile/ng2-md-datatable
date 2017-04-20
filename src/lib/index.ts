@@ -1,6 +1,7 @@
 export * from './helpers';
-export * from './md-datatable.module';
+export * from './md-datatable.tokens';
 export * from './md-datatable.interfaces';
+export * from './md-datatable.dispatcher';
 export * from './md-datatable.store';
 export * from './md-datatable.reducer';
 export * from './md-datatable.actions';
@@ -9,3 +10,4 @@ export * from './md-datatable-column.component';
 export * from './md-datatable-header.component';
 export * from './md-datatable-pagination.component';
 export * from './md-datatable-row.component';
+export * from './md-datatable.module';

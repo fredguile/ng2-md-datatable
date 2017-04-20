@@ -36,7 +36,7 @@ function inlineResources(globs) {
   /**
    * For every argument, inline the templates and styles under it and write the new file.
    */
-  return Promise.all(globs.map(pattern => {
+  return Promise.all([...globs.map(pattern => {
     if (pattern.indexOf('*') < 0) {
       // Argument is a directory target, add glob patterns to include every files.
       pattern = path.join(pattern, '**', '*');
@@ -56,7 +56,7 @@ function inlineResources(globs) {
           console.error('An error occured: ', err);
         });
     }));
-  }));
+  }), fixPackageManifest(globs[0])]);
 }
 
 /**
@@ -69,7 +69,7 @@ function inlineResourcesFromString(content, urlResolver) {
   // Curry through the inlining functions.
   return [
     inlineTemplate,
-    inlineStyle
+    inlineStyle,
   ].reduce((content, fn) => fn(content, urlResolver), content);
 }
 
@@ -109,8 +109,7 @@ function inlineStyle(content, urlResolver) {
     const urls = eval(styleUrls);
     return 'styles: ['
       + urls.map(styleUrl => {
-        const styleFile = urlResolver(styleUrl)
-          .replace(/\.scss/, '\.css');
+        const styleFile = urlResolver(styleUrl);
         const styleContent = fs.readFileSync(styleFile, 'utf-8');
         const shortenedStyle = styleContent
           .replace(/([\n\r]\s*)+/gm, ' ')
@@ -120,6 +119,14 @@ function inlineStyle(content, urlResolver) {
         .join(',\n')
       + ']';
   });
+}
+
+function fixPackageManifest(distPath) {
+  const pkgManifestPath = path.join(path.dirname(distPath + '/ng2-md-datatable'), 'package.json');
+
+  return readFile(pkgManifestPath, 'utf-8')
+    .then(content => content.replace(/dist\/ng2-md-datatable\/index\.js/, 'index.js'))
+    .then(content => writeFile(pkgManifestPath, content));
 }
 
 module.exports = inlineResources;

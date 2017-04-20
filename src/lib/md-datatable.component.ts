@@ -42,7 +42,7 @@ let instanceId = 0;
       <ng-content></ng-content>
     </table>
   `,
-  styleUrls: ['md-datatable.component.scss']
+  styleUrls: ['md-datatable.component.css']
 })
 export class MdDataTableComponent extends BaseComponent implements OnInit, AfterContentInit {
   isSelectable = false;

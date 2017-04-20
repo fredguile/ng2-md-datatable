@@ -23,6 +23,10 @@ export interface IDatatablesState {
   [datatableId: string]: IDatatableState;
 }
 
+export interface IDatatableReducer {
+  reduce: (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
+}
+
 // public events
 export interface IDatatableSelectionEvent {
   allRowsSelected: boolean;

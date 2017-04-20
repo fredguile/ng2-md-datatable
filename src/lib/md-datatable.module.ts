@@ -26,13 +26,11 @@ import { MdDataTableHeaderComponent } from './md-datatable-header.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 import { MdDataTableRowComponent } from './md-datatable-row.component';
 import { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
-import {
-  MdDatatableDispatcher,
-  MdDatatableStore,
-  STORE_INITIAL_STATE,
-  STORE_REDUCER,
-} from './md-datatable.store';
-import { datatableReducer } from './md-datatable.reducer';
+import { MdDatatableStore } from './md-datatable.store';
+import { MdDatatableDispatcher } from './md-datatable.dispatcher';
+import { MdDatatableReducer } from './md-datatable.reducer';
+import { STORE_INITIAL_STATE } from './md-datatable.tokens';
+import { IDatatablesState } from './md-datatable.interfaces';
 import { MdDatatableActions } from './md-datatable.actions';
 
 @NgModule({
@@ -58,9 +56,8 @@ import { MdDatatableActions } from './md-datatable.actions';
   ],
   providers: [
     { provide: MdDatatableDispatcher, useClass: MdDatatableDispatcher },
-    { provide: STORE_INITIAL_STATE, useValue: {} },
-    { provide: STORE_REDUCER, useValue: datatableReducer },
     { provide: MdDatatableStore, useClass: MdDatatableStore },
+    { provide: MdDatatableReducer, useClass: MdDatatableReducer },
     { provide: MdDatatableActions, useClass: MdDatatableActions },
   ],
   exports: [
@@ -72,15 +69,6 @@ import { MdDatatableActions } from './md-datatable.actions';
   ],
 })
 export class MdDataTableModule {
-  static forRoot(): ModuleWithProviders {
-    console.warn(`In the next version I'll deprecate MdDataTableModule::forRoot().
-      Please import MdDataTableModule directly.`);
-
-    return {
-      ngModule: MdDataTableModule,
-    };
-  }
-
   constructor( @Optional() @SkipSelf() parentModule: MdDataTableModule) {
     if (parentModule) {
       throw new Error('MdDataTableModule already loaded; Import in root module only.');
