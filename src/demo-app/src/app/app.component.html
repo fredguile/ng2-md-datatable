@@ -14,7 +14,7 @@
     <ng2-md-datatable-column sortableValue="size">Available size</ng2-md-datatable-column>
   </ng2-md-datatable-header>
   <tbody>
-    <ng2-md-datatable-row *ngFor="let tshirt of tshirts" [selectableValue]="tshirt.id">
+    <ng2-md-datatable-row *ngFor="let tshirt of tshirts$ | async" [selectableValue]="tshirt.id">
       <td class="numeric">{{ tshirt.id }}</td>
       <td>{{ tshirt.name }}</td>
       <td>{{ tshirt.design }}</td>
@@ -28,3 +28,5 @@
   [itemsPerPage]="itemsPerPage"
   [itemsCount]="totalCount"
   [itemsPerPageChoices]="[5, 10, 15]"></ng2-md-datatable-pagination>
+
+<a md-raised-button (click)="shuffleData()">SHUFFLE DATA</a>

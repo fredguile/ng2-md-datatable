@@ -1,23 +1,7 @@
-import {
-  NgModule,
-  ModuleWithProviders,
-  Optional,
-  SkipSelf,
-} from '@angular/core';
-
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {
-  MdCoreModule,
-  A11yModule,
-  MdCheckboxModule,
-  MdInputModule,
-  MdSelectModule,
-  MdOptionModule,
-  MdButtonModule,
-  MdIconModule,
-  MdRippleModule,
-} from '@angular/material';
+import { MdCheckboxModule, MdSelectModule, MdButtonModule, MdIconModule } from '@angular/material';
 
 import { FormsModule } from '@angular/forms';
 
@@ -36,25 +20,20 @@ import { datatableReducer } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    MdCoreModule,
-    A11yModule,
-    MdCheckboxModule,
-    MdInputModule,
-    MdSelectModule,
-    MdOptionModule,
-    MdButtonModule,
-    MdIconModule,
-    MdRippleModule,
-  ],
   declarations: [
     MdDataTableComponent,
     MdDataTableHeaderComponent,
     MdDataTableColumnComponent,
     MdDataTableRowComponent,
     MdDataTablePaginationComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MdCheckboxModule,
+    MdSelectModule,
+    MdButtonModule,
+    MdIconModule,
   ],
   providers: [
     { provide: MdDatatableDispatcher, useClass: MdDatatableDispatcher },
@@ -69,21 +48,6 @@ import { MdDatatableActions } from './md-datatable.actions';
     MdDataTableColumnComponent,
     MdDataTableRowComponent,
     MdDataTablePaginationComponent,
-  ],
+  ]
 })
-export class MdDataTableModule {
-  static forRoot(): ModuleWithProviders {
-    console.warn(`In the next version I'll deprecate MdDataTableModule::forRoot().
-      Please import MdDataTableModule directly.`);
-
-    return {
-      ngModule: MdDataTableModule,
-    };
-  }
-
-  constructor( @Optional() @SkipSelf() parentModule: MdDataTableModule) {
-    if (parentModule) {
-      throw new Error('MdDataTableModule already loaded; Import in root module only.');
-    }
-  }
-}
+export class MdDataTableModule { }

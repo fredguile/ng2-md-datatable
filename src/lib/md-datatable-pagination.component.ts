@@ -47,7 +47,7 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
       </button>
     </div>
   `,
-  styleUrls: ['md-datatable-pagination.component.css'],
+  styleUrls: ['md-datatable-pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MdDataTablePaginationComponent extends BaseComponent implements OnInit {
@@ -64,7 +64,7 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   }
 
   get lastIndexOfPage() {
-      let maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
+      const maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
       return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
   }
 

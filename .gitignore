@@ -46,3 +46,9 @@ jspm_packages
 # IDEs
 /.idea
 /.vscode
+
+# karma.js
+Chrome*
+
+# AOT
+**/codegen

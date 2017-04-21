@@ -13,7 +13,11 @@ export function config(config) {
       require('karma-sauce-launcher'),
       require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
+      require('karma-junit-reporter'),
     ],
+    client: {
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+    },
     files: [
       { pattern: 'dist/vendor/core-js/client/core.js', included: true, watched: false },
       { pattern: 'dist/vendor/systemjs/dist/system.src.js', included: true, watched: false },
@@ -44,22 +48,33 @@ export function config(config) {
       '/core/': '/base/dist/core/',
 
       // required to properly fetch ng2-md-datatable component stylesheets
-      '/md-datatable.component.css': '/base/dist/ng2-md-datatable/md-datatable.component.css',
-      '/md-datatable-column.component.css': '/base/dist/ng2-md-datatable/md-datatable-column.component.css',
-      '/md-datatable-header.component.css': '/base/dist/ng2-md-datatable/md-datatable-header.component.css',
-      '/md-datatable-pagination.component.css': '/base/dist/ng2-md-datatable/md-datatable-pagination.component.css',
-      '/md-datatable-row.component.css': '/base/dist/ng2-md-datatable/md-datatable-row.component.css',
+      '/md-datatable.component.scss': '/base/dist/ng2-md-datatable/md-datatable.component.css',
+      '/md-datatable-column.component.scss': '/base/dist/ng2-md-datatable/md-datatable-column.component.css',
+      '/md-datatable-header.component.scss': '/base/dist/ng2-md-datatable/md-datatable-header.component.css',
+      '/md-datatable-pagination.component.scss': '/base/dist/ng2-md-datatable/md-datatable-pagination.component.css',
+      '/md-datatable-row.component.scss': '/base/dist/ng2-md-datatable/md-datatable-row.component.css',
     },
 
     customLaunchers: customLaunchers,
 
     exclude: [],
     preprocessors: {},
-    reporters: ['dots'],
+    reporters: ['dots', 'junit'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+
+    junitReporter: ((testReportsDir, buildNumber) => {
+      const outputDir = testReportsDir ? `${testReportsDir}/junit` : '.';
+      const outputFile = buildNumber ? `test-result-ui-${buildNumber}.xml` : 'test-result-ui.xml';
+
+      return {
+        outputDir,
+        outputFile,
+        useBrowserName: true,
+      };
+    })(process.env.CIRCLE_TEST_REPORTS, process.env.CIRCLE_BUILD_NUM),
 
     sauceLabs: {
       testName: 'ng2MdDataTable',

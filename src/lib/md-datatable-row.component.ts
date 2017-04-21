@@ -31,7 +31,7 @@ import { MdDatatableActions } from './md-datatable.actions';
     </td>
     <ng-content></ng-content>
   `,
-  styleUrls: ['md-datatable-row.component.css'],
+  styleUrls: ['md-datatable-row.component.scss'],
 })
 export class MdDataTableRowComponent extends BaseComponent implements AfterViewInit {
   @Input() selectableValue: string;

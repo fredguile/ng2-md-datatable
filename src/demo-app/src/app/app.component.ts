@@ -8,10 +8,12 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/takeUntil';
+import { shuffle } from 'lodash-es';
 
 import {
   MdDataTableComponent,
@@ -31,7 +33,7 @@ import { AppService } from './app.service';
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'Demo App: T-Shirts';
-  tshirts: TShirt[];
+  tshirts$: Observable<TShirt[]>;
 
   currentPage: number;
   itemsPerPage: number;
@@ -43,9 +45,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MdDataTableComponent) datatable: MdDataTableComponent;
   @ViewChild(MdDataTablePaginationComponent) pagination: MdDataTablePaginationComponent;
 
+  private _tshirts$: BehaviorSubject<TShirt[]> = new BehaviorSubject<TShirt[]>([]);
   private unmount$: Subject<void> = new Subject<void>();
 
   constructor(private appService: AppService) {
+    this.tshirts$ = this._tshirts$;
     this.fetchDemoDataSource(1, 10);
   }
 
@@ -72,6 +76,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.unmount$.complete();
   }
 
+  shuffleData() {
+    const currentTshirts: TShirt[] = this._tshirts$.getValue();
+    this._tshirts$.next(shuffle(currentTshirts));
+  }
+
   private fetchDemoDataSource(
     page: number = this.currentPage,
     limit: number = this.itemsPerPage,
@@ -86,7 +95,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     const { tshirts, pagination } = this.appService
       .getDemoDatasource(page, limit, sortBy, sortType);
 
-    this.tshirts = tshirts;
+    this._tshirts$.next(tshirts);
     this.currentPage = pagination.currentPage;
     this.itemsPerPage = pagination.itemsPerPage;
     this.totalCount = pagination.totalCount;

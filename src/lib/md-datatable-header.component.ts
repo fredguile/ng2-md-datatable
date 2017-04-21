@@ -38,7 +38,7 @@ import { MdDatatableActions } from './md-datatable.actions';
       <ng-content></ng-content>
     </tr>
   `,
-  styleUrls: ['md-datatable-header.component.css']
+  styleUrls: ['md-datatable-header.component.scss']
 })
 export class MdDataTableHeaderComponent extends BaseComponent implements AfterViewInit {
   allChecked$: BehaviorSubject<boolean> = new BehaviorSubject(false);
