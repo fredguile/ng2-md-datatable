@@ -30,7 +30,7 @@ import { MdDatatableActions } from './md-datatable.actions';
 @Component({
   selector: 'ng2-md-datatable-column',
   template: '<span><ng-content></ng-content></span>',
-  styleUrls: ['md-datatable-column.component.scss'],
+  styleUrls: ['md-datatable-column.component.css'],
 })
 export class MdDataTableColumnComponent extends BaseComponent implements AfterViewInit {
   isNumeric = false;

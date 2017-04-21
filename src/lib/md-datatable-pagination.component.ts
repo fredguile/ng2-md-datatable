@@ -47,7 +47,7 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
       </button>
     </div>
   `,
-  styleUrls: ['md-datatable-pagination.component.scss'],
+  styleUrls: ['md-datatable-pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MdDataTablePaginationComponent extends BaseComponent implements OnInit {
