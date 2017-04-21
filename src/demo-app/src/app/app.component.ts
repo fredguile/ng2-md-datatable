@@ -22,7 +22,7 @@ import {
   IDatatableSortEvent,
   IDatatablePaginationEvent,
   DatatableSortType,
-} from '../../../lib';
+} from '../../../../dist/ng2-md-datatable';
 
 import { TShirt } from './app.interfaces';
 import { AppService } from './app.service';

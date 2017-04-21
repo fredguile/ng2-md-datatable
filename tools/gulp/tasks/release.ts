@@ -14,7 +14,6 @@ task(':build:release:clean-spec', cleanTask('dist/**/*.spec.*'));
 
 task('build:release', function (done: () => void) {
   gulpRunSequence(
-    'clean',
     ':build:components:ngc',
     ':build:release:clean-spec',
     done

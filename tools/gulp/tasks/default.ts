@@ -11,5 +11,4 @@ task('help', function () {
     .sort();
 
   console.log(`\nHere's a list of supported tasks:\n   `, taskList.join('\n    '));
-  console.log(`\nYou're probably looking for "test" or "serve:devapp".\n\n`);
 });

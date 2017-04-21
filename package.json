@@ -1,8 +1,9 @@
 {
   "name": "ng2-md-datatable",
-  "version": "1.3.2",
+  "version": "1.3.3-beta.2",
   "description": "Angular 2 DataTable component for using with Material 2",
-  "main": "dist/index.js",
+  "main": "dist/ng2-md-datatable/ng2-md-datatable.umd.js",
+  "es2015": "dist/ng2-md-datatable/md-datatable.module.js",
   "scripts": {
     "build": "gulp build:components",
     "lint": "gulp lint",
