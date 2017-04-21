@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   OnInit,
   Input,
@@ -64,7 +64,8 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   }
 
   get lastIndexOfPage() {
-    return this.currentPage * this.itemsPerPage;
+      let maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
+      return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
   }
 
   get isPreviousButtonEnabled() {
