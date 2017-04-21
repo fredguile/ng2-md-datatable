@@ -120,7 +120,7 @@ task(':build:components:inline', sequenceTask(
 task(':inline-resources', () => inlineResources(DIST_COMPONENTS_ROOT));
 
 /** Builds components to ESM output and UMD bundle. */
-task('build:components', sequenceTask(':build:components:inline', ':build:components:rollup'));
+task('build:components', sequenceTask('clean', ':build:components:inline', ':build:components:rollup'));
 
 /** Generates metadata.json files for all of the components. */
 task(':build:components:ngc', ['build:components'], execNodeTask(
