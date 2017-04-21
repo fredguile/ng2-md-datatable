@@ -111,7 +111,7 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   }
 
   onClickLast() {
-    const lastPage = Math.round(this.itemsCount / this.itemsPerPage);
+    const lastPage = Math.ceil(this.itemsCount / this.itemsPerPage);
 
     this.paginationChange.emit(<IDatatablePaginationEvent>{
       page: lastPage,
