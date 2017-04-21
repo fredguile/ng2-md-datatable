@@ -64,7 +64,7 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   }
 
   get lastIndexOfPage() {
-      let maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
+      const maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
       return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
   }
 
