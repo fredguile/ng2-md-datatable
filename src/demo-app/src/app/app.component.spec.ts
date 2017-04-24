@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MdDataTableModule } from 'ng2-md-datatable';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -7,13 +8,16 @@ import { AppService } from './app.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MdDataTableModule,
+      ],
       declarations: [
         AppComponent,
       ],
       providers: [
         { provide: AppService, useClass: AppService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

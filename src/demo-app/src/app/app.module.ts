@@ -8,7 +8,7 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { MdDataTableModule } from '../../../../dist/ng2-md-datatable';
+import { MdDataTableModule } from 'ng2-md-datatable';
 
 @NgModule({
   imports: [
