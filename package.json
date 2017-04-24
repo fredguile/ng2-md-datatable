@@ -3,7 +3,7 @@
   "version": "1.3.3",
   "description": "Angular 2 DataTable component for using with Material 2",
   "main": "dist/ng2-md-datatable/ng2-md-datatable.umd.js",
-  "module": "dist/ng2-md-datatable/md-datatable.module.js",
+  "module": "dist/ng2-md-datatable/index.js",
   "typings": "dist/ng2-md-datatable/index.d.ts",
   "scripts": {
     "postinstall": "gulp build:release",
@@ -95,13 +95,5 @@
     "tslint": "^5.1.0",
     "typescript": "~2.2.0",
     "zone.js": "^0.8.5"
-  },
-  "files": [
-    "*.css",
-    "*.scss",
-    "*.d.ts",
-    "*.js",
-    "*.js.map",
-    "*.json"
-  ]
+  }
 }

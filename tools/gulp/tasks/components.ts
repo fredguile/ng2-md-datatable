@@ -10,11 +10,12 @@ const inlineResources = require('../../../scripts/inline-resources');
 const rollup = require('rollup').rollup;
 
 // NOTE: there are two build "modes" in this file, based on which tsconfig is used.
-// When `tsconfig.json` is used, we are outputting ES6 modules and a UMD bundle. This is used
+// When `tsconfig-srcs.json` is used, we are outputting ES6 modules and a UMD bundle. This is used
 // for serving and for release.
 //
-// When `tsconfig-spec.json` is used, we are outputting CommonJS modules. This is used
+// When `tsconfig.json` is used, we are outputting CommonJS modules. This is used
 // for unit tests (karma).
+const tsConfigNgc = path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig-srcs.json'));
 
 /** [Watch task] Rebuilds (ESM output) whenever ts, scss, or html sources change. */
 task(':watch:components', () => {
@@ -46,6 +47,12 @@ task(':build:components:assets', copyTask([
 /** Builds scss into css. */
 task(':build:components:scss', sassBuildTask(
   DIST_COMPONENTS_ROOT, COMPONENTS_DIR, [COMPONENTS_DIR]
+));
+
+/** Builds components with resources (html, css) inlined into the built JS (ESM output). */
+task(':build:components:inline', sequenceTask(
+  [':build:components:ts', ':build:components:scss', ':build:components:assets'],
+  ':inline-resources',
 ));
 
 /** Builds the UMD bundle for all of Angular Material. */
@@ -105,12 +112,6 @@ task(':build:components:rollup', [':build:components:inline'], () => {
   });
 });
 
-/** Builds components with resources (html, css) inlined into the built JS (ESM output). */
-task(':build:components:inline', sequenceTask(
-  [':build:components:ts', ':build:components:scss', ':build:components:assets'],
-  ':inline-resources',
-));
-
 /** Inlines resources (html, css) into the JS output (for either ESM or CJS output). */
 task(':inline-resources', () => inlineResources(DIST_COMPONENTS_ROOT));
 
@@ -119,5 +120,5 @@ task('build:components', sequenceTask('clean', ':build:components:inline', ':bui
 
 /** Generates metadata.json files for all of the components. */
 task(':build:components:ngc', ['build:components'], execNodeTask(
-  '@angular/compiler-cli', 'ngc', ['-p', path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig.json'))]
+  '@angular/compiler-cli', 'ngc', ['-p', tsConfigNgc]
 ));
