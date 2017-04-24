@@ -16,11 +16,7 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/takeUntil';
 
-import {
-  IDatatablesState,
-  IDatatableSelectionEvent,
-  IDatatableSortEvent,
-} from './md-datatable.interfaces';
+import { IDatatableSelectionEvent, IDatatableSortEvent } from './md-datatable.interfaces';
 
 import { BaseComponent } from './helpers';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';

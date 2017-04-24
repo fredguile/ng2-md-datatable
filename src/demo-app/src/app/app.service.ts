@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { DatatableSortType } from '../../../../dist/ng2-md-datatable';
+import { DatatableSortType } from 'ng2-md-datatable';
 import { TShirt, PaginableTshirts } from './app.interfaces';
 
 const demoDatasource: TShirt[] = [
@@ -32,7 +32,7 @@ export class AppService {
     let tshirts;
     if (sortBy) {
       tshirts = demoDatasource
-        .sort((tshirt1, tshirt2) => {
+        .sort((tshirt1: TShirt, tshirt2: TShirt) => {
           switch (sortType) {
             case 0:
             case 1:

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MdCheckboxModule, MdSelectModule, MdButtonModule, MdIconModule } from '@angular/material';
@@ -14,9 +14,8 @@ import {
   MdDatatableDispatcher,
   MdDatatableStore,
   STORE_INITIAL_STATE,
-  STORE_REDUCER,
 } from './md-datatable.store';
-import { datatableReducer } from './md-datatable.reducer';
+import { DatatableReducer } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
 @NgModule({
@@ -38,7 +37,7 @@ import { MdDatatableActions } from './md-datatable.actions';
   providers: [
     { provide: MdDatatableDispatcher, useClass: MdDatatableDispatcher },
     { provide: STORE_INITIAL_STATE, useValue: {} },
-    { provide: STORE_REDUCER, useValue: datatableReducer },
+    { provide: DatatableReducer, useClass: DatatableReducer },
     { provide: MdDatatableStore, useClass: MdDatatableStore },
     { provide: MdDatatableActions, useClass: MdDatatableActions },
   ],
@@ -50,4 +49,10 @@ import { MdDatatableActions } from './md-datatable.actions';
     MdDataTablePaginationComponent,
   ]
 })
-export class MdDataTableModule { }
+export class MdDataTableModule {
+  constructor( @Optional() @SkipSelf() parentModule: MdDataTableModule) {
+    if (parentModule) {
+      throw new Error('MdDataTableModule already loaded; Import in root module only.');
+    }
+  }
+}

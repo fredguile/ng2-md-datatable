@@ -10,16 +10,12 @@ const inlineResources = require('../../../scripts/inline-resources');
 const rollup = require('rollup').rollup;
 
 // NOTE: there are two build "modes" in this file, based on which tsconfig is used.
-// When `tsconfig.json` is used, we are outputting ES6 modules and a UMD bundle. This is used
+// When `tsconfig-srcs.json` is used, we are outputting ES6 modules and a UMD bundle. This is used
 // for serving and for release.
 //
-// When `tsconfig-spec.json` is used, we are outputting CommonJS modules. This is used
+// When `tsconfig.json` is used, we are outputting CommonJS modules. This is used
 // for unit tests (karma).
-
-/** Path to the root of the Angular Material component library. */
-
-/** Path to the tsconfig used for ESM output. */
-const tsconfigPath = path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig.json'));
+const tsConfigNgc = path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig-srcs.json'));
 
 /** [Watch task] Rebuilds (ESM output) whenever ts, scss, or html sources change. */
 task(':watch:components', () => {
@@ -53,6 +49,12 @@ task(':build:components:scss', sassBuildTask(
   DIST_COMPONENTS_ROOT, COMPONENTS_DIR, [COMPONENTS_DIR]
 ));
 
+/** Builds components with resources (html, css) inlined into the built JS (ESM output). */
+task(':build:components:inline', sequenceTask(
+  [':build:components:ts', ':build:components:scss', ':build:components:assets'],
+  ':inline-resources',
+));
+
 /** Builds the UMD bundle for all of Angular Material. */
 task(':build:components:rollup', [':build:components:inline'], () => {
   const globals: { [name: string]: string } = {
@@ -60,6 +62,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
     '@angular/forms': 'ng.forms',
+    '@angular/http': 'ng.http',
     '@angular/platform-browser': 'ng.platformBrowser',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
     '@angular/material': 'ng.material',
@@ -68,8 +71,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     'rxjs/Observable': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/scheduler/async': 'Rx.Scheduler.async',
-    'rxjs/scheduler/queue': 'Rx.Scheduler.queue',
+    'rxjs/scheduler/async': 'Rx',
     'rxjs/add/observable/of': 'Rx.Observable',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/do': 'Rx.Observable.prototype',
@@ -91,7 +93,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     external: Object.keys(globals)
   }).then((bundle: { generate: any }) => {
     const result = bundle.generate({
-      moduleName: 'md-datatable',
+      moduleName: 'ng2-md-datatable',
       format: 'umd',
       globals,
       sourceMap: true,
@@ -110,12 +112,6 @@ task(':build:components:rollup', [':build:components:inline'], () => {
   });
 });
 
-/** Builds components with resources (html, css) inlined into the built JS (ESM output). */
-task(':build:components:inline', sequenceTask(
-  [':build:components:ts', ':build:components:scss', ':build:components:assets'],
-  ':inline-resources',
-));
-
 /** Inlines resources (html, css) into the JS output (for either ESM or CJS output). */
 task(':inline-resources', () => inlineResources(DIST_COMPONENTS_ROOT));
 
@@ -124,5 +120,5 @@ task('build:components', sequenceTask('clean', ':build:components:inline', ':bui
 
 /** Generates metadata.json files for all of the components. */
 task(':build:components:ngc', ['build:components'], execNodeTask(
-  '@angular/compiler-cli', 'ngc', ['-p', tsconfigPath]
+  '@angular/compiler-cli', 'ngc', ['-p', tsConfigNgc]
 ));

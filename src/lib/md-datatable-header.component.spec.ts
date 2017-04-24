@@ -6,9 +6,8 @@ import {
   MdDatatableDispatcher,
   MdDatatableStore,
   STORE_INITIAL_STATE,
-  STORE_REDUCER,
 } from './md-datatable.store';
-import { datatableReducer } from './md-datatable.reducer';
+import { DatatableReducer } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
 
 describe('MdDataTableHeaderComponent', () => {
@@ -22,7 +21,7 @@ describe('MdDataTableHeaderComponent', () => {
       ],
       providers: [
         { provide: STORE_INITIAL_STATE, useValue: {} },
-        { provide: STORE_REDUCER, useValue: datatableReducer },
+        { provide: DatatableReducer, useClass: DatatableReducer },
         { provide: MdDatatableDispatcher, useClass: MdDatatableDispatcher },
         { provide: MdDatatableStore, useClass: MdDatatableStore },
         { provide: MdDatatableActions, useClass: MdDatatableActions },

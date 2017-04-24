@@ -17,7 +17,6 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/takeUntil';
 
 import { BaseComponent } from './helpers';
-import { IDatatablesState } from './md-datatable.interfaces';
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDatatableStore } from './md-datatable.store';
 import { isRowSelected } from './md-datatable.reducer';
@@ -59,11 +58,12 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
     }
 
     // propagate clicks on the whole row (except on links) to MdCheckbox
-    if (this.selectable && this.checkboxCmp && event.target['nodeName'] !== 'A') {
+    if (this.selectable && this.checkboxCmp && (<any>(event.target))['nodeName'] !== 'A') {
       event.preventDefault();
       this.checkboxCmp.toggle();
-      this.store
-        .dispatch(this.actions.toggleSelectOne(this.datatableId, this.selectableValue, this.checkboxCmp.checked));
+      this.store.dispatch(
+        this.actions.toggleSelectOne(this.datatableId, this.selectableValue, this.checkboxCmp.checked)
+      );
     }
   }
 
@@ -76,7 +76,7 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
   }
 
   ngAfterViewInit() {
-    this.datatableId = this.table ? this.table.id : undefined;
+    this.datatableId = this.table!.id;
 
     this.store
       .let(isRowSelected(this.datatableId, this.selectableValue))
@@ -85,7 +85,8 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
   }
 
   onCheckboxChange(event: MdCheckboxChange) {
-    this.store
-      .dispatch(this.actions.toggleSelectOne(this.datatableId, this.selectableValue, event.checked));
+    this.store.dispatch(
+      this.actions.toggleSelectOne(this.datatableId, this.selectableValue, event.checked)
+    );
   }
 }

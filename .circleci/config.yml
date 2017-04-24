@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: markadams/chromium-xvfb-js
+        environment:
+          TZ: "/usr/share/zoneinfo/Europe/Berlin"
+    environment:
+      TZ: "/usr/share/zoneinfo/Europe/Berlin"
+      NODE_ENV: test
+    working_directory: /tmp/ng2-md-datatable
+    steps:
+      - run:
+          name: Installing Git and SSH client
+          command: apt-get update && apt-get install -y git openssh-client
+      - checkout
+      - run:
+          name: Installing Angular-CLI as global NPM
+          command: npm install -g @angular/cli@~1.0.0
+      - run:
+          name: Installing Gulp as global NPM
+          command: npm install -g gulp-cli@^1.0.0
+      - restore_cache:
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum "src/demo-app/package.json" }}
+      - run:
+          name: Installing ng2-md-datatable dependencies
+          command: npm install
+      - run:
+          name: Building ng2-md-datatable binaries
+          command: gulp build:release
+      - run:
+          name: Installing Demo app dependencies
+          working_directory: /tmp/ng2-md-datatable/src/demo-app
+          command: npm install
+      - run:
+          name: Verifying Demo app AOT Compilation
+          working_directory: /tmp/ng2-md-datatable/src/demo-app
+          command: ng build --aot
+      - run:
+          name: Runing UI integration tests using Chromium (headless)
+          working_directory: /tmp/ng2-md-datatable/src/demo-app
+          command: ng test --single-run --browsers Chromium --reporters junit
+      - save_cache:
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum "src/demo-app/package.json" }}
+          paths:
+            - /tmp/ng2-md-datatable/node_modules
+            - /tmp/ng2-md-datatable/src/demo-app/node_modules
+      - store_artifacts:
+          path: /tmp/test-reports/junit
+      - store_test_results:
+          path: /tmp/test-reports/junit

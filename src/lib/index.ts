@@ -1,11 +1,13 @@
-export * from './helpers';
-export * from './md-datatable.module';
-export * from './md-datatable.interfaces';
-export * from './md-datatable.store';
-export * from './md-datatable.reducer';
-export * from './md-datatable.actions';
-export * from './md-datatable.component';
-export * from './md-datatable-column.component';
-export * from './md-datatable-header.component';
-export * from './md-datatable-pagination.component';
-export * from './md-datatable-row.component';
+export {
+  IDatatableSelectionEvent,
+  IDatatableSortEvent,
+  IDatatablePaginationEvent,
+  DatatableSortType,
+} from './md-datatable.interfaces';
+
+export { MdDataTablePaginationComponent } from './md-datatable-pagination.component';
+export { MdDataTableComponent } from './md-datatable.component';
+export { MdDataTableColumnComponent } from './md-datatable-column.component';
+export { MdDataTableHeaderComponent } from './md-datatable-header.component';
+export { MdDataTableRowComponent } from './md-datatable-row.component';
+export { MdDataTableModule } from './md-datatable.module';

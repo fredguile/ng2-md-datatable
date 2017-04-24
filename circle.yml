@@ -1,5 +1,0 @@
-version: 1
-machine:
-  timezone: Europe/Berlin
-  environment:
-    NODE_ENV: test
