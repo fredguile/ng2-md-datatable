@@ -16,12 +16,7 @@ import 'rxjs/add/operator/takeUntil';
 import { BaseComponent } from './helpers';
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableHeaderComponent } from './md-datatable-header.component';
-
-import {
-  IDatatablesState,
-  IDatatableSortEvent,
-  DatatableSortType
-} from './md-datatable.interfaces';
+import { IDatatableSortEvent, DatatableSortType } from './md-datatable.interfaces';
 
 import { MdDatatableStore } from './md-datatable.store';
 import { getCurrentSort } from './md-datatable.reducer';
@@ -42,10 +37,8 @@ export class MdDataTableColumnComponent extends BaseComponent implements AfterVi
   }
 
   private datatableId: string;
-  private sort$: BehaviorSubject<IDatatableSortEvent> = new BehaviorSubject(<IDatatableSortEvent>{
-    sortBy: null,
-    sortType: DatatableSortType.None,
-  });
+  private sort$: BehaviorSubject<IDatatableSortEvent> =
+    new BehaviorSubject(<IDatatableSortEvent>{ sortType: DatatableSortType.None });
 
   @HostBinding('class.sortable')
   get sortable(): boolean {
@@ -90,7 +83,7 @@ export class MdDataTableColumnComponent extends BaseComponent implements AfterVi
   }
 
   ngAfterViewInit() {
-    this.datatableId = this.table ? this.table.id : undefined;
+    this.datatableId = this.table!.id;
 
     if (this.datatableId) {
       this.store

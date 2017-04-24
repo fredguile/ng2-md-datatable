@@ -1,12 +1,9 @@
 // Redux inspired interfaces
+
 export interface IDatatableAction {
   datatableId: string;
   type: string;
   payload?: any;
-}
-
-export interface IDatatablesState {
-  [datatableId: string]: IDatatableState;
 }
 
 export interface IDatatableState {
@@ -17,7 +14,13 @@ export interface IDatatableState {
   sortType?: DatatableSortType;
 }
 
-export type IDatatableReducer = (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
+export interface IDatatablesState {
+  [datatableId: string]: IDatatableState;
+}
+
+export interface IDatatableReducer {
+  reduce: (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
+}
 
 // public events
 export interface IDatatableSelectionEvent {
@@ -26,7 +29,7 @@ export interface IDatatableSelectionEvent {
 }
 
 export interface IDatatableSortEvent {
-  sortBy: string;
+  sortBy?: string;
   sortType: DatatableSortType;
 }
 

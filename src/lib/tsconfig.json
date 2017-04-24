@@ -2,29 +2,39 @@
   "angularCompilerOptions": {
     "genDir": "../../dist/ng2-md-datatable",
     "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
     "debug": true
   },
   "compilerOptions": {
+    "baseUrl": ".",
     "declaration": true,
-    "emitDecoratorMetadata": true,
+    "stripInternal": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
     "inlineSources": true,
-    "lib": [
-      "es6",
-      "es2015",
-      "dom"
-    ],
-    "mapRoot": "",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmitHelpers": false,
-    "noEmitOnError": true,
-    "noImplicitAny": false,
-    "outDir": "../../dist/ng2-md-datatable",
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "@angular/core": [
+        "node_modules/@angular/core"
+      ],
+      "rxjs/*": [
+        "node_modules/rxjs/*"
+      ]
+    },
     "rootDir": ".",
-    "removeComments": true,
-    "sourceMap": true,
-    "stripInternal": false,
+    "outDir": "../../dist/ng2-md-datatable",
     "target": "es5",
     "typeRoots": [
       "../../node_modules/@types"

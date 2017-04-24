@@ -32,7 +32,7 @@ export class AppService {
     let tshirts;
     if (sortBy) {
       tshirts = demoDatasource
-        .sort((tshirt1, tshirt2) => {
+        .sort((tshirt1: TShirt, tshirt2: TShirt) => {
           switch (sortType) {
             case 0:
             case 1:

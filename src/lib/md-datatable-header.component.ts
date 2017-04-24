@@ -17,13 +17,6 @@ import { BaseComponent } from './helpers';
 import { MdDataTableComponent } from './md-datatable.component';
 import { MdDataTableColumnComponent } from './md-datatable-column.component';
 
-import {
-  IDatatablesState,
-  IDatatableSelectionEvent,
-  IDatatableSortEvent,
-  DatatableSortType,
-} from './md-datatable.interfaces';
-
 import { MdDatatableStore } from './md-datatable.store';
 import { areAllRowsSelected } from './md-datatable.reducer';
 import { MdDatatableActions } from './md-datatable.actions';
@@ -58,7 +51,7 @@ export class MdDataTableHeaderComponent extends BaseComponent implements AfterVi
   }
 
   ngAfterViewInit() {
-    this.datatableId = this.table ? this.table.id : undefined;
+    this.datatableId = this.table!.id;
 
     this.store
       .let(areAllRowsSelected(this.datatableId))

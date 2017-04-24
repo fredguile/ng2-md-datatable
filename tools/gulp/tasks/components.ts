@@ -16,11 +16,6 @@ const rollup = require('rollup').rollup;
 // When `tsconfig-spec.json` is used, we are outputting CommonJS modules. This is used
 // for unit tests (karma).
 
-/** Path to the root of the Angular Material component library. */
-
-/** Path to the tsconfig used for ESM output. */
-const tsconfigPath = path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig.json'));
-
 /** [Watch task] Rebuilds (ESM output) whenever ts, scss, or html sources change. */
 task(':watch:components', () => {
   watch(path.join(COMPONENTS_DIR, '**/*.ts'), [':build:components:rollup']);
@@ -60,6 +55,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
     '@angular/forms': 'ng.forms',
+    '@angular/http': 'ng.http',
     '@angular/platform-browser': 'ng.platformBrowser',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
     '@angular/material': 'ng.material',
@@ -68,8 +64,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     'rxjs/Observable': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/scheduler/async': 'Rx.Scheduler.async',
-    'rxjs/scheduler/queue': 'Rx.Scheduler.queue',
+    'rxjs/scheduler/async': 'Rx',
     'rxjs/add/observable/of': 'Rx.Observable',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/do': 'Rx.Observable.prototype',
@@ -91,7 +86,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     external: Object.keys(globals)
   }).then((bundle: { generate: any }) => {
     const result = bundle.generate({
-      moduleName: 'md-datatable',
+      moduleName: 'ng2-md-datatable',
       format: 'umd',
       globals,
       sourceMap: true,
@@ -124,5 +119,5 @@ task('build:components', sequenceTask('clean', ':build:components:inline', ':bui
 
 /** Generates metadata.json files for all of the components. */
 task(':build:components:ngc', ['build:components'], execNodeTask(
-  '@angular/compiler-cli', 'ngc', ['-p', tsconfigPath]
+  '@angular/compiler-cli', 'ngc', ['-p', path.relative(PROJECT_ROOT, path.join(COMPONENTS_DIR, 'tsconfig.json'))]
 ));
