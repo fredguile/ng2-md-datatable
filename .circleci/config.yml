@@ -11,33 +11,33 @@ jobs:
     working_directory: /tmp/ng2-md-datatable
     steps:
       - run:
-          name: Install Git and SSH client
+          name: Installing Git and SSH client
           command: apt-get update && apt-get install -y git openssh-client
       - checkout
       - run:
-          name: Install Angular-CLI as global NPM
+          name: Installing Angular-CLI as global NPM
           command: npm install -g @angular/cli@~1.0.0
       - run:
-          name: Install Gulp as global NPM
+          name: Installing Gulp as global NPM
           command: npm install -g gulp-cli@^1.0.0
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "src/demo-app/package.json" }}
       - run:
-          name: Install ng2-md-datatable dependencies
+          name: Installing ng2-md-datatable dependencies
           command: npm install
       - run:
-          name: Build ng2-md-datatable binaries
+          name: Building ng2-md-datatable binaries
           command: gulp build:release
       - run:
-          name: Install Demo app dependencies
+          name: Installing Demo app dependencies
           working_directory: /tmp/ng2-md-datatable/src/demo-app
           command: npm install
       - run:
-          name: Verify UI AOT Compilation
+          name: Verifying Demo app AOT Compilation
           working_directory: /tmp/ng2-md-datatable/src/demo-app
           command: ng build --aot
       - run:
-          name: Run UI integration tests using Chromium (headless)
+          name: Runing UI integration tests using Chromium (headless)
           working_directory: /tmp/ng2-md-datatable/src/demo-app
           command: ng test --single-run --browsers Chromium --reporters junit
       - save_cache:
