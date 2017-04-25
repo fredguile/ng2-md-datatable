@@ -119,6 +119,12 @@ This is based on the [current guide](https://github.com/angular/material2/blob/m
 
 ## Live Demo
 
-To see `ng2-md-datatable` in action, head to `/src/demo-app` and start it with `ng serve` (don't forget to run `npm install`).
+To see `ng2-md-datatable` in action (head to `/src/demo-app`), please follow these instructions : 
+
+npm install (root folder)
+npm install gulp (root folder)
+gulp build:components
+npm install (/src/demo-app/)
+gulp build:components(/src/demo-app)
 
 You need to have `Angular CLI` installed (v1.0 or later).
