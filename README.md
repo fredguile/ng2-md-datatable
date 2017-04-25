@@ -122,7 +122,7 @@ This is based on the [current guide](https://github.com/angular/material2/blob/m
 To see `ng2-md-datatable` in action (head to `/src/demo-app`), a few steps are required:
 
 - you need Gulp (`npm install -g gulp-cli`)
-- you need `Angular-CLI` v1.0 or later
+- you need `Angular-CLI` v1.0 or later (`npm install -g @angular/cli`)
 - the demo-app currently uses the compiled library, so please run beforehand:
   * `gulp build:components` (or `gulp build:release` depending on if you plan to use AOT or not)
 - from the `demo-app` folder, run `npm install` (this will copy the binaries from the `/dist` folder in `nodes_modules`)
