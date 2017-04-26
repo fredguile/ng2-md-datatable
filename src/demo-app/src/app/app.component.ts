@@ -11,7 +11,6 @@ import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/takeUntil';
 import { shuffle } from 'lodash-es';
 
