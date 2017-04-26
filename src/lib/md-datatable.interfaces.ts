@@ -11,7 +11,7 @@ export interface IDatatableState {
   selectableValues: string[];
   selectedValues: string[];
   sortBy?: string;
-  sortType?: DatatableSortType;
+  sortType: DatatableSortType;
 }
 
 export interface IDatatablesState {
@@ -21,6 +21,16 @@ export interface IDatatablesState {
 export interface IDatatableReducer {
   reduce: (state: IDatatablesState, action: IDatatableAction) => IDatatablesState;
 }
+
+// Redux devtools proxy interfaces
+export interface IReduxDevToolsConnection {
+  init: (state: any) => void;
+  send: (action: any, state: any, options?: Object, instanceId?: string) => void;
+}
+
+export interface IReduxDevToolsExtension {
+  connect: (options: Object) => IReduxDevToolsConnection;
+};
 
 // public events
 export interface IDatatableSelectionEvent {

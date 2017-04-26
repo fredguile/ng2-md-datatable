@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   AfterContentInit,
   Input,
   Output,
@@ -14,6 +13,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 
 import { IDatatableSelectionEvent, IDatatableSortEvent } from './md-datatable.interfaces';
@@ -40,7 +40,7 @@ let instanceId = 0;
   `,
   styleUrls: ['md-datatable.component.scss']
 })
-export class MdDataTableComponent extends BaseComponent implements OnInit, AfterContentInit {
+export class MdDataTableComponent extends BaseComponent implements AfterContentInit {
   isSelectable = false;
 
   @Input()
@@ -65,27 +65,22 @@ export class MdDataTableComponent extends BaseComponent implements OnInit, After
     this.sortChange = new EventEmitter<IDatatableSortEvent>(true);
   }
 
-  ngOnInit() {
-    // if selectable, subscribe to selection changes and emit IDatatableSelectionEvent
-    if (this.isSelectable) {
-      this.store
-        .let(getCurrentSelection(this.id))
-        .subscribe(this.selectionChange);
-    }
-
-    // subscribe to sort changes and emit IDatatableSortEvent
-    this.store
-      .let(getCurrentSort(this.id))
-      .subscribe(this.sortChange);
-  }
-
   ngAfterContentInit() {
     // when datatable is selectable, update state with selectable values from content
-    if (this.isSelectable && this.rowsCmp) {
+    if (this.isSelectable && this.headerCmp && this.rowsCmp) {
+      const currentDatatableRows: MdDataTableRowComponent[] = this.rowsCmp.toArray();
+
       this.store.dispatch(
         this.actions.updateSelectableValues(this.id,
-          this.rowsCmp.toArray().map((row: MdDataTableRowComponent) => row.selectableValue))
+          currentDatatableRows.map((row: MdDataTableRowComponent) => row.selectableValue))
       );
+
+      // subscribe to selection changes and emit IDatatableSelectionEvent
+      this.store
+        .let(getCurrentSelection(this.id))
+        .skip(1)
+        .takeUntil(this.unmount$)
+        .subscribe(this.selectionChange);
 
       this.rowsCmp.changes
         .map((query: QueryList<MdDataTableRowComponent>) => query
@@ -95,5 +90,11 @@ export class MdDataTableComponent extends BaseComponent implements OnInit, After
         .subscribe((selectableValues: string[]) => this.store.dispatch(
           this.actions.updateSelectableValues(this.id, selectableValues)));
     }
+
+    // subscribe to sort changes and emit IDatatableSortEvent
+    this.store
+      .let(getCurrentSort(this.id))
+      .takeUntil(this.unmount$)
+      .subscribe(this.sortChange);
   }
 }
