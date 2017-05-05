@@ -42,7 +42,7 @@ export class DatatableReducer implements IDatatableReducer {
       case MdDatatableActions.UPDATE_SELECTABLE_VALUES:
         return Object.assign({}, datatablesState, {
           [datatableId]: {
-            allRowsSelected,
+            allRowsSelected: action.payload.length > 0 ? allRowsSelected : false,
             selectableValues: action.payload,
             selectedValues: allRowsSelected ? action.payload : [],
             sortBy,
