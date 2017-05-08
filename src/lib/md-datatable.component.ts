@@ -7,12 +7,12 @@ import {
   ContentChild,
   ContentChildren,
   QueryList,
-  forwardRef,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/let';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 
@@ -24,10 +24,7 @@ import { MdDataTableRowComponent } from './md-datatable-row.component';
 import { MdDatatableStore } from './md-datatable.store';
 import { MdDatatableActions } from './md-datatable.actions';
 
-import {
-  getCurrentSelection,
-  getCurrentSort,
-} from './md-datatable.reducer';
+import { getCurrentSelection, getCurrentSort } from './md-datatable.reducer';
 
 let instanceId = 0;
 
@@ -48,11 +45,13 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
     this.isSelectable = val !== 'false';
   }
 
-  @Output() selectionChange: EventEmitter<IDatatableSelectionEvent>;
-  @Output() sortChange: EventEmitter<IDatatableSortEvent>;
+  @Output() selectionChange: EventEmitter<IDatatableSelectionEvent> =
+    new EventEmitter<IDatatableSelectionEvent>(false);
+  @Output() sortChange: EventEmitter<IDatatableSortEvent> =
+    new EventEmitter<IDatatableSortEvent>(false);
 
-  @ContentChild(forwardRef(() => MdDataTableHeaderComponent)) headerCmp: MdDataTableHeaderComponent;
-  @ContentChildren(forwardRef(() => MdDataTableRowComponent)) rowsCmp: QueryList<MdDataTableRowComponent>;
+  @ContentChild(MdDataTableHeaderComponent) headerCmp: MdDataTableHeaderComponent;
+  @ContentChildren(MdDataTableRowComponent) rowsCmp: QueryList<MdDataTableRowComponent>;
 
   id = `md-datatable-${instanceId++}`;
 
@@ -61,18 +60,14 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
     private actions: MdDatatableActions,
   ) {
     super();
-    this.selectionChange = new EventEmitter<IDatatableSelectionEvent>(true);
-    this.sortChange = new EventEmitter<IDatatableSortEvent>(true);
   }
 
   ngAfterContentInit() {
-    // when datatable is selectable, update state with selectable values from content
     if (this.isSelectable && this.headerCmp && this.rowsCmp) {
-      const currentDatatableRows: MdDataTableRowComponent[] = this.rowsCmp.toArray();
-
+      // when datatable is selectable, update state with selectable values from content
       this.store.dispatch(
         this.actions.updateSelectableValues(this.id,
-          currentDatatableRows.map((row: MdDataTableRowComponent) => row.selectableValue))
+          this.rowsCmp.toArray().map((row: MdDataTableRowComponent) => row.selectableValue))
       );
 
       // subscribe to selection changes and emit IDatatableSelectionEvent
@@ -82,16 +77,19 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
         .takeUntil(this.unmount$)
         .subscribe(this.selectionChange);
 
+      // update state with selectable values upon changes
       this.rowsCmp.changes
         .map((query: QueryList<MdDataTableRowComponent>) => query
           .toArray()
           .map((row: MdDataTableRowComponent) => row.selectableValue))
+        .distinctUntilChanged((values1: string[], values2: string[]) =>
+          values1.length === values2.length && JSON.stringify(values1) === JSON.stringify(values2))
         .takeUntil(this.unmount$)
         .subscribe((selectableValues: string[]) => this.store.dispatch(
           this.actions.updateSelectableValues(this.id, selectableValues)));
     }
 
-    // subscribe to sort changes and emit IDatatableSortEvent
+     // subscribe to sort changes and emit IDatatableSortEvent
     this.store
       .let(getCurrentSort(this.id))
       .takeUntil(this.unmount$)

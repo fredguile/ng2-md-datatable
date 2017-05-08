@@ -1,6 +1,6 @@
 import {
   Component,
-  AfterViewInit,
+  AfterContentInit,
   Input,
   HostBinding,
   HostListener,
@@ -27,7 +27,7 @@ import { MdDatatableActions } from './md-datatable.actions';
   template: '<span><ng-content></ng-content></span>',
   styleUrls: ['md-datatable-column.component.scss'],
 })
-export class MdDataTableColumnComponent extends BaseComponent implements AfterViewInit {
+export class MdDataTableColumnComponent extends BaseComponent implements AfterContentInit {
   isNumeric = false;
   @Input() sortableValue: string;
 
@@ -82,7 +82,7 @@ export class MdDataTableColumnComponent extends BaseComponent implements AfterVi
     super();
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.datatableId = this.table!.id;
 
     if (this.datatableId) {

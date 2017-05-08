@@ -1,6 +1,6 @@
 import {
   Component,
-  AfterViewInit,
+  AfterContentInit,
   Input,
   HostBinding,
   HostListener,
@@ -12,7 +12,6 @@ import {
 
 import { MdCheckbox, MdCheckboxChange } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/takeUntil';
 
@@ -32,7 +31,7 @@ import { MdDatatableActions } from './md-datatable.actions';
   `,
   styleUrls: ['md-datatable-row.component.scss'],
 })
-export class MdDataTableRowComponent extends BaseComponent implements AfterViewInit {
+export class MdDataTableRowComponent extends BaseComponent implements AfterContentInit {
   @Input() selectableValue: string;
   checked$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -60,9 +59,8 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
     // propagate clicks on the whole row (except on links) to MdCheckbox
     if (this.selectable && this.checkboxCmp && (<any>(event.target))['nodeName'] !== 'A') {
       event.preventDefault();
-      this.checkboxCmp.toggle();
       this.store.dispatch(
-        this.actions.toggleSelectOne(this.datatableId, this.selectableValue, this.checkboxCmp.checked)
+        this.actions.toggleSelectOne(this.datatableId, this.selectableValue, !this.isChecked)
       );
     }
   }
@@ -75,7 +73,7 @@ export class MdDataTableRowComponent extends BaseComponent implements AfterViewI
     super();
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.datatableId = this.table!.id;
 
     this.store

@@ -9,7 +9,6 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/takeUntil';
 import { shuffle } from 'lodash-es';
@@ -23,7 +22,7 @@ import {
   DatatableSortType,
 } from 'ng2-md-datatable';
 
-import { TShirt } from './app.interfaces';
+import { TShirt, Pagination } from './app.interfaces';
 import { AppService } from './app.service';
 
 @Component({
@@ -32,36 +31,40 @@ import { AppService } from './app.service';
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'Demo App: T-Shirts';
-  tshirts$: Observable<TShirt[]>;
 
-  currentPage: number;
-  itemsPerPage: number;
-  totalCount: number;
-  currentSelection: string[];
-  currentSortBy: string;
-  currentSortType: DatatableSortType;
+  tshirts$: BehaviorSubject<TShirt[]> = new BehaviorSubject([]);
+  currentSelection$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+
+  currentSortBy: string | undefined;
+  currentSortType = DatatableSortType.None;
+  currentPagination = <Pagination>{
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalCount: 0,
+  };
 
   @ViewChild(MdDataTableComponent) datatable: MdDataTableComponent;
   @ViewChild(MdDataTablePaginationComponent) pagination: MdDataTablePaginationComponent;
 
-  private _tshirts$: BehaviorSubject<TShirt[]> = new BehaviorSubject<TShirt[]>([]);
   private unmount$: Subject<void> = new Subject<void>();
 
   constructor(private appService: AppService) {
-    this.tshirts$ = this._tshirts$;
-    this.fetchDemoDataSource(1, 10);
+    this.fetchDemoDataSource();
   }
 
   ngAfterViewInit() {
     if (this.datatable) {
       Observable.from(this.datatable.selectionChange)
         .takeUntil(this.unmount$)
-        .subscribe((e: IDatatableSelectionEvent) => this.currentSelection = e.selectedValues);
+        .subscribe((e: IDatatableSelectionEvent) => this.currentSelection$.next(e.selectedValues));
 
       Observable.from(this.datatable.sortChange)
         .takeUntil(this.unmount$)
-        .subscribe((e: IDatatableSortEvent) =>
-          this.fetchDemoDataSource(this.currentPage, this.itemsPerPage, e.sortBy, e.sortType));
+        .subscribe((e: IDatatableSortEvent) => this.fetchDemoDataSource(
+          this.currentPagination.currentPage,
+          this.currentPagination.itemsPerPage,
+          e.sortBy,
+          e.sortType));
 
       Observable.from(this.pagination.paginationChange)
         .takeUntil(this.unmount$)
@@ -76,14 +79,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   shuffleData() {
-    const currentTshirts: TShirt[] = this._tshirts$.getValue();
-    this._tshirts$.next(shuffle(currentTshirts));
+    this.tshirts$.next(shuffle(this.tshirts$.getValue()));
+    this.currentSelection$.next([]);
   }
 
   private fetchDemoDataSource(
-    page: number = this.currentPage,
-    limit: number = this.itemsPerPage,
-    sortBy: string = this.currentSortBy,
+    page: number = this.currentPagination.currentPage,
+    limit: number = this.currentPagination.itemsPerPage,
+    sortBy: string | undefined = this.currentSortBy,
     sortType: DatatableSortType = this.currentSortType,
   ) {
     if (sortBy) {
@@ -91,13 +94,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       this.currentSortType = sortType;
     }
 
-    const { tshirts, pagination } = this.appService
-      .getDemoDatasource(page, limit, sortBy, sortType);
+    const { tshirts, pagination } =
+      this.appService.getDemoDatasource(page, limit, sortBy, sortType);
 
-    this._tshirts$.next(tshirts);
-    this.currentPage = pagination.currentPage;
-    this.itemsPerPage = pagination.itemsPerPage;
-    this.totalCount = pagination.totalCount;
-    this.currentSelection = [];
+    this.tshirts$.next(tshirts);
+    this.currentSelection$.next([]);
+    this.currentPagination = pagination;
   }
 }

@@ -3,7 +3,7 @@
 </h1>
 
 <h3>
-  Your current selection: {{currentSelection}}
+  Your current selection: {{ currentSelection$ | async }}
 </h3>
 
 <ng2-md-datatable selectable>
@@ -24,9 +24,9 @@
 </ng2-md-datatable>
 
 <ng2-md-datatable-pagination
-  [currentPage]="currentPage"
-  [itemsPerPage]="itemsPerPage"
-  [itemsCount]="totalCount"
+  [currentPage]="currentPagination.currentPage"
+  [itemsPerPage]="currentPagination.itemsPerPage"
+  [itemsCount]="currentPagination.totalCount"
   [itemsPerPageChoices]="[5, 10, 15]"></ng2-md-datatable-pagination>
 
 <a md-raised-button (click)="shuffleData()">SHUFFLE DATA</a>

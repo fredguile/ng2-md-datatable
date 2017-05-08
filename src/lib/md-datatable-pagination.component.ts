@@ -57,15 +57,16 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
   @Input() itemsPerPageFirstChoice = 10;
 
-  @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
+  @Output() paginationChange: EventEmitter<IDatatablePaginationEvent> =
+    new EventEmitter<IDatatablePaginationEvent>(true);
 
   get firstIndexOfPage() {
     return this.currentPage * this.itemsPerPage - this.itemsPerPage + 1;
   }
 
   get lastIndexOfPage() {
-      const maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
-      return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
+    const maxLastIndexOnPage = this.currentPage * this.itemsPerPage;
+    return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
   }
 
   get isPreviousButtonEnabled() {
@@ -74,11 +75,6 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
 
   get isNextOrLastButtonEnabled() {
     return this.lastIndexOfPage >= this.itemsCount;
-  }
-
-  constructor() {
-    super();
-    this.paginationChange = new EventEmitter<IDatatablePaginationEvent>(true);
   }
 
   ngOnInit() {
