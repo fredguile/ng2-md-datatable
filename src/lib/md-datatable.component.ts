@@ -89,6 +89,7 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
           this.actions.updateSelectableValues(this.id, selectableValues)));
     }
 
+     // subscribe to sort changes and emit IDatatableSortEvent
     this.store
       .let(getCurrentSort(this.id))
       .takeUntil(this.unmount$)

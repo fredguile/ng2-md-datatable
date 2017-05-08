@@ -44,9 +44,9 @@ Your datatable would look like this in a Angular 2 template:
 ```
 <ng2-md-datatable selectable>
   <ng2-md-datatable-header>
-    <ng2-md-datatable-column sortValue="article">Article</ng2-md-datatable-column>
-    <ng2-md-datatable-column sortValue="product">Product</ng2-md-datatable-column>
-    <ng2-md-datatable-column sortValue="quantity" numeric>Quantity</ng2-md-datatable-column>
+    <ng2-md-datatable-column sortableValue="article">Article</ng2-md-datatable-column>
+    <ng2-md-datatable-column sortableValue="product">Product</ng2-md-datatable-column>
+    <ng2-md-datatable-column sortableValue="quantity" numeric>Quantity</ng2-md-datatable-column>
   </ng2-md-datatable-header>
   <tbody>
     <ng2-md-datatable-row selectableValue="K003-0350-001">
@@ -115,7 +115,7 @@ To add `ng2-md-datatable` to your Material 2 theming file:
 @include mat-datatable-theme($theme);
 ```
 
-This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta 2.
+This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta 3.
 
 ## Live Demo
 
