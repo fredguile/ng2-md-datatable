@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { async } from 'rxjs/scheduler/async';
+import { asap } from 'rxjs/scheduler/asap';
 import 'rxjs/add/operator/observeOn';
 import 'rxjs/add/operator/withLatestFrom';
 
@@ -81,7 +81,7 @@ export class MdDatatableStore extends Observable<IDatatablesState> {
 
     this.dispatcher$
       .withLatestFrom(this.source)
-      .observeOn(async)
+      .observeOn(asap)
       .subscribe(([action, state]) => {
         const newState: IDatatablesState = reducer.reduce(state, action);
         this.state$.next(newState);

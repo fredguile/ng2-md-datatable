@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { DatatableSortType } from 'ng2-md-datatable';
-import { TShirt, PaginableTshirts } from './app.interfaces';
+import { TShirt, PaginableTshirts, Pagination } from './app.interfaces';
 
 const demoDatasource: TShirt[] = [
   { id: 1, name: 'State Street Bridge', design: 'Julia Kuo', size: 'M' },
@@ -52,7 +52,7 @@ export class AppService {
 
     return {
       tshirts,
-      pagination: {
+      pagination: <Pagination>{
         currentPage: page,
         itemsPerPage: limit,
         totalCount: demoDatasource.length,

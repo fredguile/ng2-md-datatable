@@ -44,7 +44,7 @@ export class DatatableReducer implements IDatatableReducer {
           [datatableId]: {
             allRowsSelected: action.payload.length > 0 ? allRowsSelected : false,
             selectableValues: action.payload,
-            selectedValues: allRowsSelected ? action.payload : [],
+            selectedValues: action.payload.length > 0 && allRowsSelected ? action.payload : [],
             sortBy,
             sortType,
           },
@@ -137,9 +137,9 @@ export function areAllRowsSelected(datatableId: string): (state$: Observable<IDa
 /** @internal */
 export function isRowSelected(datatableId: string, selectableValue: string): (state$: Observable<IDatatablesState>) => Observable<boolean> {
   return (state$: Observable<IDatatablesState>) => getDatatableState(datatableId)(state$)
-    .pluck('selectedValues')
-    .distinctUntilChanged()
-    .map((selectedValues: string) => selectedValues.includes(selectableValue));
+    .map((datatableState: IDatatableState) =>
+      datatableState.allRowsSelected || datatableState.selectedValues.includes(selectableValue))
+    .distinctUntilChanged();
 }
 
 /** @internal */

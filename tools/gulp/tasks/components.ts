@@ -71,7 +71,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     'rxjs/Observable': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/scheduler/async': 'Rx',
+    'rxjs/scheduler/asap': 'Rx',
     'rxjs/add/observable/of': 'Rx.Observable',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/filter': 'Rx.Observable.prototype',
@@ -82,6 +82,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     'rxjs/add/operator/pluck': 'Rx.Observable.prototype',
     'rxjs/add/operator/scan': 'Rx.Observable.prototype',
     'rxjs/add/operator/skip': 'Rx.Observable.prototype',
+    'rxjs/add/operator/take': 'Rx.Observable.prototype',
     'rxjs/add/operator/takeUntil': 'Rx.Observable.prototype',
     'rxjs/add/operator/withLatestFrom': 'Rx.Observable.prototype',
   };
