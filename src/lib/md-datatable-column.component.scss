@@ -12,15 +12,12 @@
     cursor: pointer;
   }
 
-  &.sortable > span {
-    margin-left: 5px;
-  }
-
   &.sortable > span::before {
     visibility: hidden;
+    position: relative;
+    left: -5px;
     font-family: 'Material Icons';
     vertical-align: sub;
-    padding-right: 5px;
     content: '';
   }
 

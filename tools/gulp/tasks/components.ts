@@ -71,7 +71,7 @@ task(':build:components:rollup', [':build:components:inline'], () => {
     'rxjs/Observable': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/scheduler/asap': 'Rx',
+    'rxjs/scheduler/queue': 'Rx',
     'rxjs/add/observable/of': 'Rx.Observable',
     'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
     'rxjs/add/operator/filter': 'Rx.Observable.prototype',

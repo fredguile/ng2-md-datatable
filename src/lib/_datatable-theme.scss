@@ -52,21 +52,15 @@
   ng2-md-datatable-column {
     width: $cell-width;
     padding-left: $datatable-column-padding;
-    font-size: 12px;
     color: rgba(#000, 0.54);
     font-weight: 600;
 
     &.sorted-ascending, &.sorted-descending {
-      color: mat-color($foreground, text);
+      color: rgba(#000, 0.87);
 
       &::before {
+        color: $datatable-header-sorted-icon-hover-color;
         font-size: $datatable-header-sort-icon-size;
-      }
-
-      &:hover {
-        &::before {
-          color: $datatable-header-sorted-icon-hover-color;
-        }
       }
     }
 
@@ -92,7 +86,6 @@
       padding: 0;
       padding-left: $datatable-column-padding;
       width: $cell-width;
-      font-size: 13px;
       font-weight: 400;
       color:rgba(#000, 0.87);
 
@@ -130,7 +123,7 @@
             right: 24px;
             font-weight: 400;
             color: #5c5c5c;
-            font-size: 12px;
+            font-size: $datatable-font-size;
         }
 
         .mat-select-underline {
