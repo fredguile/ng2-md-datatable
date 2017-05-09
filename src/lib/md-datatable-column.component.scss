@@ -13,22 +13,22 @@
   }
 
   &.sortable > span {
-    margin-right: 5px;
+    margin-left: 5px;
   }
 
-  &.sortable > span::after {
+  &.sortable > span::before {
     visibility: hidden;
     font-family: 'Material Icons';
     vertical-align: sub;
-    padding-left: 5px;
+    padding-right: 5px;
     content: '';
   }
 
-  &.sorted-ascending > span::after {
+  &.sorted-ascending > span::before {
     visibility: visible;
   }
 
-  &.sorted-descending > span::after {
+  &.sorted-descending > span::before {
     visibility: visible;
     content: '';
   }

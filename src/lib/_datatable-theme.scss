@@ -52,7 +52,8 @@
   ng2-md-datatable-column {
     width: $cell-width;
     padding-left: $datatable-column-padding;
-    color: #5c5c5c;
+    font-size: 12px;
+    color: rgba(#000, 0.54);
     font-weight: 600;
 
     &.sorted-ascending, &.sorted-descending {
@@ -93,7 +94,7 @@
       width: $cell-width;
       font-size: 13px;
       font-weight: 400;
-      color: #1a1a1a;
+      color:rgba(#000, 0.87);
 
       &.md-data-check-cell {
         width: $check-cell-width;
