@@ -7,6 +7,7 @@ import {
   ContentChild,
   ContentChildren,
   QueryList,
+  forwardRef,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -50,8 +51,8 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
   @Output() sortChange: EventEmitter<IDatatableSortEvent> =
     new EventEmitter<IDatatableSortEvent>(false);
 
-  @ContentChild(MdDataTableHeaderComponent) headerCmp: MdDataTableHeaderComponent;
-  @ContentChildren(MdDataTableRowComponent) rowsCmp: QueryList<MdDataTableRowComponent>;
+  @ContentChild(forwardRef(() => MdDataTableHeaderComponent)) headerCmp: MdDataTableHeaderComponent;
+  @ContentChildren(forwardRef(() => MdDataTableRowComponent)) rowsCmp: QueryList<MdDataTableRowComponent>;
 
   id = `md-datatable-${instanceId++}`;
 
@@ -89,7 +90,7 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
           this.actions.updateSelectableValues(this.id, selectableValues)));
     }
 
-     // subscribe to sort changes and emit IDatatableSortEvent
+    // subscribe to sort changes and emit IDatatableSortEvent
     this.store
       .let(getCurrentSort(this.id))
       .takeUntil(this.unmount$)

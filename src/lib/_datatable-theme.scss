@@ -9,22 +9,22 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  $datatable-font-size: rem(1.3) !default;
-  $datatable-header-font-size: rem(1.2) !default;
-  $datatable-header-sort-icon-size: rem(1.6) !default;
+  $datatable-font-size: .8rem !default;
+  $datatable-header-font-size: .75rem !default;
+  $datatable-header-sort-icon-size: .95rem !default;
 
   $datatable-header-sorted-icon-hover-color: rgba(#000, 0.38) !default;
-  $datatable-divider-color: rgba(#000, 0.12) !default;
+  $datatable-divider-color: rgba(#000, 0.08) !default;
 
   $check-cell-width: auto !default;
   $cell-width: auto;
 
   $datatable-dividers: 1px solid $datatable-divider-color !default;
 
-  $datatable-row-height: rem(4.8) !default;
-  $datatable-last-row-height: rem(5.6) !default;
-  $datatable-column-padding: rem(2.4) !default;
-  $datatable-first-column-padding: rem(2.4) !default;
+  $datatable-row-height: 3rem !default;
+  $datatable-last-row-height: 3.5rem !default;
+  $datatable-column-padding: 2.4rem !default;
+  $datatable-first-column-padding: 2.4rem !default;
 
   ng2-md-datatable > table {
     font-size: $datatable-font-size;
@@ -58,7 +58,7 @@
     &.sorted-ascending, &.sorted-descending {
       color: rgba(#000, 0.87);
 
-      &::before {
+      span::before {
         color: $datatable-header-sorted-icon-hover-color;
         font-size: $datatable-header-sort-icon-size;
       }

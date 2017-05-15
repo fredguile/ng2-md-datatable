@@ -27,7 +27,7 @@ import { AppService } from './app.service';
 
 @Component({
   selector: 'ng2-md-demo-app',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'Demo App: T-Shirts';
@@ -39,7 +39,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   currentSortType = DatatableSortType.None;
   currentPagination = <Pagination>{
     currentPage: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 8,
     totalCount: 0,
   };
 

@@ -6,9 +6,9 @@
   @include justify-content(flex-end);
   @include align-items(center);
 
-  font-weight: 400;
   color: #5c5c5c;
-  font-size: 12px;
+  font-weight: 400;
+  font-size: .8rem;
 }
 
 .pagination__controls {
