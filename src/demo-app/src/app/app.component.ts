@@ -28,6 +28,7 @@ import { AppService } from './app.service';
 @Component({
   selector: 'ng2-md-demo-app',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'Demo App: T-Shirts';

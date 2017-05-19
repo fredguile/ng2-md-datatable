@@ -2,9 +2,10 @@
 
 :host {
   @include flexbox;
-  @include flex-flow(row nowrap);
+  @include flex-flow(row wrap);
   @include justify-content(flex-end);
   @include align-items(center);
+  @include align-self(stretch);
 
   color: #5c5c5c;
   font-weight: 400;

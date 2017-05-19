@@ -23,10 +23,12 @@
   </tbody>
 </ng2-md-datatable>
 
+<a md-mini-fab class="demoApp__shuffle" title="Shuffle data!" (click)="shuffleData()">
+  <md-icon>shuffle</md-icon>
+</a>
+
 <ng2-md-datatable-pagination
   [currentPage]="currentPagination.currentPage"
   [itemsPerPage]="currentPagination.itemsPerPage"
   [itemsCount]="currentPagination.totalCount"
   [itemsPerPageChoices]="[5, 10, 15]"></ng2-md-datatable-pagination>
-
-<a md-raised-button (click)="shuffleData()">SHUFFLE DATA</a>

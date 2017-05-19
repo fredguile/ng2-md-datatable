@@ -5,6 +5,7 @@
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 import { MdSelectChange } from '@angular/material';
@@ -23,24 +24,25 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
     <span class="pagination__range">{{firstIndexOfPage}}-{{lastIndexOfPage}} of {{itemsCount}}</span>
     <div class="pagination__controls">
       <button md-icon-button
+        [disabled]="isPreviousOrFirstButtonDisabled"
         (click)="onClickFirst()"
         aria-label="First">
         <md-icon>first_page</md-icon>
       </button>
       <button md-icon-button
-        [disabled]="isPreviousButtonEnabled"
+        [disabled]="isPreviousOrFirstButtonDisabled"
         (click)="onClickPrevious()"
         aria-label="Previous">
         <md-icon>navigate_before</md-icon>
       </button>
       <button md-icon-button
-        [disabled]="isNextOrLastButtonEnabled"
+        [disabled]="isNextOrLastButtonDisabled"
         (click)="onClickNext()"
         aria-label="Next">
         <md-icon>navigate_next</md-icon>
       </button>
       <button md-icon-button
-        [disabled]="isNextOrLastButtonEnabled"
+        [disabled]="isNextOrLastButtonDisabled"
         (click)="onClickLast()"
         aria-label="Last">
         <md-icon>last_page</md-icon>
@@ -58,7 +60,11 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   @Input() itemsPerPageFirstChoice = 10;
 
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent> =
-    new EventEmitter<IDatatablePaginationEvent>(true);
+  new EventEmitter<IDatatablePaginationEvent>(true);
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+    super();
+  }
 
   get firstIndexOfPage() {
     return this.currentPage * this.itemsPerPage - this.itemsPerPage + 1;
@@ -69,11 +75,11 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
     return maxLastIndexOnPage >= this.itemsCount ? this.itemsCount : maxLastIndexOnPage;
   }
 
-  get isPreviousButtonEnabled() {
-    return this.firstIndexOfPage === 1;
+  get isPreviousOrFirstButtonDisabled() {
+    return this.currentPage === 1;
   }
 
-  get isNextOrLastButtonEnabled() {
+  get isNextOrLastButtonDisabled() {
     return this.lastIndexOfPage >= this.itemsCount;
   }
 
@@ -93,38 +99,39 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   }
 
   onSelectChange(event: MdSelectChange) {
-    this.paginationChange.emit(<IDatatablePaginationEvent>{
-      page: 1,
-      itemsPerPage: Number(event.value),
-    });
+    this.currentPage = 1;
+    this.itemsPerPage = Number(event.value);
+    this.changeDetectorRef.markForCheck();
+    this.emitPaginationChange();
   }
 
   onClickFirst() {
-    this.paginationChange.emit(<IDatatablePaginationEvent>{
-      page: 1,
-      itemsPerPage: this.itemsPerPage,
-    });
+    this.currentPage = 1;
+    this.changeDetectorRef.markForCheck();
+    this.emitPaginationChange();
   }
 
   onClickLast() {
-    const lastPage = Math.ceil(this.itemsCount / this.itemsPerPage);
-
-    this.paginationChange.emit(<IDatatablePaginationEvent>{
-      page: lastPage,
-      itemsPerPage: this.itemsPerPage,
-    });
+    this.currentPage = Math.ceil(this.itemsCount / this.itemsPerPage);
+    this.changeDetectorRef.markForCheck();
+    this.emitPaginationChange();
   }
 
   onClickPrevious() {
-    this.paginationChange.emit(<IDatatablePaginationEvent>{
-      page: this.currentPage - 1,
-      itemsPerPage: this.itemsPerPage,
-    });
+    this.currentPage = this.currentPage - 1;
+    this.changeDetectorRef.markForCheck();
+    this.emitPaginationChange();
   }
 
   onClickNext() {
+    this.currentPage = this.currentPage + 1;
+    this.changeDetectorRef.markForCheck();
+    this.emitPaginationChange();
+  }
+
+  private emitPaginationChange() {
     this.paginationChange.emit(<IDatatablePaginationEvent>{
-      page: this.currentPage + 1,
+      page: this.currentPage,
       itemsPerPage: this.itemsPerPage,
     });
   }
