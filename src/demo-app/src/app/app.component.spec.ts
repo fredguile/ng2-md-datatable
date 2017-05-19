@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MdIconModule } from '@angular/material';
 import { MdDataTableModule } from 'ng2-md-datatable';
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
+        MdIconModule,
         MdDataTableModule,
       ],
       declarations: [
