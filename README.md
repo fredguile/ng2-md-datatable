@@ -18,7 +18,7 @@ This may be useful for you (or not).
 
 ## Working with
 - Angular 4.x
-- Material 2 Beta 3
+- Material 2 Beta 5
 
 ## Installation
 To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.com/package/ng2-md-datatable):
