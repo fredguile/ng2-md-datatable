@@ -1,3 +1,5 @@
+/* tslint:disable:triple-equals */
+
 import {
   Component,
   AfterContentInit,
@@ -43,7 +45,7 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
 
   @Input()
   set selectable(val: any) {
-    this.isSelectable = val !== 'false';
+    this.isSelectable = val == 'true';
   }
 
   @Output() selectionChange: EventEmitter<IDatatableSelectionEvent> =
