@@ -8,7 +8,8 @@ const path = require('path');
 
 // Register TS compilation.
 require('ts-node').register({
-  project: path.join(__dirname, 'tools/gulp')
+  project: path.join(__dirname, 'tools/gulp'),
+  fast: true,
 });
 
 require('./tools/gulp/gulpfile');

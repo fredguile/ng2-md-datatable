@@ -49,10 +49,10 @@ export function tsBuildTask(tsConfigPath: string, tsConfigName = 'tsconfig.json'
       typescript: require('typescript')
     });
 
-    let pipe = tsProject.src()
+    const pipe = tsProject.src()
       .pipe(gulpSourcemaps.init())
       .pipe(tsProject());
-    let dts = pipe.dts.pipe(gulp.dest(dest));
+    const dts = pipe.dts.pipe(gulp.dest(dest));
 
     return gulpMerge([
       dts,

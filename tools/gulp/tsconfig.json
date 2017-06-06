@@ -1,25 +1,35 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es6", "es2015"],
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noImplicitAny": true,
+    "baseUrl": "../../node_modules",
+    "rootDirs": [
+      ".",
+      "../../scripts/"
+    ],
     "outDir": "../../dist/gulp",
-    "rootDir": ".",
+    "lib": [
+      "es6",
+      "es2015"
+    ],
     "sourceMap": true,
-    "target": "es5",
     "inlineSources": true,
     "stripInternal": true,
-    "baseUrl": "",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "allowJs": true,
     "typeRoots": [
       "../../node_modules/@types"
     ],
     "types": [
-      "node"
+      "gulp",
+      "merge2",
+      "minimist",
+      "run-sequence"
     ]
   }
 }

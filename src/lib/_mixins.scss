@@ -158,9 +158,11 @@
 	-moz-align-self: $value;
 	@if $value == flex-start {
 		-ms-flex-item-align: start;
-	} @else if $value == flex-end {
+	}
+  @else if $value == flex-end {
 		-ms-flex-item-align: end;
-	} @else {
+	}
+  @else {
 		-ms-flex-item-align: $value;
 	}
 	align-self: $value;

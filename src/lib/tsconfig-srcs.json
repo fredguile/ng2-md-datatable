@@ -6,27 +6,28 @@
     "debug": true
   },
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "baseUrl": "../../node_modules",
+    "rootDir": ".",
+    "outDir": "../../dist/ng2-md-datatable",
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "sourceMap": true,
+    "inlineSources": true,
     "declaration": true,
     "stripInternal": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "removeComments": true,
     "noEmitOnError": true,
-    "sourceMap": true,
-    "inlineSources": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "lib": [
-      "es2015",
-      "es2017",
-      "dom"
-    ],
-    "outDir": "../../dist/ng2-md-datatable",
-    "target": "es5",
     "typeRoots": [
       "../../node_modules/@types"
     ]

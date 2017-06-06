@@ -9,9 +9,9 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  $datatable-font-size: .8rem !default;
-  $datatable-header-font-size: .75rem !default;
-  $datatable-header-sort-icon-size: .95rem !default;
+  $datatable-font-size: 0.8rem !default;
+  $datatable-header-font-size: 0.75rem !default;
+  $datatable-header-sort-icon-size: 0.95rem !default;
 
   $datatable-header-sorted-icon-hover-color: rgba(#000, 0.38) !default;
   $datatable-divider-color: rgba(#000, 0.08) !default;
@@ -26,7 +26,7 @@
   $datatable-column-padding: 2.4rem !default;
   $datatable-first-column-padding: 2.4rem !default;
   $datatable-pagination-padding-left: 1.8rem !default;
-  $datatable-pagination-padding-right: .6rem !default;
+  $datatable-pagination-padding-right: 0.6rem !default;
 
   ng2-md-datatable > table {
     font-size: $datatable-font-size;
