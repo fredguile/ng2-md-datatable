@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -49,7 +50,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   private unmount$: Subject<void> = new Subject<void>();
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private changeDetectorRef: ChangeDetectorRef) {
     this.fetchDemoDataSource();
   }
 
@@ -82,6 +83,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   shuffleData() {
     this.tshirts$.next(shuffle(this.tshirts$.getValue()));
     this.currentSelection$.next([]);
+    this.changeDetectorRef.detectChanges();
   }
 
   private fetchDemoDataSource(
