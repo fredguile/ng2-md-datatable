@@ -85,8 +85,8 @@ Here's the pagination component:
 
   [needShowFirstArrow]="true"
   [needShowLastArrow]="true"
-  [ofText]="of"
-  [rowsPerPageText]="Rows per page:"
+  ofText="of"
+  rowsPerPageText="Rows per page:"
   >
 </ng2-md-datatable-pagination>
 ```
