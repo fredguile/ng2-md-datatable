@@ -16,14 +16,14 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
 @Component({
   selector: 'ng2-md-datatable-pagination',
   template: `
-    <span>Rows per page:</span>
+    <span>{{rowsPerPageText}}</span>
     <md-select [ngModel]="itemsPerPage" (change)="onSelectChange($event)" class="pagination__itemsPerPage">
       <md-option *ngFor="let choice of itemsPerPageChoices"
         [value]="choice">{{ choice }}</md-option>
     </md-select>
-    <span class="pagination__range">{{firstIndexOfPage}}-{{lastIndexOfPage}} of {{itemsCount}}</span>
+    <span class="pagination__range">{{firstIndexOfPage}}–{{lastIndexOfPage}} {{ofText}} {{itemsCount}}</span>
     <div class="pagination__controls">
-      <button md-icon-button
+      <button *ngIf="needShowFirstArrow" md-icon-button
         [disabled]="isPreviousOrFirstButtonDisabled"
         (click)="onClickFirst()"
         aria-label="First">
@@ -41,7 +41,7 @@ import { IDatatablePaginationEvent } from './md-datatable.interfaces';
         aria-label="Next">
         <md-icon>navigate_next</md-icon>
       </button>
-      <button md-icon-button
+      <button *ngIf="needShowLastArrow" md-icon-button
         [disabled]="isNextOrLastButtonDisabled"
         (click)="onClickLast()"
         aria-label="Last">
@@ -58,6 +58,10 @@ export class MdDataTablePaginationComponent extends BaseComponent implements OnI
   @Input() itemsCount: number;
   @Input() itemsPerPageChoices: Array<number> = [5, 10, 20, 50];
   @Input() itemsPerPageFirstChoice = 10;
+  @Input() needShowFirstArrow = true;
+  @Input() needShowLastArrow = true;
+  @Input() ofText = 'of';
+  @Input() rowsPerPageText = 'Rows per page:';
 
   @Output() paginationChange: EventEmitter<IDatatablePaginationEvent> =
   new EventEmitter<IDatatablePaginationEvent>(true);
