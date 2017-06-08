@@ -43,17 +43,21 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
 
   @Input()
   set selectable(val: any) {
-    if (typeof(val) === 'boolean') {
+    if (typeof (val) === 'boolean') {
       this.isSelectable = val;
-    } else {
-       this.isSelectable = JSON.parse(val);
+    } else if (typeof (val) === 'string' && val.length > 0) {
+      try {
+        this.isSelectable = JSON.parse(val);
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 
   @Output() selectionChange: EventEmitter<IDatatableSelectionEvent> =
-    new EventEmitter<IDatatableSelectionEvent>(false);
+  new EventEmitter<IDatatableSelectionEvent>(false);
   @Output() sortChange: EventEmitter<IDatatableSortEvent> =
-    new EventEmitter<IDatatableSortEvent>(false);
+  new EventEmitter<IDatatableSortEvent>(false);
 
   @ContentChild(forwardRef(() => MdDataTableHeaderComponent)) headerCmp: MdDataTableHeaderComponent;
   @ContentChildren(MdDataTableRowComponent) rowsCmp: QueryList<MdDataTableRowComponent>;
