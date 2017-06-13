@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/map';
@@ -87,7 +88,7 @@ export class MdDataTableComponent extends BaseComponent implements AfterContentI
         .subscribe(this.selectionChange);
 
       // update state with selectable values upon changes
-      this.rowsCmp.changes
+      Observable.from(this.rowsCmp.changes)
         .map((query: QueryList<MdDataTableRowComponent>) => query
           .toArray()
           .map((row: MdDataTableRowComponent) => row.selectableValue))
