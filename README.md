@@ -82,6 +82,11 @@ Here's the pagination component:
   [itemsCount]="700"
   [itemsPerPageChoices]="[5,10,20,50]"
   [itemsPerPageFirstChoice]="10"
+
+  [needShowFirstArrow]="true"
+  [needShowLastArrow]="true"
+  ofText="of"
+  rowsPerPageText="Rows per page:"
   >
 </ng2-md-datatable-pagination>
 ```
