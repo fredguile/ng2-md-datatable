@@ -1,0 +1,18 @@
+@import "../common/mixins";
+
+:host {
+  @include flexbox;
+  @include flex-flow(row wrap);
+  @include justify-content(flex-end);
+  @include align-items(center);
+  @include align-self(stretch);
+
+  color: #5c5c5c;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.pagination__controls {
+  display: inline-block;
+  padding: 0;
+}

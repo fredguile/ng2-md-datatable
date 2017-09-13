@@ -1,0 +1,20 @@
+<span>{{ rowsPerPageText }}</span>
+<mat-select [ngModel]="itemsPerPage" (change)="onSelectChange($event)" class="pagination__itemsPerPage">
+  <mat-option *ngFor="let choice of itemsPerPageChoices" [value]="choice">{{ choice }}</mat-option>
+</mat-select>
+<span class="pagination__range">{{ firstIndexOfPage }}–{{ lastIndexOfPage }} {{ ofText }} {{ itemsCount }}</span>
+<div class="pagination__controls">
+  <button *ngIf="needShowFirstArrow" mat-icon-button [disabled]="isPreviousOrFirstButtonDisabled" (click)="onClickFirst()"
+    aria-label="First">
+    <mat-icon>first_page</mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="isPreviousOrFirstButtonDisabled" (click)="onClickPrevious()" aria-label="Previous">
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="isNextOrLastButtonDisabled" (click)="onClickNext()" aria-label="Next">
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+  <button *ngIf="needShowLastArrow" mat-icon-button [disabled]="isNextOrLastButtonDisabled" (click)="onClickLast()" aria-label="Last">
+    <mat-icon>last_page</mat-icon>
+  </button>
+</div>

@@ -52,3 +52,6 @@ Chrome*
 
 # AOT
 **/codegen
+
+# Angular-CLI
+.ng_build

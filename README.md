@@ -6,9 +6,9 @@
 
 [Angular 2](https://github.com/angular/angular) with [Material 2](https://github.com/angular/material2) is awesome, but it's still lacking a `DataTable` component (as of November 2016).
 
-As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub.
+As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub. This may be useful for you (or not).
 
-This may be useful for you (or not).
+**Update 08/2017:** You may want to use [the official Material 2 DataTable here](https://material.angular.io/components/table/overview). But if this one still speaks more to you, no problem I'll keep it up to date with the latest Angular /  Material 2 versions.
 
 ## Features
 - Pagination Component
@@ -134,3 +134,7 @@ To see `ng2-md-datatable` in action (head to `/src/demo-app`), a few steps are r
 - then start `ng serve` or `ng serve --aot`
 
 Don't mind about the use of Observables here (and about the Shuffle button), I just wanted to test if the datatable behaved correctly with Angular async rendering.
+
+## Plunkr
+
+I've been using this Plunkr: <https://plnkr.co/edit/5lnHom0L7Zw7dEP5uyve?p=info> (but still quite work in progress).

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "rootDir": "./src"
+  },
+  "files": ["./src/public_api.ts", "./src/typings.d.ts"]
+}
