@@ -124,17 +124,16 @@ This is based on the [current guide](https://github.com/angular/material2/blob/m
 
 ## Live Demo
 
-To see `ng2-md-datatable` in action (head to `/src/demo-app`), a few steps are required:
+To see `ng2-md-datatable` in action (head to `/demo-app`), a few steps are required:
 
-- you need Gulp (`npm install -g gulp-cli`)
 - you need `Angular-CLI` v1.0 or later (`npm install -g @angular/cli`)
-- the demo-app currently uses the compiled library, so please run beforehand:
-  * `gulp build:components` (or `gulp build:release` depending on if you plan to use AOT or not)
-- from the `demo-app` folder, run `npm install` (this will copy the binaries from the `/dist` folder in `nodes_modules`)
+- from the `demo-app` folder, run `npm install`
 - then start `ng serve` or `ng serve --aot`
 
 Don't mind about the use of Observables here (and about the Shuffle button), I just wanted to test if the datatable behaved correctly with Angular async rendering.
 
 ## Plunkr
 
-I've been using this Plunkr: <https://plnkr.co/edit/5lnHom0L7Zw7dEP5uyve?p=info> (but still quite work in progress).
+I've been using this Plunkr: <https://plnkr.co/edit/5lnHom0L7Zw7dEP5uyve?p=info> 
+
+But it's still work in progress, actually I shall package a compiled CSS for styling this thing...
