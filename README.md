@@ -8,7 +8,7 @@
 
 As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub. This may be useful for you (or not).
 
-**Update 08/2017:** You may want to use [the official Material 2 DataTable here](https://material.angular.io/components/table/overview). But if this one still speaks more to you, no problem I'll keep it up to date with the latest Angular /  Material 2 versions.
+**Update 08/2017:** You may want to use [the official Material 2 DataTable here](https://material.angular.io/components/table/overview). But if this one still speaks more to you, no problem I'll keep it up to date with the latest Angular 4+/Material 2 versions.
 
 ## Features
 - Pagination Component
@@ -108,7 +108,7 @@ You should subscribe to these event emitters:
 @Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
 ```
 
-Please read **src/md-datatable.interfaces.ts** for details about the payload of each event.
+Please read **src/common/interfaces.ts** for details about the payload of each event.
 
 ## Theming
 
@@ -120,11 +120,11 @@ To add `ng2-md-datatable` to your Material 2 theming file:
 @include mat-datatable-theme($theme);
 ```
 
-This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta 3.
+This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta.
 
 ## Live Demo
 
-To see `ng2-md-datatable` in action (head to `/demo-app`), a few steps are required:
+To see `ng2-md-datatable` in action, head to `/demo-app` and:
 
 - you need `Angular-CLI` v1.0 or later (`npm install -g @angular/cli`)
 - from the `demo-app` folder, run `npm install`
@@ -134,6 +134,6 @@ Don't mind about the use of Observables here (and about the Shuffle button), I j
 
 ## Plunkr
 
-I've been using this Plunkr: <https://plnkr.co/edit/5lnHom0L7Zw7dEP5uyve?p=info> 
+Or you can open this Plunkr: <https://plnkr.co/edit/5lnHom0L7Zw7dEP5uyve?p=info> 
 
 But it's still work in progress, actually I shall package a compiled CSS for styling this thing...
