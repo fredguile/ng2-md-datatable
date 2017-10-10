@@ -30,8 +30,8 @@
   "es2015": "dist/ng2-md-datatable.js",
   "typings": "dist/ng2-md-datatable.d.ts",
   "engines": {
-    "node": ">= 6.9",
-    "npm": ">= 5.2"
+    "node": ">= 8",
+    "npm": ">= 5.3"
   },
   "scripts": {
     "clean": "rimraf tmp coverage dist",

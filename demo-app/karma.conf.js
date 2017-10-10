@@ -20,7 +20,7 @@ module.exports = function(config) {
       fixWebpackSourcePaths: true
     },
     angularCli: {
-      environment: "test"
+      environment: "dev"
     },
     reporters:
       config.angularCli && config.angularCli.codeCoverage
