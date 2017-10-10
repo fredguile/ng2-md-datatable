@@ -1,0 +1,36 @@
+@import "../common/mixins";
+
+:host {
+  display: table-cell;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: left;
+  text-overflow: ellipsis;
+  @include userSelect(none);
+
+  &.sortable:hover {
+    cursor: pointer;
+  }
+
+  &.sortable > span::before {
+    visibility: hidden;
+    position: relative;
+    left: -5px;
+    font-family: "Material Icons";
+    vertical-align: sub;
+    content: "";
+  }
+
+  &.sorted-ascending > span::before {
+    visibility: visible;
+  }
+
+  &.sorted-descending > span::before {
+    visibility: visible;
+    content: "";
+  }
+
+  &.numeric {
+    text-align: right;
+  }
+}

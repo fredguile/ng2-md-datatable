@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "outDir": "./tmp/es2015"
+  },
+  "files": [
+    "./tmp/inlined-src/public_api.ts",
+    "./tmp/inlined-src/typings.d.ts",
+    "node_modules/zone.js/dist/zone.js.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true,
+    "flatModuleOutFile": "ng2-md-datatable.js",
+    "flatModuleId": "ng2-md-datatable",
+    "annotateForClosureCompiler": true
+  }
+}

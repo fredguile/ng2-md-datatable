@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": ["es5", "es2015", "dom"],
+    "baseUrl": "./",
+    "rootDir": "./tmp/inlined-src",
+    "allowJs": false,
+    "declaration": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "sourceMap": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": [],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
