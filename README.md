@@ -97,7 +97,7 @@ As you might have noticed, these two components are not initially linked, it is 
 
 You should subscribe to these event emitters:
 
-**src/components/md-datatable.component.ts**
+**src/components/datatable.component.ts**
 ```ts
 @Output() selectionChange: EventEmitter<IDatatableSelectionEvent>;
 @Output() sortChange: EventEmitter<IDatatableSortEvent>;
