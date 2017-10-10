@@ -7,7 +7,7 @@ import {
   ViewChild
 } from "@angular/core";
 
-import { shuffle } from "lodash-es";
+import shuffle from "lodash-es/shuffle";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/takeUntil";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
@@ -19,8 +19,8 @@ import {
   IDatatablePaginationEvent,
   IDatatableSelectionEvent,
   IDatatableSortEvent,
-  MdDataTableComponent,
-  MdDataTablePaginationComponent
+  MatDataTableComponent,
+  MatDataTablePaginationComponent
 } from "ng2-md-datatable";
 
 import { IPagination, ITShirt } from "./app.interfaces";
@@ -45,9 +45,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     totalCount: 0
   } as IPagination;
 
-  @ViewChild(MdDataTableComponent) datatable: MdDataTableComponent;
-  @ViewChild(MdDataTablePaginationComponent)
-  pagination: MdDataTablePaginationComponent;
+  @ViewChild(MatDataTableComponent) datatable: MatDataTableComponent;
+  @ViewChild(MatDataTablePaginationComponent)
+  pagination: MatDataTablePaginationComponent;
 
   private unmount$: Subject<void> = new Subject<void>();
 

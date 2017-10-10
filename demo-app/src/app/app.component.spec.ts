@@ -1,7 +1,7 @@
 import { async, TestBed } from "@angular/core/testing";
-import { MdIconModule } from "@angular/material";
+import { MatButtonModule, MatIconModule } from "@angular/material";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { MdDataTableModule } from "ng2-md-datatable";
+import { MatDataTableModule } from "ng2-md-datatable";
 
 import { AppComponent } from "./app.component";
 import { AppService } from "./app.service";
@@ -10,7 +10,12 @@ describe("AppComponent", () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule, MdIconModule, MdDataTableModule],
+        imports: [
+          NoopAnimationsModule,
+          MatButtonModule,
+          MatIconModule,
+          MatDataTableModule
+        ],
         declarations: [AppComponent],
         providers: [{ provide: AppService, useClass: AppService }]
       }).compileComponents();

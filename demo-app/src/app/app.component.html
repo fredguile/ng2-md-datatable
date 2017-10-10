@@ -1,10 +1,5 @@
-<h1>
-  {{title}}
-</h1>
-
-<h3>
-  Your current selection: {{ currentSelection$ | async }}
-</h3>
+<h1>{{ title }}</h1>
+<h3>Your current selection: {{ currentSelection$ | async }}</h3>
 
 <ng2-md-datatable selectable="true">
   <ng2-md-datatable-header>
@@ -23,9 +18,12 @@
   </tbody>
 </ng2-md-datatable>
 
-<a md-mini-fab class="demoApp__shuffle" title="Shuffle data!" (click)="shuffleData()">
-  <md-icon>shuffle</md-icon>
-</a>
+<button mat-mini-fab class="demoApp__shuffle" color="accent" aria-label="Shuffle data!" (click)="shuffleData()">
+  <mat-icon aria-label="Shuffle data!">shuffle</mat-icon>
+</button>
 
-<ng2-md-datatable-pagination [currentPage]="currentPagination.currentPage" [itemsPerPage]="currentPagination.itemsPerPage"
-  [itemsCount]="currentPagination.totalCount" [itemsPerPageChoices]="[5, 10, 15]"></ng2-md-datatable-pagination>
+<ng2-md-datatable-pagination 
+  [currentPage]="currentPagination.currentPage" 
+  [itemsPerPage]="currentPagination.itemsPerPage"
+  [itemsCount]="currentPagination.totalCount" 
+  [itemsPerPageChoices]="[5, 10, 15]"></ng2-md-datatable-pagination>
