@@ -29,12 +29,12 @@ npm install --save ng2-md-datatable
 Then include it in your application's main module:
 
 ```ts
-import { MdDataTableModule } from 'ng2-md-datatable';
+import { MatDataTableModule } from 'ng2-md-datatable';
 
 @NgModule({
   imports: [
     ...
-    MdDataTableModule,
+    MatDataTableModule,
     ...
 ```
 
