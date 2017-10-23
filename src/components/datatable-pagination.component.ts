@@ -10,8 +10,8 @@ import {
 
 import { MatSelectChange } from "@angular/material";
 
+import { DatatablePaginationEvent } from "../common/events/pagination";
 import { BaseComponent } from "../common/helpers";
-import { IDatatablePaginationEvent } from "../common/interfaces";
 
 @Component({
   selector: "ng2-md-datatable-pagination",
@@ -32,8 +32,8 @@ export class MatDataTablePaginationComponent extends BaseComponent
   @Input() rowsPerPageText = "Rows per page:";
 
   @Output()
-  paginationChange: EventEmitter<IDatatablePaginationEvent> = new EventEmitter<
-    IDatatablePaginationEvent
+  paginationChange: EventEmitter<DatatablePaginationEvent> = new EventEmitter<
+    DatatablePaginationEvent
   >(true);
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
@@ -106,9 +106,8 @@ export class MatDataTablePaginationComponent extends BaseComponent
   }
 
   private emitPaginationChange() {
-    this.paginationChange.emit({
-      page: this.currentPage,
-      itemsPerPage: this.itemsPerPage
-    } as IDatatablePaginationEvent);
+    this.paginationChange.emit(
+      new DatatablePaginationEvent(this.currentPage, this.itemsPerPage)
+    );
   }
 }

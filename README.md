@@ -99,16 +99,16 @@ You should subscribe to these event emitters:
 
 **src/components/datatable.component.ts**
 ```ts
-@Output() selectionChange: EventEmitter<IDatatableSelectionEvent>;
-@Output() sortChange: EventEmitter<IDatatableSortEvent>;
+@Output() selectionChange: EventEmitter<DatatableSelectionEvent>;
+@Output() sortChange: EventEmitter<DatatableSortEvent>;
 ```
 
 **src/components/datatable-pagination.component.ts**
 ```ts
-@Output() paginationChange: EventEmitter<IDatatablePaginationEvent>;
+@Output() paginationChange: EventEmitter<DatatablePaginationEvent>;
 ```
 
-Please read **src/common/interfaces.ts** for details about the payload of each event.
+Please read **src/common/events/*.ts** for details about the payload of each event.
 
 ## Theming
 

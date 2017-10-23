@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
   ViewChild
 } from "@angular/core";
 
@@ -15,10 +14,10 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 
 import {
+  DatatablePaginationEvent,
+  DatatableSelectionEvent,
+  DatatableSortEvent,
   DatatableSortType,
-  IDatatablePaginationEvent,
-  IDatatableSelectionEvent,
-  IDatatableSortEvent,
   MatDataTableComponent,
   MatDataTablePaginationComponent
 } from "ng2-md-datatable";
@@ -62,13 +61,13 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     if (this.datatable) {
       Observable.from(this.datatable.selectionChange)
         .takeUntil(this.unmount$)
-        .subscribe((e: IDatatableSelectionEvent) =>
+        .subscribe((e: DatatableSelectionEvent) =>
           this.currentSelection$.next(e.selectedValues)
         );
 
       Observable.from(this.datatable.sortChange)
         .takeUntil(this.unmount$)
-        .subscribe((e: IDatatableSortEvent) =>
+        .subscribe((e: DatatableSortEvent) =>
           this.fetchDemoDataSource(
             this.currentPagination.currentPage,
             this.currentPagination.itemsPerPage,
@@ -79,7 +78,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
       Observable.from(this.pagination.paginationChange)
         .takeUntil(this.unmount$)
-        .subscribe((e: IDatatablePaginationEvent) =>
+        .subscribe((e: DatatablePaginationEvent) =>
           this.fetchDemoDataSource(e.page, e.itemsPerPage)
         );
     }
