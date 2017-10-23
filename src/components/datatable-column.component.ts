@@ -14,8 +14,8 @@ import "rxjs/add/operator/takeUntil";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import { DatatableSortType } from "../common/enums";
+import { DatatableSortEvent } from "../common/events/sort";
 import { BaseComponent } from "../common/helpers";
-import { IDatatableSortEvent } from "../common/interfaces";
 import { Actions } from "../store/actions";
 import { getCurrentSort } from "../store/reducer";
 import { Store } from "../store/store";
@@ -37,9 +37,9 @@ export class MatDataTableColumnComponent extends BaseComponent
   }
 
   private datatableId: string;
-  private sort$: BehaviorSubject<IDatatableSortEvent> = new BehaviorSubject({
+  private sort$: BehaviorSubject<DatatableSortEvent> = new BehaviorSubject({
     sortType: DatatableSortType.None
-  } as IDatatableSortEvent);
+  } as DatatableSortEvent);
 
   @HostBinding("class.sortable")
   get sortable(): boolean {

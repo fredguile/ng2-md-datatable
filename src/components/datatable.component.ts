@@ -18,11 +18,9 @@ import "rxjs/add/operator/skip";
 import "rxjs/add/operator/takeUntil";
 import { Observable } from "rxjs/Observable";
 
+import { DatatableSelectionEvent } from "../common/events/selection";
+import { DatatableSortEvent } from "../common/events/sort";
 import { BaseComponent } from "../common/helpers";
-import {
-  IDatatableSelectionEvent,
-  IDatatableSortEvent
-} from "../common/interfaces";
 import { Actions } from "../store/actions";
 import { getCurrentSelection, getCurrentSort } from "../store/reducer";
 import { Store } from "../store/store";
@@ -58,12 +56,12 @@ export class MatDataTableComponent extends BaseComponent
   }
 
   @Output()
-  selectionChange: EventEmitter<IDatatableSelectionEvent> = new EventEmitter<
-    IDatatableSelectionEvent
+  selectionChange: EventEmitter<DatatableSelectionEvent> = new EventEmitter<
+    DatatableSelectionEvent
   >(false);
   @Output()
-  sortChange: EventEmitter<IDatatableSortEvent> = new EventEmitter<
-    IDatatableSortEvent
+  sortChange: EventEmitter<DatatableSortEvent> = new EventEmitter<
+    DatatableSortEvent
   >(false);
 
   @ContentChild(forwardRef(() => MatDataTableHeaderComponent))
@@ -89,7 +87,7 @@ export class MatDataTableComponent extends BaseComponent
         )
       );
 
-      // subscribe to selection changes and emit IDatatableSelectionEvent
+      // subscribe to selection changes and emit DatatableSelectionEvent
       this.store
         .let(getCurrentSelection(this.id))
         .skip(1)
@@ -116,7 +114,7 @@ export class MatDataTableComponent extends BaseComponent
         );
     }
 
-    // subscribe to sort changes and emit IDatatableSortEvent
+    // subscribe to sort changes and emit DatatableSortEvent
     this.store
       .let(getCurrentSort(this.id))
       .takeUntil(this.unmount$)

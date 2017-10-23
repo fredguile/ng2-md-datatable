@@ -8,11 +8,9 @@ import { Observable } from "rxjs/Observable";
 import { DatatableSortType } from "../common/enums";
 import { Actions } from "../store/actions";
 
-import {
-  IDatatableSelectionEvent,
-  IDatatableSortEvent,
-  LibState
-} from "../common/interfaces";
+import { DatatableSelectionEvent } from "../common/events/selection";
+import { DatatableSortEvent } from "../common/events/sort";
+import { LibState } from "../common/interfaces";
 
 function initialState(selectableValues: string[] = []): LibState.IState {
   return {
@@ -163,18 +161,18 @@ export function getCurrentSelection(
   datatableId: string
 ): (
   state$: Observable<LibState.IStates>
-) => Observable<IDatatableSelectionEvent> {
+) => Observable<DatatableSelectionEvent> {
   return (state$: Observable<LibState.IStates>) =>
     getDatatableState(datatableId)(state$)
       .map(
         (state: LibState.IState) =>
-          ({
-            allRowsSelected: state.allRowsSelected,
-            selectedValues: state.selectedValues
-          } as IDatatableSelectionEvent)
+          new DatatableSelectionEvent(
+            state.allRowsSelected,
+            state.selectedValues
+          )
       )
       .distinctUntilChanged(
-        (e1: IDatatableSelectionEvent, e2: IDatatableSelectionEvent) =>
+        (e1: DatatableSelectionEvent, e2: DatatableSelectionEvent) =>
           e1.allRowsSelected === e2.allRowsSelected &&
           e1.selectedValues.length === e2.selectedValues.length
       );
@@ -182,19 +180,16 @@ export function getCurrentSelection(
 
 export function getCurrentSort(
   datatableId: string
-): (state$: Observable<LibState.IStates>) => Observable<IDatatableSortEvent> {
+): (state$: Observable<LibState.IStates>) => Observable<DatatableSortEvent> {
   return (state$: Observable<LibState.IStates>) =>
     getDatatableState(datatableId)(state$)
-      .map<LibState.IState, IDatatableSortEvent>(
+      .map<LibState.IState, DatatableSortEvent>(
         (state: LibState.IState) =>
-          ({
-            sortBy: state.sortBy,
-            sortType: state.sortType
-          } as IDatatableSortEvent)
+          new DatatableSortEvent(state.sortBy, state.sortType)
       )
-      .filter((currentSort: IDatatableSortEvent) => !!currentSort.sortBy)
+      .filter((currentSort: DatatableSortEvent) => !!currentSort.sortBy)
       .distinctUntilChanged(
-        (e1: IDatatableSortEvent, e2: IDatatableSortEvent) =>
+        (e1: DatatableSortEvent, e2: DatatableSortEvent) =>
           e1!.sortBy === e2!.sortBy && e1!.sortType === e2!.sortType
       );
 }
