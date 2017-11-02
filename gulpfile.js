@@ -91,6 +91,8 @@ const ROLLUP_GLOBALS = {
  */
 const PREP_DIST_FILES = {
   SRC: [
+    "README.md",
+    "LICENSE",
     "./src/_datatable-theme.scss",
     "./tmp/es5/ng2-md-datatable.es5.metadata.json",
     "./tmp/es2015/ng2-md-datatable.metadata.json",
