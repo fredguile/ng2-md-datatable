@@ -1,9 +1,5 @@
 import { NgModule } from "@angular/core";
-import {
-  MatButtonModule,
-  MATERIAL_COMPATIBILITY_MODE,
-  MatIconModule
-} from "@angular/material";
+import { MatButtonModule, MatIconModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatDataTableModule } from "ng2-md-datatable";
@@ -20,10 +16,7 @@ import { AppService } from "./app.service";
     MatIconModule,
     MatDataTableModule
   ],
-  providers: [
-    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true },
-    { provide: AppService, useClass: AppService }
-  ],
+  providers: [{ provide: AppService, useClass: AppService }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

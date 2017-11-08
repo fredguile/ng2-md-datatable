@@ -25,7 +25,7 @@ export function reduxDevToolsExtensionFactory(): ReduxDevTools.IExtension | null
 
   return typeof window === "object" &&
     typeof window[REDUX_DEVTOOLS_KEY] === "function"
-    ? window[REDUX_DEVTOOLS_KEY] as ReduxDevTools.IExtension
+    ? (window[REDUX_DEVTOOLS_KEY] as ReduxDevTools.IExtension)
     : null;
 }
 

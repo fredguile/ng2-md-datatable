@@ -55,10 +55,6 @@
     "pipe-naming": [true, "camelCase", "app"],
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "templates-use-public": true,
-    "no-access-missing-member": true,
-    "invoke-injectable": true,
-    "template-to-ng-template": true,
     "prettier": true
   },
   "rulesDirectory": [
