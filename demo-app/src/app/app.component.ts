@@ -8,6 +8,7 @@ import {
 
 import shuffle from "lodash-es/shuffle";
 import "rxjs/add/observable/from";
+import "rxjs/add/operator/let";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
 import { takeUntil } from "rxjs/operators";
