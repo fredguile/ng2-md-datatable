@@ -8,9 +8,10 @@ import {
 
 import shuffle from "lodash-es/shuffle";
 import "rxjs/add/observable/from";
-import "rxjs/add/operator/takeUntil";
+import "rxjs/add/operator/let";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
+import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs/Subject";
 
 import {
@@ -60,13 +61,13 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if (this.datatable) {
       Observable.from(this.datatable.selectionChange)
-        .takeUntil(this.unmount$)
+        .let(takeUntil(this.unmount$))
         .subscribe((e: DatatableSelectionEvent) =>
           this.currentSelection$.next(e.selectedValues)
         );
 
       Observable.from(this.datatable.sortChange)
-        .takeUntil(this.unmount$)
+        .let(takeUntil(this.unmount$))
         .subscribe((e: DatatableSortEvent) =>
           this.fetchDemoDataSource(
             this.currentPagination.currentPage,
@@ -77,7 +78,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         );
 
       Observable.from(this.pagination.paginationChange)
-        .takeUntil(this.unmount$)
+        .let(takeUntil(this.unmount$))
         .subscribe((e: DatatablePaginationEvent) =>
           this.fetchDemoDataSource(e.page, e.itemsPerPage)
         );
