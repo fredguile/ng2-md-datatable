@@ -1,8 +1,7 @@
 import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
-import "rxjs/add/operator/observeOn";
-import "rxjs/add/operator/withLatestFrom";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
+import { observeOn, withLatestFrom } from "rxjs/operators";
 import { queue } from "rxjs/scheduler/queue";
 
 import { LibState, ReduxDevTools } from "../common/interfaces";
@@ -67,10 +66,9 @@ export class Store extends Observable<LibState.IStates> {
     }
 
     this.dispatcher$
-      .withLatestFrom(this.source)
-      .observeOn(queue)
+      .pipe(observeOn(queue), withLatestFrom(this.source))
       .subscribe(([action, state]) => {
-        const newState: LibState.IStates = reducer.reduce(state, action);
+        const newState = reducer.reduce(state, action);
         this.state$.next(newState);
 
         if (connection) {

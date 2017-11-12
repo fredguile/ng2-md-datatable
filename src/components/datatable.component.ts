@@ -11,12 +11,8 @@ import {
 } from "@angular/core";
 
 import "rxjs/add/observable/from";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/let";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/skip";
-import "rxjs/add/operator/takeUntil";
 import { Observable } from "rxjs/Observable";
+import { distinctUntilChanged, map, skip, takeUntil } from "rxjs/operators";
 
 import { DatatableSelectionEvent } from "../common/events/selection";
 import { DatatableSortEvent } from "../common/events/sort";
@@ -89,25 +85,25 @@ export class MatDataTableComponent extends BaseComponent
 
       // subscribe to selection changes and emit DatatableSelectionEvent
       this.store
-        .let(getCurrentSelection(this.id))
-        .skip(1)
-        .takeUntil(this.unmount$)
+        .pipe(getCurrentSelection(this.id), skip(1), takeUntil(this.unmount$))
         .subscribe(this.selectionChange);
 
       // update state with selectable values upon changes
       Observable.from(this.rowsCmp.changes)
-        .map((query: QueryList<MatDataTableRowComponent>) =>
-          query
-            .toArray()
-            .map((row: MatDataTableRowComponent) => row.selectableValue)
+        .pipe(
+          map(query =>
+            query
+              .toArray()
+              .map((row: MatDataTableRowComponent) => row.selectableValue)
+          ),
+          distinctUntilChanged(
+            (values1, values2) =>
+              values1.length === values2.length &&
+              JSON.stringify(values1) === JSON.stringify(values2)
+          ),
+          takeUntil(this.unmount$)
         )
-        .distinctUntilChanged(
-          (values1: string[], values2: string[]) =>
-            values1.length === values2.length &&
-            JSON.stringify(values1) === JSON.stringify(values2)
-        )
-        .takeUntil(this.unmount$)
-        .subscribe((selectableValues: string[]) =>
+        .subscribe(selectableValues =>
           this.store.dispatch(
             this.actions.updateSelectableValues(this.id, selectableValues)
           )
@@ -116,8 +112,7 @@ export class MatDataTableComponent extends BaseComponent
 
     // subscribe to sort changes and emit DatatableSortEvent
     this.store
-      .let(getCurrentSort(this.id))
-      .takeUntil(this.unmount$)
+      .pipe(getCurrentSort(this.id), takeUntil(this.unmount$))
       .subscribe(this.sortChange);
   }
 }

@@ -11,9 +11,8 @@ import {
 } from "@angular/core";
 
 import { MatCheckbox, MatCheckboxChange } from "@angular/material";
-import "rxjs/add/operator/let";
-import "rxjs/add/operator/takeUntil";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { takeUntil } from "rxjs/operators";
 
 import { BaseComponent } from "../common/helpers";
 import { Actions } from "../store/actions";
@@ -88,8 +87,10 @@ export class MatDataTableRowComponent extends BaseComponent
     this.datatableId = this.table!.id;
 
     this.store
-      .let(isRowSelected(this.datatableId, this.selectableValue))
-      .takeUntil(this.unmount$)
+      .pipe(
+        isRowSelected(this.datatableId, this.selectableValue),
+        takeUntil(this.unmount$)
+      )
       .subscribe(this.checked$);
   }
 

@@ -1,9 +1,6 @@
 import { Injectable } from "@angular/core";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/filter";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/pluck";
 import { Observable } from "rxjs/Observable";
+import { distinctUntilChanged, filter, map, pluck } from "rxjs/operators";
 
 import { DatatableSortType } from "../common/enums";
 import { Actions } from "../store/actions";
@@ -129,18 +126,20 @@ export function getDatatableState(
   datatableId: string
 ): (state$: Observable<LibState.IStates>) => Observable<LibState.IState> {
   return (state$: Observable<LibState.IStates>) =>
-    state$
-      .map((datatablesState: LibState.IStates) => datatablesState[datatableId])
-      .filter((datatableState: LibState.IState) => !!datatableState);
+    state$.pipe(
+      map(datatablesState => datatablesState[datatableId]),
+      filter(datatableState => !!datatableState)
+    );
 }
 
 export function areAllRowsSelected(
   datatableId: string
 ): (state$: Observable<LibState.IStates>) => Observable<boolean> {
   return (state$: Observable<LibState.IStates>) =>
-    getDatatableState(datatableId)(state$)
-      .pluck<LibState.IState, boolean>("allRowsSelected")
-      .distinctUntilChanged();
+    getDatatableState(datatableId)(state$).pipe(
+      pluck<LibState.IState, boolean>("allRowsSelected"),
+      distinctUntilChanged()
+    );
 }
 
 export function isRowSelected(
@@ -148,13 +147,14 @@ export function isRowSelected(
   selectableValue: string
 ): (state$: Observable<LibState.IStates>) => Observable<boolean> {
   return (state$: Observable<LibState.IStates>) =>
-    getDatatableState(datatableId)(state$)
-      .map(
-        (datatableState: LibState.IState) =>
+    getDatatableState(datatableId)(state$).pipe(
+      map(
+        datatableState =>
           datatableState.allRowsSelected ||
           datatableState.selectedValues.indexOf(selectableValue) !== -1
-      )
-      .distinctUntilChanged();
+      ),
+      distinctUntilChanged()
+    );
 }
 
 export function getCurrentSelection(
@@ -163,33 +163,31 @@ export function getCurrentSelection(
   state$: Observable<LibState.IStates>
 ) => Observable<DatatableSelectionEvent> {
   return (state$: Observable<LibState.IStates>) =>
-    getDatatableState(datatableId)(state$)
-      .map(
-        (state: LibState.IState) =>
+    getDatatableState(datatableId)(state$).pipe(
+      map(
+        state =>
           new DatatableSelectionEvent(
             state.allRowsSelected,
             state.selectedValues
           )
-      )
-      .distinctUntilChanged(
-        (e1: DatatableSelectionEvent, e2: DatatableSelectionEvent) =>
+      ),
+      distinctUntilChanged(
+        (e1, e2) =>
           e1.allRowsSelected === e2.allRowsSelected &&
           e1.selectedValues.length === e2.selectedValues.length
-      );
+      )
+    );
 }
 
 export function getCurrentSort(
   datatableId: string
 ): (state$: Observable<LibState.IStates>) => Observable<DatatableSortEvent> {
   return (state$: Observable<LibState.IStates>) =>
-    getDatatableState(datatableId)(state$)
-      .map<LibState.IState, DatatableSortEvent>(
-        (state: LibState.IState) =>
-          new DatatableSortEvent(state.sortBy, state.sortType)
+    getDatatableState(datatableId)(state$).pipe(
+      map(state => new DatatableSortEvent(state.sortBy, state.sortType)),
+      filter(currentSort => !!currentSort.sortBy),
+      distinctUntilChanged(
+        (e1, e2) => e1!.sortBy === e2!.sortBy && e1!.sortType === e2!.sortType
       )
-      .filter((currentSort: DatatableSortEvent) => !!currentSort.sortBy)
-      .distinctUntilChanged(
-        (e1: DatatableSortEvent, e2: DatatableSortEvent) =>
-          e1!.sortBy === e2!.sortBy && e1!.sortType === e2!.sortType
-      );
+    );
 }

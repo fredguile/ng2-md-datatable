@@ -9,9 +9,8 @@ import {
   Optional
 } from "@angular/core";
 
-import "rxjs/add/operator/let";
-import "rxjs/add/operator/takeUntil";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { takeUntil } from "rxjs/operators";
 
 import { DatatableSortType } from "../common/enums";
 import { DatatableSortEvent } from "../common/events/sort";
@@ -94,8 +93,7 @@ export class MatDataTableColumnComponent extends BaseComponent
 
     if (this.datatableId) {
       this.store
-        .let(getCurrentSort(this.datatableId))
-        .takeUntil(this.unmount$)
+        .pipe(getCurrentSort(this.datatableId), takeUntil(this.unmount$))
         .subscribe(this.sort$);
     }
   }
