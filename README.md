@@ -8,7 +8,7 @@
 
 As I urgently needed one for a project, I decided to make my own `DataTable` component and share it on GitHub. This may be useful for you (or not).
 
-**Update 08/2017:** You may want to use [the official Material 2 DataTable here](https://material.angular.io/components/table/overview). But if this one still speaks more to you, no problem I'll keep it up to date with the latest Angular 4+/Material 2 versions.
+**Update 08/2017:** You may want to use [the official Material DataTable here](https://material.angular.io/components/table/overview). But if this one still speaks more to you, no problem I'll keep it up to date with the latest Angular 5+/Material5+ versions.
 
 ## Features
 - Pagination Component
@@ -17,8 +17,8 @@ As I urgently needed one for a project, I decided to make my own `DataTable` com
 - You can use it with @ngrx/store (that's how I use it)
 
 ## Working with
-- Angular 4.x
-- Material 2 Beta
+- Angular 5.x
+- Material 5 RC
 
 ## Installation
 To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.com/package/ng2-md-datatable):
@@ -120,7 +120,7 @@ To add `ng2-md-datatable` to your Material 2 theming file:
 @include mat-datatable-theme($theme);
 ```
 
-This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material 2 Beta.
+This is based on the [current guide](https://github.com/angular/material2/blob/master/guides/theming.md) for theming components with Material RC.
 
 ## Live Demo
 
