@@ -17,8 +17,8 @@ As I urgently needed one for a project, I decided to make my own `DataTable` com
 - You can use it with @ngrx/store (that's how I use it)
 
 ## Working with
-- Angular 5.x
-- Material 5 RC
+- Angular 5
+- Material 5
 
 ## Installation
 To use ng2-md-datatable in your project install it via [npm](https://www.npmjs.com/package/ng2-md-datatable):
