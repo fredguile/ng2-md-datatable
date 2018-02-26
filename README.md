@@ -136,4 +136,4 @@ Don't mind about the use of Observables here (and about the Shuffle button), I j
 
 Or you can open this Plunkr: <https://plnkr.co/edit/QQgr9b9HZLGjN1iDJqiy?p=preview> 
 
-But it's still work in progress, actually I shall package a compiled CSS for styling this thing...
+It's still work in progress, the datasource isn't reacting to the DataTable events (hence not sorting data...), but this will be done at some point.
