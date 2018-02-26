@@ -22,12 +22,7 @@ import { MatDataTableComponent } from "./datatable.component";
 
 @Component({
   selector: "ng2-md-datatable-row",
-  template: `
-      <td *ngIf="selectable" class="md-data-check-cell">
-        <mat-checkbox [checked]="checked$ | async" (change)="onCheckboxChange($event)"></mat-checkbox>
-      </td>
-      <ng-content></ng-content>
-    `,
+  templateUrl: "./datatable-row.component.html",
   styleUrls: ["datatable-row.component.scss"]
 })
 export class MatDataTableRowComponent extends BaseComponent

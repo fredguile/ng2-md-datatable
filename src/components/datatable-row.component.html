@@ -1,0 +1,4 @@
+<td *ngIf="selectable" class="md-data-check-cell">
+    <mat-checkbox [checked]="checked$ | async" (change)="onCheckboxChange($event)"></mat-checkbox>
+</td>
+<ng-content></ng-content>

@@ -1,0 +1,6 @@
+<tr>
+    <th *ngIf="selectable" class="md-data-check-cell">
+        <mat-checkbox [checked]="allChecked$ | async" (change)="onAllCheckedChange($event)"></mat-checkbox>
+    </th>
+    <ng-content></ng-content>
+</tr>

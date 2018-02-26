@@ -3,6 +3,7 @@ const fs = require("fs");
 const webpack = require("webpack");
 const webpackAngularExternals = require("webpack-angular-externals");
 const webpackRxJsExternals = require("webpack-rxjs-externals");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const stripIndent = require("common-tags").stripIndent;
 
 const pkg = JSON.parse(fs.readFileSync("./package.json").toString());
@@ -17,9 +18,6 @@ module.exports = {
     filename: "[name].js",
     libraryTarget: "umd",
     library: "ng2-md-datatable"
-  },
-  resolve: {
-    extensions: [".js", ".json"]
   },
   externals: [webpackAngularExternals(), webpackRxJsExternals()],
   devtool: "source-map",
@@ -44,11 +42,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      sourceMap: true
-    }),
     new webpack.BannerPlugin({
       banner: stripIndent`
         /**
@@ -62,5 +55,13 @@ module.exports = {
       raw: true,
       entryOnly: true
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        include: /\.min\.js$/,
+        sourceMap: true,
+      })
+    ]
+  }
 };

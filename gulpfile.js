@@ -4,6 +4,7 @@ const gulp = require("gulp");
 const gulpSequence = require("gulp-sequence").use(gulp);
 const gulpJsonTransform = require("gulp-json-transform");
 const inlineTemplates = require("gulp-inline-ng2-template");
+const htmlMinifier = require("html-minifier");
 const sass = require("node-sass");
 const webpack = require("webpack");
 const { rollup } = require("rollup");
@@ -27,9 +28,19 @@ const INLINE_SOURCES = {
   SRC: "./src/components/*.ts",
   DEST: "./tmp/inlined-src/components",
   CONFIG: {
-    base: "/src",
+    base: "/",
     target: "es6",
     useRelativePaths: true,
+    removeLineBreaks: true,
+    templateProcessor: (path, ext, file, cb) => {
+      const minifiedFile = htmlMinifier.minify(file, {
+        collapseWhitespace: true,
+        caseSensitive: true,
+        removeComments: true,
+        removeRedundantAttributes: true
+      });
+      cb(null, minifiedFile);
+    },
     styleProcessor: (path, ext, file, cb) => {
       const compiled = sass.renderSync({
         file: path,
@@ -60,9 +71,6 @@ const ROLLUP_GLOBALS = {
   "@angular/core": "ng.core",
   "@angular/common": "ng.common",
   "@angular/forms": "ng.forms",
-  "@angular/http": "ng.http",
-  "@angular/platform-browser": "ng.platformBrowser",
-  "@angular/platform-browser-dynamic": "ng.platformBrowserDynamic",
   "@angular/material": "ng.material",
 
   // Rxjs dependencies
@@ -72,7 +80,7 @@ const ROLLUP_GLOBALS = {
   "rxjs/scheduler/queue": "Rx",
   "rxjs/add/observable/from": "Rx.Observable",
   "rxjs/add/observable/of": "Rx.Observable",
-  "rxjs/operators": "Rx.Operators",
+  "rxjs/operators": "Rx.Operators"
 };
 
 /**
@@ -137,16 +145,6 @@ function buildRollupFESM(input, name, file) {
   );
 }
 
-function webpackUmdBuild(cb) {
-  return exec(
-    "npx webpack --config webpack-umd.config.js",
-    (error, stdout, stderr) => {
-      console.log(stdout, stderr);
-      return cb(error);
-    }
-  );
-}
-
 gulp.task("build:fesm:es5", ["build:esm:es5"], () =>
   buildRollupFESM(
     ESM_SOURCES_SRC.ES5,
@@ -167,7 +165,7 @@ gulp.task("build:fesm:es2015", ["build:esm:es2015"], () =>
 
 function webpackUmdBuild(cb) {
   return exec(
-    "npx webpack --config webpack-umd.config.js",
+    "npx webpack --config webpack-umd.config.js --mode production",
     (error, stdout, stderr) => {
       console.log(stdout, stderr);
       return cb(error);
