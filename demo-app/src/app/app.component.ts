@@ -54,9 +54,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   constructor(
     private appService: AppService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {
-    this.fetchDemoDataSource();
-  }
+  ) {}
 
   ngAfterViewInit() {
     if (this.datatable) {
@@ -83,6 +81,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         .subscribe((e: DatatablePaginationEvent) =>
           this.fetchDemoDataSource(e.page, e.itemsPerPage)
         );
+
+      this.fetchDemoDataSource();
     }
   }
 
