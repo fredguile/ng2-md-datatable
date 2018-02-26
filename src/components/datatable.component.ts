@@ -27,11 +27,7 @@ let instanceId = 0;
 
 @Component({
   selector: "ng2-md-datatable",
-  template: `
-    <table>
-      <ng-content></ng-content>
-    </table>
-  `,
+  template: "<table><ng-content></ng-content></table>",
   styleUrls: ["datatable.component.scss"]
 })
 export class MatDataTableComponent extends BaseComponent
@@ -55,6 +51,7 @@ export class MatDataTableComponent extends BaseComponent
   selectionChange: EventEmitter<DatatableSelectionEvent> = new EventEmitter<
     DatatableSelectionEvent
   >(false);
+
   @Output()
   sortChange: EventEmitter<DatatableSortEvent> = new EventEmitter<
     DatatableSortEvent

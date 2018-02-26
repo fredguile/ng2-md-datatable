@@ -18,14 +18,7 @@ import { MatDataTableComponent } from "./datatable.component";
 
 @Component({
   selector: "ng2-md-datatable-header",
-  template: `
-      <tr>
-        <th *ngIf="selectable" class="md-data-check-cell">
-          <mat-checkbox [checked]="allChecked$ | async" (change)="onAllCheckedChange($event)"></mat-checkbox>
-        </th>
-        <ng-content></ng-content>
-      </tr>
-    `,
+  templateUrl: "./datatable-header.component.html",
   styleUrls: ["datatable-header.component.scss"]
 })
 export class MatDataTableHeaderComponent extends BaseComponent
