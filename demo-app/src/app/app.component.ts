@@ -62,9 +62,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     if (this.datatable) {
       Observable.from(this.datatable.selectionChange)
         .let(takeUntil(this.unmount$))
-        .subscribe((e: DatatableSelectionEvent) =>
-          this.currentSelection$.next(e.selectedValues)
-        );
+        .subscribe((e: DatatableSelectionEvent) => {
+          this.currentSelection$.next(e.selectedValues);
+          this.changeDetectorRef.detectChanges();
+        });
 
       Observable.from(this.datatable.sortChange)
         .let(takeUntil(this.unmount$))
@@ -117,5 +118,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.tshirts$.next(tshirts);
     this.currentSelection$.next([]);
     this.currentPagination = pagination;
+    this.changeDetectorRef.detectChanges();
   }
 }
