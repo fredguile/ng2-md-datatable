@@ -21,9 +21,9 @@ import { BaseComponent } from "../common/helpers";
 })
 export class MatDataTablePaginationComponent extends BaseComponent
   implements OnInit {
-  @Input() currentPage: number;
-  @Input() itemsPerPage: number;
-  @Input() itemsCount: number;
+  @Input() currentPage = 1;
+  @Input() itemsCount = 0;
+  @Input() itemsPerPage = 10;
   @Input() itemsPerPageChoices: number[] = [5, 10, 20, 50];
   @Input() itemsPerPageFirstChoice = 10;
   @Input() needShowFirstArrow = true;

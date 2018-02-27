@@ -78,8 +78,7 @@ const ROLLUP_GLOBALS = {
   "rxjs/Subject": "Rx",
   "rxjs/BehaviorSubject": "Rx",
   "rxjs/scheduler/queue": "Rx",
-  "rxjs/add/observable/from": "Rx.Observable",
-  "rxjs/add/observable/of": "Rx.Observable",
+  "rxjs/observable/from": "Rx.Observable",
   "rxjs/operators": "Rx.Operators"
 };
 

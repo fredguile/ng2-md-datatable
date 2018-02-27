@@ -10,8 +10,7 @@ import {
   QueryList
 } from "@angular/core";
 
-import "rxjs/add/observable/from";
-import { Observable } from "rxjs/Observable";
+import { from } from "rxjs/observable/from";
 import { distinctUntilChanged, map, skip, takeUntil } from "rxjs/operators";
 
 import { DatatableSelectionEvent } from "../common/events/selection";
@@ -58,9 +57,9 @@ export class MatDataTableComponent extends BaseComponent
   >(false);
 
   @ContentChild(forwardRef(() => MatDataTableHeaderComponent))
-  headerCmp: MatDataTableHeaderComponent;
+  headerCmp: MatDataTableHeaderComponent | undefined;
   @ContentChildren(MatDataTableRowComponent)
-  rowsCmp: QueryList<MatDataTableRowComponent>;
+  rowsCmp: QueryList<MatDataTableRowComponent> | undefined;
 
   id = `md-datatable-${instanceId++}`;
 
@@ -86,7 +85,7 @@ export class MatDataTableComponent extends BaseComponent
         .subscribe(this.selectionChange);
 
       // update state with selectable values upon changes
-      Observable.from(this.rowsCmp.changes)
+      from(this.rowsCmp.changes)
         .pipe(
           map(query =>
             query

@@ -6,11 +6,9 @@ import {
   ViewChild
 } from "@angular/core";
 
-import shuffle from "lodash-es/shuffle";
-import "rxjs/add/observable/from";
-import "rxjs/add/operator/let";
+import { shuffle } from "lodash-es";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
+import { from } from "rxjs/observable/from";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs/Subject";
 
@@ -58,15 +56,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (this.datatable) {
-      Observable.from(this.datatable.selectionChange)
-        .let(takeUntil(this.unmount$))
+      from(this.datatable.selectionChange)
+        .pipe(takeUntil(this.unmount$))
         .subscribe((e: DatatableSelectionEvent) => {
           this.currentSelection$.next(e.selectedValues);
           this.changeDetectorRef.detectChanges();
         });
 
-      Observable.from(this.datatable.sortChange)
-        .let(takeUntil(this.unmount$))
+      from(this.datatable.sortChange)
+        .pipe(takeUntil(this.unmount$))
         .subscribe((e: DatatableSortEvent) =>
           this.fetchDemoDataSource(
             this.currentPagination.currentPage,
@@ -76,8 +74,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
           )
         );
 
-      Observable.from(this.pagination.paginationChange)
-        .let(takeUntil(this.unmount$))
+      from(this.pagination.paginationChange)
+        .pipe(takeUntil(this.unmount$))
         .subscribe((e: DatatablePaginationEvent) =>
           this.fetchDemoDataSource(e.page, e.itemsPerPage)
         );

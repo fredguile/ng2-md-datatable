@@ -28,14 +28,14 @@ import { MatDataTableComponent } from "./datatable.component";
 export class MatDataTableColumnComponent extends BaseComponent
   implements AfterContentInit {
   isNumeric = false;
-  @Input() sortableValue: string;
+  @Input() sortableValue: string | undefined;
 
   @Input()
   set numeric(val: any) {
     this.isNumeric = val !== "false";
   }
 
-  private datatableId: string;
+  private datatableId: string | undefined;
   private sort$: BehaviorSubject<DatatableSortEvent> = new BehaviorSubject({
     sortType: DatatableSortType.None
   } as DatatableSortEvent);
@@ -100,7 +100,7 @@ export class MatDataTableColumnComponent extends BaseComponent
 
   @HostListener("click")
   onClick() {
-    if (this.datatableId && this.sortable) {
+    if (this.datatableId && this.sortable && this.sortableValue) {
       this.store.dispatch(
         this.actions.toggleSortColumn(this.datatableId, this.sortableValue)
       );

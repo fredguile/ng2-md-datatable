@@ -29,7 +29,7 @@ export class MatDataTableHeaderComponent extends BaseComponent
     return this.table && this.table.isSelectable;
   }
 
-  private datatableId: string;
+  private datatableId: string | undefined;
 
   constructor(
     @Optional()
@@ -50,8 +50,10 @@ export class MatDataTableHeaderComponent extends BaseComponent
   }
 
   onAllCheckedChange(e: MatCheckboxChange) {
-    this.store.dispatch(
-      this.actions.toggleSelectAll(this.datatableId, e.checked)
-    );
+    if (this.datatableId) {
+      this.store.dispatch(
+        this.actions.toggleSelectAll(this.datatableId, e.checked)
+      );
+    }
   }
 }
