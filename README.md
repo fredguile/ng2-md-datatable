@@ -1,4 +1,6 @@
-# ng2-md-datatable
+# **DEPRECATED** - ng2-md-datatable
+
+**[this project is no longer actively maintained - please use [CDK Tables](https://material.angular.io/cdk/table/overview)]**
 
 [![npm](https://img.shields.io/npm/v/ng2-md-datatable.svg)]()
 [![CircleCI](https://circleci.com/gh/fredguile/ng2-md-datatable.svg?style=svg)](https://circleci.com/gh/fredguile/ng2-md-datatable)
